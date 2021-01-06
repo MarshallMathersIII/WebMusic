@@ -1,27 +1,39 @@
 <template>
   <div class="tab">
-      <!--router-link 需要加tag=‘div’  -->
+      <!--router-link 需要加tag=‘div’ -->
       <router-link tag="div" class="tab-item" to="find">
           <div>
-              发现
+            <i v-if="false" class="icon-faxian"></i>
+            <i v-else class="iconfont icon-faxian"></i>
+             <p>发现</p>
           </div>
       </router-link>
       <router-link tag="div" class="tab-item" to="radio">
-          <div>电台</div>
+           <i class="iconfont icon-diantai"></i>
+          <p>电台</p>
       </router-link>
       <router-link tag="div" class="tab-item" to="mine">
-          <div>我的</div>
+           <i class="iconfont icon-yinle"></i>
+          <p>我的</p>
       </router-link>
       <router-link tag="div" class="tab-item" to="ktv">
-          <div>k歌</div>
+           <i class="iconfont icon-huatong"></i>
+          <p>k歌</p>
       </router-link>
       <router-link tag="div" class="tab-item" to="friends">
-          <div>云村</div>
+           <i class="iconfont icon-pengyou"></i>
+          <p>云村</p>
       </router-link>
   </div>
 </template>
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            isSclect:true
+        }
+    },
+};
 </script>
 <style scoped lang="stylus" >
 .tab
@@ -32,13 +44,25 @@ export default {};
  align-items center
  height 60px
  width 100%
- background-color pink
  .tab-item
+    flex-direction column
     height 100%
     display flex
     flex 1
-    background-color green
+    background-color #ffffff
     align-items center
     justify-content center
+    //router-link切换标签改变样式/iconfont图标大小控制使用font-size
+    .iconfont
+            font-size 28px
+        p
+            font-size 8px
+    &.router-link-active
+        .iconfont
+            font-size 28px
+            color red
+        p
+            font-size 8px
+            color red
 
 </style>
