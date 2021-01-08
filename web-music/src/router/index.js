@@ -5,6 +5,8 @@ import Mine from './../pages/mine/mine'
 import Ktv from './../pages/ktv/ktv'
 import Radio from './../pages/radio/radio'
 import Find from './../pages/find/find'
+import Login from './../pages/login/login'
+
 
 
 
@@ -12,6 +14,16 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path:'/login',
+      name:'Login',
+      component:Login
+    },
+    {
+      path: '/',
+      redirect: '/find'
+    },
+
     {
       path:'/friends',
       name:'Friends',
@@ -37,6 +49,5 @@ export default new Router({
       name:'Ktv',
       component:Ktv
     }
-
   ]
 })
