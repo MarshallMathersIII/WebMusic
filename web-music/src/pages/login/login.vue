@@ -8,18 +8,29 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
+import api from "../../api/api.js";
 export default {
+  data() {
+    return {
+      phone:"17621659771"
+    }
+  },
   methods: {
     btnClick() {
-    //   axios.get('/api/cellphone/existence/check?phone=17621659771').then();
-      axios.get('/api/cellphone/existence/check',{
-          params:{
-              phone:'17621659771'
-          }
-      }).then((res)=>{
-          console.log(res.data)
-      })
+      //   axios.get('/api/cellphone/existence/check?phone=17621659771').then();
+      //   axios.get('/api/cellphone/existence/check',{
+      //       params:{
+      //           phone:'17621659771'
+      //       }
+      //   }).then((res)=>{
+      //       console.log(res.data)
+      //   })
+      api.phoneRegisteredFn(this.phone)
+        .then(result => {
+          console.log(result.data)
+        })
+        .catch(err => {});
     }
   }
 };
