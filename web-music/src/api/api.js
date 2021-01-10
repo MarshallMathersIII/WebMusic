@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { phoneRegistered } from './config.js'
+import { phoneRegistered,phoneLogin} from './config.js'
 
 import { Toast } from 'vant';
 
@@ -51,7 +51,7 @@ axios.interceptors.response.use(
                         message: '',
                         duration: 1000,
                         forbidClick: true,
-                        position:'bottom',
+                        position: 'bottom',
                     });
                     console.log('404')
                     break;
@@ -72,6 +72,18 @@ export default {
                 phone
             }
         })
+    },
+    /**
+   * 用户通过手机号/密码登录
+   */
+    phoneLoginFn(phone, password) {
+        return axios.get(phoneLogin, {
+            params: {
+                phone: phone || '',
+                password: password || ''
+            }
+        })
     }
 }
+
 

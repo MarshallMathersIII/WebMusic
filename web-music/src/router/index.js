@@ -6,14 +6,16 @@ import Ktv from './../pages/ktv/ktv'
 import Radio from './../pages/radio/radio'
 import Find from './../pages/find/find'
 import Login from './../pages/login/login'
-
-
-
-
+import PhonePwd from './../pages/login/phonePwd'
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path:'/PhonePwd',
+      name:'PhonePwd',
+      component:PhonePwd
+    },
     {
       path:'/login',
       name:'Login',

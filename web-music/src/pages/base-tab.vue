@@ -3,7 +3,7 @@
     <!--router-link 需要加tag=‘div’ -->
     <router-link tag="div" class="tab-item" to="find">
       <div>
-        <i  class="iconfont icon-faxian"></i>
+        <i class="iconfont icon-faxian"></i>
         <p>发现</p>
       </div>
     </router-link>
@@ -43,6 +43,7 @@ export default {
   align-items center
   height 60px
   width 100%
+  border-top 1px solid rgba(0, 0, 0, 0.2)
   .tab-item
     flex-direction column
     height 100%

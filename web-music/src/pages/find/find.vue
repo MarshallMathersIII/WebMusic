@@ -1,19 +1,27 @@
 <template>
-    <div class="content">
-        发现
-    </div>
+  <div class="content">
+    <title-bar :milddleTip="milddleTip"></title-bar>
+  </div>
 </template>
 <script>
-export default {
+import TitleBar from "../../components/Titlebar";
 
+export default {
+  components: {
+    TitleBar
+  },
+  data() {
+    return {
+      milddleTip: "发现页面"
+    };
+  }
 };
 </script>
 
 <style scoped lang="stylus">
 .content
-    position: fixed
-    width: 100%
-    bottom: 60px
-    background pink
-    top: 0
+  position fixed
+  width 100%
+  bottom 60px
+  top 0
 </style>

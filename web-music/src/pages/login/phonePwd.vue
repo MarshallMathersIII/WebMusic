@@ -1,35 +1,38 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip"></title-bar>
-    <p>登录体验更多精彩</p>
-    <p>未注册手机号登录自动创建账号</p>
-    <input type="text" placeholder="请输入手机号" />
-    <div class="btn" @click="btnClick">下一步</div>
+    <input type="text" placeholder="请输入密码" />
+    <div class="btn" @click="btnClick">登录</div>
   </div>
 </template>
 <script>
 import axios from "axios";
 import api from "../../api/api.js";
-import TitleBar from "../../components/Titlebar";
+import TitleBar from '../../components/Titlebar'
 
 export default {
-  components: {
-    TitleBar
-  },
+   components:{
+        TitleBar
+    },
   data() {
-   return {
+    return {
+      phone: "",
+      pwd: "gil931214",
       milddleTip: "登录"
     };
+  },
+  mounted() {
+    this.phone = this.$route.query.phone;
+    console.log(this.$route.query.phone);
   },
   methods: {
     btnClick() {
       api
-        .phoneRegisteredFn(this.phone)
+        .phoneLoginFn(this.phone, this.pwd)
         .then(result => {
           console.log(result.data);
           this.$router.push({
-            path: "/PhonePwd",
-            query: { phone: this.phone }
+            path: "/find"
           });
         })
         .catch(err => {});

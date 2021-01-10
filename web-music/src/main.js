@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 //初始样式重置（index.styl已引入）
 // import './assets/styles/reset.css'
-// import './assets/styles/border.css'
+import './assets/styles/border.css'
 //全局stylus引入
 import './assets/styles/index.styl'
 //使用 astClick移动端300毫秒点击延时问题
