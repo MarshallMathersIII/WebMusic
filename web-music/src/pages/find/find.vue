@@ -1,6 +1,12 @@
 <template>
   <div class="content">
-    <title-bar :milddleTip="milddleTip"></title-bar>
+    <div class="search">
+      <i class="iconfont icon-faxian"></i>
+      <div class="serach-wapper">
+        <van-search v-model="value" placeholder="请输入搜索关键词" shape="round" />
+      </div>
+      <i class="iconfont icon-faxian"></i>
+    </div>
   </div>
 </template>
 <script>
@@ -12,7 +18,8 @@ export default {
   },
   data() {
     return {
-      milddleTip: "发现页面"
+      milddleTip: "发现页面",
+      value:""
     };
   }
 };
@@ -22,6 +29,14 @@ export default {
 .content
   position fixed
   width 100%
-  bottom 60px
+  bottom 50px
   top 0
+  .search
+    margin-top 10px;
+    display flex
+    justify-content center
+    align-items center
+    padding 0 10px
+    .serach-wapper
+        width 90%
 </style>

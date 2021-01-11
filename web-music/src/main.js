@@ -10,9 +10,12 @@ import './assets/styles/border.css'
 import './assets/styles/index.styl'
 //使用 astClick移动端300毫秒点击延时问题
 import fastClick from 'fastclick'
+import { Search,Toast} from 'vant';
+
 
 Vue.config.productionTip = false
 fastClick.attach(document.body)
+Vue.use(Search);
 
 /* eslint-disable no-new */
 new Vue({
