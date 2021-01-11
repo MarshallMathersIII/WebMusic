@@ -7,6 +7,7 @@ import Radio from './../pages/radio/radio'
 import Find from './../pages/find/find'
 import Login from './../pages/login/login'
 import PhonePwd from './../pages/login/phonePwd'
+
 Vue.use(Router)
 
 export default new Router({
@@ -51,5 +52,6 @@ export default new Router({
       name:'Ktv',
       component:Ktv
     }
+
   ]
 })
