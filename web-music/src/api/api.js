@@ -1,9 +1,34 @@
 import axios from 'axios'
 
-import { phoneRegistered,phoneLogin} from './config.js'
+import { phoneRegistered, phoneLogin,bannerSwiper } from './config.js'
 
 import { Toast } from 'vant';
 
+//手机号是否注册
+export default {
+    phoneRegisteredFn(phone) {
+        return axios.get(phoneRegistered, {
+            params: {
+                phone
+            }
+        })
+    },
+    /**
+   * 用户通过手机号/密码登录
+   */
+    phoneLoginFn(phone, password) {
+        return axios.get(phoneLogin, {
+            params: {
+                phone: phone || '',
+                password: password || ''
+            }
+        })
+    },
+    //发现页面轮播图
+    bannerSwiperFn() {
+        return axios.get(bannerSwiper)
+    }
+}
 
 
 //请求超时时间
@@ -64,26 +89,6 @@ axios.interceptors.response.use(
     }
 )
 
-//手机号是否注册
-export default {
-    phoneRegisteredFn(phone) {
-        return axios.get(phoneRegistered, {
-            params: {
-                phone
-            }
-        })
-    },
-    /**
-   * 用户通过手机号/密码登录
-   */
-    phoneLoginFn(phone, password) {
-        return axios.get(phoneLogin, {
-            params: {
-                phone: phone || '',
-                password: password || ''
-            }
-        })
-    }
-}
+
 
 
