@@ -2,20 +2,20 @@
   <div>
     <div class="wrapper">
       <!-- v-if当数据请求完成创建，默认显示第一张 不出现逻辑代码 -->
-      <swiper :options="swiperOption">
+      <swiper :options="swiperOption" v-if="showSwiper">
         <!-- slides -->
         <swiper-slide v-for="(item,index) in bannerList" :key="index">
           <img class="swiper-img" :src="item.pic" />
         </swiper-slide>
         <!-- Optional controls -->
-        <div class="swiper-pagination" slot="pagination"></div>
+        <div v-if="showSwiper" class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'BannerSwiper',
+  name: "BannerSwiper",
   props: {
     bannerList: {
       type: Array,
@@ -30,6 +30,11 @@ export default {
         autoplay: 3000
       }
     };
+  },
+  computed: {
+    showSwiper() {
+      return this.bannerList.length;
+    }
   },
   methods: {}
 };
