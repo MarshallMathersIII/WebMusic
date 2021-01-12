@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { phoneRegistered, phoneLogin,bannerSwiper } from './config.js'
+import { phoneRegistered, phoneLogin, bannerSwiper, playList } from './config.js'
 
 import { Toast } from 'vant';
 
@@ -27,6 +27,10 @@ export default {
     //发现页面轮播图
     bannerSwiperFn() {
         return axios.get(bannerSwiper)
+    },
+    //发现页面轮播图
+    playListFn() {
+        return axios.get(playList)
     }
 }
 

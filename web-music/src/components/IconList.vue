@@ -1,21 +1,21 @@
 <template>
-    <div class="icons">
-      <div class="icon-wrapper">
-        <div class="icon-item" v-for="item in icons">
-          <i :class="item.icon"></i>
-          <span>{{item.text}}</span>
-        </div>
+  <div class="icons">
+    <div class="icon-wrapper">
+      <div class="icon-item" v-for="item in icons">
+        <i :class="item.icon"></i>
+        <span>{{item.text}}</span>
       </div>
     </div>
+  </div>
 </template>
 <script>
 export default {
   name: "IconList",
-  props:{
-      icons:{
-          type:Array,
-          default:[]
-      }
+  props: {
+    icons: {
+      type: Array,
+      default: []
+    }
   }
 };
 </script>

@@ -3,6 +3,8 @@ const api = process.env.NODE_ENV === 'development' ? '/api' : ''
 
 //发现模块
 export const bannerSwiper = api + '/banner?type=1' // 请求发现页面轮播图
+export const playList = api + '/top/playlist' // 推荐歌单，歌单广场
+
 
 
 //登录模块
