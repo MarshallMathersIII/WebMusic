@@ -11,13 +11,14 @@
     <!-- 轮播图 -->
     <banner-swiper :bannerList="bannerList"></banner-swiper>
     <!-- Icon图标 -->
-    <icon-list :icons='icons'></icon-list>
+    <icon-list :icons="findIcons"></icon-list>
   </div>
 </template>
 <script>
 import IconList from "../../components/IconList";
 import api from "../../api/api.js";
 import BannerSwiper from "./component/BannerSwiper";
+import { findIcons } from "../../assets/iconsdata/getIcons.js";
 
 export default {
   components: {
@@ -29,50 +30,29 @@ export default {
       milddleTip: "发现页面",
       value: "",
       bannerList: [],
-      icons: [
-        {
-          text: "每日推荐",
-          icon: "iconfont icon-faxian"
-        },
-        {
-          text: "私人FM",
-          icon: "iconfont icon-diantai"
-        },
-        {
-          text: "歌单",
-          icon: "iconfont icon-faxian"
-        },
-        {
-          text: "排行榜",
-          icon: "iconfont icon-faxian"
-        },
-        {
-          text: "直播",
-          icon: "iconfont icon-faxian"
-        },
-        {
-          text: "数字专辑",
-          icon: "iconfont icon-faxian"
-        },
-        {
-          text: "唱聊",
-          icon: "iconfont icon-faxian"
-        },
-        {
-          text: "游戏专区",
-          icon: "iconfont icon-faxian"
-        }
-      ]
+      findIcons: []
     };
   },
   mounted() {
-    api
+    this.iniData();
+    this.bannerSwiperFn()
+  },
+  methods: {
+    async iniData() {
+      console.log(findIcons());
+      this.findIcons = findIcons();
+    },
+    bannerSwiperFn(){
+       api
       .bannerSwiperFn()
       .then(result => {
         console.log(result.data);
         this.bannerList = result.data.banners;
       })
-      .catch(err => {});
+      .catch(err => {
+        console.log(err);
+      });
+    }
   }
 };
 </script>
