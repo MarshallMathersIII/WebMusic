@@ -10,32 +10,59 @@
     </div>
     <!-- 轮播图 -->
     <banner-swiper :bannerList="bannerList"></banner-swiper>
-    <!-- Icon -->
-    <div class="icons">
-      <div class="icon-wrapper">
-        <div class="icon-item" v-for="item in bannerList">
-          <i class="iconfont icon-faxian"></i>
-          <span>每日推荐</span>
-        </div>
-      </div>
-    </div>
+    <!-- Icon图标 -->
+    <icon-list :icons='icons'></icon-list>
   </div>
 </template>
 <script>
-import TitleBar from "../../components/Titlebar";
+import IconList from "../../components/IconList";
 import api from "../../api/api.js";
 import BannerSwiper from "./component/BannerSwiper";
 
 export default {
   components: {
-    TitleBar,
+    IconList,
     BannerSwiper
   },
   data() {
     return {
       milddleTip: "发现页面",
       value: "",
-      bannerList: []
+      bannerList: [],
+      icons: [
+        {
+          text: "每日推荐",
+          icon: "iconfont icon-faxian"
+        },
+        {
+          text: "私人FM",
+          icon: "iconfont icon-diantai"
+        },
+        {
+          text: "歌单",
+          icon: "iconfont icon-faxian"
+        },
+        {
+          text: "排行榜",
+          icon: "iconfont icon-faxian"
+        },
+        {
+          text: "直播",
+          icon: "iconfont icon-faxian"
+        },
+        {
+          text: "数字专辑",
+          icon: "iconfont icon-faxian"
+        },
+        {
+          text: "唱聊",
+          icon: "iconfont icon-faxian"
+        },
+        {
+          text: "游戏专区",
+          icon: "iconfont icon-faxian"
+        }
+      ]
     };
   },
   mounted() {
@@ -64,28 +91,4 @@ export default {
     padding 0 10px
     .serach-wapper
       width 90%
-  .icons
-    // 外层容器高度低于子元素，hidden隐藏进度条
-    overflow hidden
-    height 70px
-    .icon-wrapper
-      height 80px
-      display flex
-      align-items center
-      justify-content space-between
-      overflow-x auto
-      overflow-y hidden
-      // 解决ios手机页面滑动卡顿问题
-      overflow-scrolling touch
-      .icon-item
-        padding 10px
-        white-space nowrap
-        display flex
-        flex-direction column
-        justify-content center
-        align-items center
-        .iconfont
-          font-size 38px
-        span
-          font-size 6px
 </style>
