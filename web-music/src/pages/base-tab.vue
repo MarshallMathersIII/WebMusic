@@ -1,25 +1,25 @@
 <template>
   <div class="tab">
     <!--router-link 需要加tag=‘div’ -->
-    <router-link tag="div" class="tab-item" to="find">
+    <router-link tag="div" class="tab-item" to="FindHome">
       <div>
         <i class="iconfont icon-faxian"></i>
         <p>发现</p>
       </div>
     </router-link>
-    <router-link tag="div" class="tab-item" to="radio">
+    <router-link tag="div" class="tab-item" to="RadioHome">
       <i class="iconfont icon-diantai"></i>
       <p>电台</p>
     </router-link>
-    <router-link tag="div" class="tab-item" to="mine">
+    <router-link tag="div" class="tab-item" to="MineHome">
       <i class="iconfont icon-yinle"></i>
       <p>我的</p>
     </router-link>
-    <router-link tag="div" class="tab-item" to="ktv">
+    <router-link tag="div" class="tab-item" to="KtvHome">
       <i class="iconfont icon-huatong"></i>
       <p>k歌</p>
     </router-link>
-    <router-link tag="div" class="tab-item" to="login">
+    <router-link tag="div" class="tab-item" to="LoginHome">
       <i class="iconfont icon-pengyou"></i>
       <p>云村</p>
     </router-link>

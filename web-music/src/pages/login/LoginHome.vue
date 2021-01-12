@@ -9,8 +9,8 @@
 </template>
 <script>
 import axios from "axios";
-import api from "../../api/api.js";
-import TitleBar from "../../components/Titlebar";
+import api from "@/api/api.js";
+import TitleBar from "@/components/Titlebar";
 
 export default {
   components: {

@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Friends from './../pages/friends/friends'
-import Mine from './../pages/mine/mine'
-import Ktv from './../pages/ktv/ktv'
-import Radio from './../pages/radio/radio'
-import Find from './../pages/find/find'
-import Login from './../pages/login/login'
+import FriendHome from './../pages/friends/FriendHome'
+import MineHome from './../pages/mine/MineHome'
+import KtvHome from './../pages/ktv/KtvHome'
+import RadioHome from './../pages/radio/RadioHome'
+import FindHome from './../pages/find/FindHome'
+import LoginHome from './../pages/login/LoginHome'
 import PhonePwd from './../pages/login/phonePwd'
 
 Vue.use(Router)
@@ -18,39 +18,39 @@ export default new Router({
       component:PhonePwd
     },
     {
-      path:'/login',
-      name:'Login',
-      component:Login
+      path:'/LoginHome',
+      name:'LoginHome',
+      component:LoginHome
     },
     {
       path: '/',
-      redirect: '/find'
+      redirect: '/FindHome'
     },
 
     {
-      path:'/friends',
-      name:'Friends',
-      component:Friends
+      path:'/FriendHome',
+      name:'FriendHome',
+      component:FriendHome
     },
     {
-      path:'/mine',
-      name:'Mine',
-      component:Mine
+      path:'/MineHome',
+      name:'MineHome',
+      component:MineHome
     },
     {
-      path:'/radio',
-      name:'Radio',
-      component:Radio
+      path:'/RadioHome',
+      name:'RadioHome',
+      component:RadioHome
     },
     {
-      path:'/find',
-      name:'Find',
-      component:Find
+      path:'/FindHome',
+      name:'FindHome',
+      component:FindHome
     },
     {
-      path:'/ktv',
-      name:'Ktv',
-      component:Ktv
+      path:'/KtvHome',
+      name:'KtvHome',
+      component:KtvHome
     }
 
   ]
