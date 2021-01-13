@@ -1,24 +1,27 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip"></title-bar>
-    <input type="text" placeholder="请输入密码" />
-    <div class="btn" @click="btnClick">登录</div>
+    <van-field v-model="pwd"  type="password" placeholder="请输入密码" />
+    <div v-if="btnShow" class="btn" @click="btnClick">立即登录</div>
+    <div v-else class="btn-inactive">立即登录</div>
   </div>
 </template>
 <script>
 import axios from "axios";
 import api from "../../api/api.js";
-import TitleBar from '../../components/Titlebar'
+import TitleBar from "../../components/Titlebar";
 
 export default {
-   components:{
-        TitleBar
-    },
+  components: {
+    TitleBar
+  },
   data() {
     return {
+      value: "",
+      btnShow: false,
       phone: "",
-      pwd: "gil931214",
-      milddleTip: "登录"
+      pwd: "",
+      milddleTip: "账号密码登录"
     };
   },
   mounted() {
@@ -32,11 +35,20 @@ export default {
         .then(result => {
           console.log(result.data);
           this.$router.push({
-            path: "/find"
+            path: "/FindHome"
           });
         })
         .catch(err => {});
     }
+  },
+  //输入监听控制按钮样式
+  computed: {
+    watchBtnState() {
+      !!this.pwd ? (this.btnShow = true) : (this.btnShow = false);
+    }
+  },
+  watch: {
+    watchBtnState() {}
   }
 };
 </script>
@@ -57,4 +69,6 @@ export default {
     margin-top 10px
   .btn
     btn()
+  .btn-inactive
+    btn-inactive()
 </style>

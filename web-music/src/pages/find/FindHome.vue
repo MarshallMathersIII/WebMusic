@@ -114,7 +114,7 @@ export default {
       api
         .newDishFn()
         .then(result => {
-          this.topDishList = result.data.albums.slice(0, 3);
+          this.topDishList = result.data.albums.slice(0, 4);
           console.log(result.data);
         })
         .catch(err => {
@@ -138,7 +138,7 @@ export default {
       api
         .newAlbumFn()
         .then(result => {
-          this.albumList = result.data.albums.slice(0, 3);
+          this.albumList = result.data.albums.slice(0, 4);
           this.newSonglist = this.albumList; //初始化加载
         })
         .catch(err => {

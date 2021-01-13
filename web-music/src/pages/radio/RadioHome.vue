@@ -1,6 +1,5 @@
 <template>
     <div class="content">
-        电台dlkasl;dkl;akldklasdkaldlaks;lkda;skdk;als        电台dlkasl;dkl;akldklasdkaldlaks;lkda;skdk;als
     </div>
 </template>
 <script>

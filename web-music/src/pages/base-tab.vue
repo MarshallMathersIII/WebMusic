@@ -15,10 +15,10 @@
       <i class="iconfont icon-yinle"></i>
       <p>我的</p>
     </router-link>
-    <router-link tag="div" class="tab-item" to="KtvHome">
+    <!-- <router-link tag="div" class="tab-item" to="KtvHome">
       <i class="iconfont icon-huatong"></i>
       <p>k歌</p>
-    </router-link>
+    </router-link> -->
     <router-link tag="div" class="tab-item" to="LoginHome">
       <i class="iconfont icon-pengyou"></i>
       <p>云村</p>

@@ -1,10 +1,12 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip"></title-bar>
-    <p>登录体验更多精彩</p>
-    <p>未注册手机号登录自动创建账号</p>
-    <input type="text" placeholder="请输入手机号" />
-    <div class="btn" @click="btnClick">下一步</div>
+    <p style="font-size:16px">登录体验更多精彩</p>
+    <p style="color:grey">未注册手机号登录自动创建账号</p>
+    <!-- 后续改为手机号类型 -->
+    <van-field v-model="phone" type="number" placeholder="请输入手机号" />
+    <div v-if="btnShow" class="btn" @click="btnClick">下一步</div>
+    <div v-else class="btn-inactive">下一步</div>
   </div>
 </template>
 <script>
@@ -17,8 +19,10 @@ export default {
     TitleBar
   },
   data() {
-   return {
-      milddleTip: "登录"
+    return {
+      milddleTip: "手机号登录",
+      phone: "",
+      btnShow: false
     };
   },
   methods: {
@@ -34,6 +38,15 @@ export default {
         })
         .catch(err => {});
     }
+  },
+  //输入监听控制按钮样式
+  computed: {
+    watchBtnState() {
+      !!this.phone ? (this.btnShow = true) : (this.btnShow = false);
+    }
+  },
+  watch: {
+    watchBtnState() {}
   }
 };
 </script>
@@ -47,11 +60,11 @@ export default {
   bottom 60px
   top 0
   p
-    margin-left 10px
-    margin-top 10px
+    margin 15px
   input
-    margin-left 10px
-    margin-top 10px
+    margin 15px
   .btn
     btn()
+  .btn-inactive
+    btn-inactive()
 </style>
