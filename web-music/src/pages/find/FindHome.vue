@@ -23,7 +23,30 @@
         <span>{{item.name}}</span>
       </div>
     </div>
+    <!-- 分割线 -->
     <div v-if="playList.length>0" class="divider"></div>
+    <!-- 新歌 -->
+    <div class="new-title">
+      <div class="new-left">
+        <div @click="tabChange(1)">新歌</div>|
+        <div @click="tabChange(2)">新碟</div>|
+        <div @click="tabChange(3)">数字专辑</div>
+      </div>
+      <div class="new-more">更多</div>
+    </div>
+    <div class="new-list" v-for="item in newSonglist">
+      <img class="new-img" :src="item.picUrl" />
+      <div class="new-info">
+        <div class="info-up">
+          <span>{{item.name}}</span>
+          <span>{{item.artist.name}}</span>
+        </div>
+        <div class="info-down">
+          <span>{{item.type}}</span>
+          <span>{{item.company}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -43,13 +66,21 @@ export default {
       value: "",
       bannerList: [],
       findIcons: [],
-      playList: []
+      playList: [],
+      type: 1,
+      newSonglist: [],
+      topSongList: [], //新歌
+      albumList: [], //数字专辑
+      topDishList: [] //新碟
     };
   },
   mounted() {
     this.iniData();
     this.bannerSwiperFn();
     this.playListFn();
+    this.newDishFn();
+    this.newSongsFn();
+    this.newAlbumFn();
   },
   methods: {
     async iniData() {
@@ -72,11 +103,65 @@ export default {
         .playListFn()
         .then(result => {
           console.log(result.data.playlists);
-          this.playList = result.data.playlists.slice(0, 6);//返回50条数据截取数组前6
+          this.playList = result.data.playlists.slice(0, 6); //返回50条数据截取数组前6
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    newDishFn() {
+      api
+        .newDishFn()
+        .then(result => {
+          this.topDishList = result.data.albums.slice(0, 3);
+          console.log(result.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    newSongsFn() {
+      console.log("newSongsFn");
+      api
+        .newSongsFn()
+        .then(result => {
+          console.log(result.data);
+          // this.topSongList = result.data.slice(0, 3);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    async newAlbumFn() {
+      console.log("newAlbumFn");
+      api
+        .newAlbumFn()
+        .then(result => {
+          this.albumList = result.data.albums.slice(0, 3);
+          this.newSonglist = this.albumList; //初始化加载
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    tabChange(type) {
+      switch (type) {
+        case 1:
+          type = 1;
+          this.newSonglist = this.topDishList;
+          break;
+        case 2:
+          type = 2;
+          this.newSonglist = this.albumList;
+          break;
+        case 3:
+          type = 3;
+          this.newSonglist = this.topDishList;
+          break;
+        default:
+          break;
+      }
     }
   }
 };
@@ -86,10 +171,8 @@ export default {
 @import '../../assets/styles/variable'
 @import '../../assets/styles/mixin'
 .content
-  position fixed
-  width 100%
-  bottom 50px
-  top 0
+  // 底部Tab遮挡解决
+  padding-bottom 60px
   .search
     margin-top 10px
     display flex
@@ -122,7 +205,6 @@ export default {
         border-radius 10px
         height 100px
         width 100px
-        background-color pink
       span
         margin-top 4px
         width 100px
@@ -130,4 +212,34 @@ export default {
         no-wrap()
   .divider
     divider()
+  .new-title
+    display flex
+    justify-content center
+    align-items center
+    justify-content space-between
+    margin 10px 10px 10px 5px
+    .new-left
+      display flex
+      div
+        color grey
+        padding 0 5px
+  .new-list
+    display flex
+    align-items center
+    justify-content flex-start
+    margin 10px
+    .new-img
+      border-radius 10px
+      height 60px
+      width 60px
+      background-color #F7F8FA
+    .new-info
+      margin 10px
+      flex 1
+      .info-up
+        font-size 12px
+      .info-down
+        margin-top 4px
+        font-size 8px
+        color grey
 </style>

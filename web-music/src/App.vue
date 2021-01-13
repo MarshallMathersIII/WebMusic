@@ -15,11 +15,6 @@ export default {
 };
 </script>
 
-<style scoped lang="stylus"></style>
-<style>
-.app{
-  height: 200px;
-  width: 200px;
-}
+<style scoped lang="stylus">
 
 </style>

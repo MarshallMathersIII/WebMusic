@@ -36,6 +36,8 @@ export default {
 </script>
 <style scoped lang="stylus" >
 .tab
+  background-color #fff
+  z-index 20000
   display flex
   position fixed
   bottom 0

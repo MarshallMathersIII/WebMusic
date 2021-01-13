@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { phoneRegistered, phoneLogin, bannerSwiper, playList } from './config.js'
+import { phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, getDishInfo, newSongs ,newAlbum} from './config.js'
 
 import { Toast } from 'vant';
 
@@ -31,12 +31,33 @@ export default {
     //发现页面轮播图
     playListFn() {
         return axios.get(playList)
-    }
+    },
+    //新专辑
+    newDishFn(limit = 10, offset) {
+        return axios.get(newDish, {
+            params: {
+                limit,
+                offset
+            }
+        })
+    },
+    //新歌
+    newSongsFn(type = 0) {
+        return axios.get(newSongs, {
+            params: {
+                type
+            }
+        })
+    },
+    //新碟
+    newAlbumFn() {
+        return axios.get(newAlbum)
+    },
 }
 
 
 //请求超时时间
-axios.defaults.timeout = 3000
+axios.defaults.timeout = 30000
 
 //请求头设置
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
