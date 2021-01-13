@@ -13,14 +13,20 @@ import fastClick from 'fastclick'
 import { Search,Toast} from 'vant';
 //轮播组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import { Tab, Tabs } from 'vant';
+
 // swipper必须
 require('swiper/dist/css/swiper.css')
+Vue.use(Tab);
+Vue.use(Tabs);
+
+
 Vue.use(VueAwesomeSwiper)
 
 
 Vue.config.productionTip = false
 fastClick.attach(document.body)
-Vue.use(Search,Toast);
+Vue.use(Search,Toast,Tab,Tabs);
 
 /* eslint-disable no-new */
 new Vue({

@@ -2,11 +2,11 @@
   <div class="content">
     <!-- 搜索 -->
     <div class="search">
-      <i class="iconfont icon-faxian"></i>
+      <i class="iconfont icon-fanhui"></i>
       <div class="serach-wapper">
         <van-search v-model="value" placeholder="请输入搜索关键词" shape="round" />
       </div>
-      <i class="iconfont icon-faxian"></i>
+      <i class="iconfont icon-huatong1"></i>
     </div>
     <!-- 轮播图 -->
     <banner-swiper :bannerList="bannerList"></banner-swiper>
@@ -25,7 +25,7 @@
     </div>
     <!-- 分割线 -->
     <div v-if="playList.length>0" class="divider"></div>
-    <!-- 新歌 -->
+    <!-- 新歌/新碟/数字专辑 切换tab -->
     <div class="new-title">
       <div class="new-left">
         <div @click="tabChange(1)">新歌</div>|
@@ -34,6 +34,7 @@
       </div>
       <div class="new-more">更多</div>
     </div>
+    <!-- 新歌/新碟/数字专辑列表 -->
     <div class="new-list" v-for="item in newSonglist">
       <img class="new-img" :src="item.picUrl" />
       <div class="new-info">
@@ -181,6 +182,8 @@ export default {
     padding 0 10px
     .serach-wapper
       width 90%
+    .iconfont
+      font-size 20px
   .song-title
     display flex
     justify-content space-between
