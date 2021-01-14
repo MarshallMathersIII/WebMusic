@@ -19,13 +19,13 @@
     </div>
     <div class="song-list">
       <div class="song-item" v-for="item in playList">
-        <img :src="item.coverImgUrl" alt class="song-img" />
+        <img v-lazy="item.coverImgUrl" alt class="song-img" />
         <span>{{item.name}}</span>
       </div>
     </div>
     <!-- 分割线 -->
     <div v-if="playList.length>0" class="divider"></div>
-    <!-- 新歌/新碟/数字专辑 切换tab -->
+    <!-- TODO新歌/新碟/数字专辑 切换tab 样式改变 -->
     <div class="new-title">
       <div class="new-left">
         <div @click="tabChange(1)">新歌</div>|
@@ -36,7 +36,7 @@
     </div>
     <!-- 新歌/新碟/数字专辑列表 -->
     <div class="new-list" v-for="item in newSonglist">
-      <img class="new-img" :src="item.picUrl" />
+      <img class="new-img" v-lazy="item.picUrl" />
       <div class="new-info">
         <div class="info-up">
           <span>{{item.name}}</span>
@@ -158,7 +158,7 @@ export default {
           console.log(err);
         });
     },
-
+    //TODO 常量引入
     tabChange(type) {
       switch (type) {
         case 1:
