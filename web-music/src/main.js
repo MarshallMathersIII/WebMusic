@@ -17,12 +17,13 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueLazyload from 'vue-lazyload'
 // swipper必须
 require('swiper/dist/css/swiper.css')
+Vue.use(Toast);
+
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Field);
 Vue.use(Search);
 Vue.use(Popup);
-Vue.use(Toast);
 Vue.use(Divider);
 Vue.use(Skeleton);
 // Vue.use(VueLazyload)  // 不带参数注册指令

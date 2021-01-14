@@ -19,7 +19,7 @@
     </div>
     <div class="wapper">
       <div class="song-list">
-        <div class="song-item" v-for="item in playList">
+        <div class="song-item" v-for="(item) in playList" >
           <img :src="item.coverImgUrl" alt class="song-img" />
           <span>{{item.name}}</span>
         </div>
@@ -57,7 +57,30 @@
       v-model="popShow"
       position="left"
       :style="{ height: '100%',width:'80%'}"
-    ></van-popup>
+    >
+      <div class="popup-content">
+        <div class="user">
+          <div class="user-img"></div>
+          <div>立即登录</div>
+          <i class="iconfont icon-huatong"></i>
+        </div>
+        <div class="setting">
+          <div class="item-wapper">
+            <div class="title">其他</div>
+            <div class="divider"></div>
+            <div class="item" v-for="(item,index) in findIcons" :key="index"  @click="sliderBtn(index)">
+              <div class="left">
+                <i class="iconfont icon-diantai"></i>
+                <p>电台</p>
+              </div>
+              <div class="right">
+                <i class="iconfont icon-diantai"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 <script>
@@ -74,7 +97,7 @@ export default {
   data() {
     return {
       show: false,
-      popShow: false,
+      popShow: true,
       milddleTip: "发现页面",
       value: "",
       bannerList: [],
@@ -91,11 +114,21 @@ export default {
     this.iniData();
     this.bannerSwiperFn();
     this.playListFn();
-    this.newDishFn();
-    this.newSongsFn();
-    this.newAlbumFn();
+    // this.newDishFn();
+    // this.newSongsFn();
+    // this.newAlbumFn();
   },
   methods: {
+    sliderBtn(btnType){
+      switch (btnType) {
+        case 1:
+          this.$toast(btnType);
+          console.log(btnType);
+          break;
+        default:
+          break;
+      }
+    },
     showPopup() {
       this.popShow = true;
     },
@@ -125,7 +158,7 @@ export default {
           console.log(err);
         });
     },
-    newDishFn() {
+    async newDishFn() {
       api
         .newDishFn()
         .then(result => {
@@ -205,9 +238,9 @@ export default {
     align-items center
     margin 14px 10px 0 10px
   .wapper
-    overflow: hidden;
-    height: 0px;
-    padding-bottom: 39%;
+    overflow hidden
+    height 0px
+    padding-bottom 39%
     .song-list
       display flex
       justify-content center
@@ -264,4 +297,41 @@ export default {
         margin-top 4px
         font-size 8px
         color grey
+  .popup-content
+    .user
+      display flex
+      align-items center
+      justify-content flex-start
+      padding  40px 10px 10px 10px
+    .user-img
+      height 30px
+      width 30px
+      border-radius 50%
+      background-color pink
+    :nth-child(2)
+      margin-left 10px
+  .setting
+    margin 10px
+    border-radius 10px
+    background-color pink
+    .item-wapper
+      margin 10px
+      .title
+        margin-top 24px
+        height 40px
+        line-height 40px
+      .divider
+        divider-1()
+      .item
+        height 40px
+        display flex
+        justify-content space-between
+        align-items center
+        .left
+          display flex
+          justify-content center
+          align-items center
+          :first-child
+            font-size 20px
+            margin-right 10px
 </style>
