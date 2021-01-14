@@ -10,19 +10,23 @@ import './assets/styles/border.css'
 import './assets/styles/index.styl'
 //使用 astClick移动端300毫秒点击延时问题
 import fastClick from 'fastclick'
-import { Search, Toast, Field } from 'vant';
+import { Search,Toast,Field,Tab,Tabs,Popup,Divider} from 'vant';
 //轮播组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import { Tab, Tabs } from 'vant';
 // swipper必须
 require('swiper/dist/css/swiper.css')
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Field);
+Vue.use(Search);
+Vue.use(Popup);
+Vue.use(Toast);
+Vue.use(Divider);
+
+fastClick.attach(document.body)
 Vue.use(VueAwesomeSwiper)
 Vue.config.productionTip = false
 fastClick.attach(document.body)
-Vue.use(Search, Toast, Tab, Tabs);
 
 /* eslint-disable no-new */
 new Vue({

@@ -3,7 +3,7 @@
     <title-bar :milddleTip="milddleTip"></title-bar>
     <p style="font-size:16px">登录体验更多精彩</p>
     <p style="color:grey">未注册手机号登录自动创建账号</p>
-    <!-- 后续改为手机号类型 -->
+    <!-- TODO后续改为手机号类型 -->
     <van-field v-model="phone" type="number" placeholder="请输入手机号" />
     <div v-if="btnShow" class="btn" @click="btnClick">下一步</div>
     <div v-else class="btn-inactive">下一步</div>

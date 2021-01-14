@@ -2,7 +2,7 @@
   <div class="content">
     <!-- 搜索 -->
     <div class="search">
-      <i class="iconfont icon-fanhui"></i>
+      <i @click="showPopup" class="iconfont icon-fanhui"></i>
       <div class="serach-wapper">
         <van-search v-model="value" placeholder="请输入搜索关键词" shape="round" />
       </div>
@@ -48,6 +48,14 @@
         </div>
       </div>
     </div>
+    <!-- TODO:popu滑动穿透 -->
+    <van-popup
+      bind:after-enter
+      :zIndex="20000"
+      v-model="popShow"
+      position="left"
+      :style="{ height: '100%',width:'80%'}"
+    ></van-popup>
   </div>
 </template>
 <script>
@@ -63,6 +71,8 @@ export default {
   },
   data() {
     return {
+      show: false,
+      popShow: false,
       milddleTip: "发现页面",
       value: "",
       bannerList: [],
@@ -84,6 +94,9 @@ export default {
     this.newAlbumFn();
   },
   methods: {
+    showPopup() {
+      this.popShow = true;
+    },
     async iniData() {
       console.log(findIcons());
       this.findIcons = findIcons();
