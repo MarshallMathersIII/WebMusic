@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 //初始样式重置（index.styl已引入）
 // import './assets/styles/reset.css'
 import './assets/styles/border.css'
@@ -10,7 +11,7 @@ import './assets/styles/border.css'
 import './assets/styles/index.styl'
 //使用 astClick移动端300毫秒点击延时问题
 import fastClick from 'fastclick'
-import { Search,Toast,Field,Tab,Tabs,Popup,Divider,Skeleton} from 'vant';
+import { Search, Toast, Field, Tab, Tabs, Popup, Divider, Skeleton } from 'vant';
 //轮播组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 //懒加载
@@ -44,6 +45,7 @@ fastClick.attach(document.body)
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

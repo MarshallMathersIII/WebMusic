@@ -19,7 +19,7 @@
     </div>
     <div class="wapper">
       <div class="song-list">
-        <div class="song-item" v-for="(item) in playList" >
+        <div class="song-item" v-for="(item) in playList">
           <img :src="item.coverImgUrl" alt class="song-img" />
           <span>{{item.name}}</span>
         </div>
@@ -59,7 +59,7 @@
       :style="{ height: '100%',width:'80%'}"
     >
       <div class="popup-content">
-        <div class="user">
+        <div @click="toUserPage()" class="user">
           <div class="user-img"></div>
           <div>立即登录</div>
           <i class="iconfont icon-huatong"></i>
@@ -68,7 +68,12 @@
           <div class="item-wapper">
             <div class="title">其他</div>
             <div class="divider"></div>
-            <div class="item" v-for="(item,index) in findIcons" :key="index"  @click="sliderBtn(index)">
+            <div
+              class="item"
+              v-for="(item,index) in findIcons"
+              :key="index"
+              @click="sliderBtn(index)"
+            >
               <div class="left">
                 <i class="iconfont icon-diantai"></i>
                 <p>电台</p>
@@ -97,7 +102,7 @@ export default {
   data() {
     return {
       show: false,
-      popShow: true,
+      popShow: false,
       milddleTip: "发现页面",
       value: "",
       bannerList: [],
@@ -119,7 +124,12 @@ export default {
     // this.newAlbumFn();
   },
   methods: {
-    sliderBtn(btnType){
+    toUserPage() {
+      this.$router.push({
+        path: "/RadioHome"
+      });
+    },
+    sliderBtn(btnType) {
       switch (btnType) {
         case 1:
           this.$toast(btnType);
@@ -302,7 +312,7 @@ export default {
       display flex
       align-items center
       justify-content flex-start
-      padding  40px 10px 10px 10px
+      padding 40px 10px 10px 10px
     .user-img
       height 30px
       width 30px

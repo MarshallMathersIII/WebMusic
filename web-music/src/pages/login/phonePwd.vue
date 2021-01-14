@@ -1,8 +1,8 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip"></title-bar>
-    <van-field v-model="pwd"  type="password" placeholder="请输入密码" />
-    <div v-if="btnShow" class="btn" @click="btnClick">立即登录</div>
+    <van-field v-model="pwd" type="password" placeholder="请输入密码" />
+    <div v-if="btnShow" class="btn" @click="login()">立即登录</div>
     <div v-else class="btn-inactive">立即登录</div>
   </div>
 </template>
@@ -26,19 +26,33 @@ export default {
   },
   mounted() {
     this.phone = this.$route.query.phone;
-    console.log(this.$route.query.phone);
   },
   methods: {
-    btnClick() {
+    login() {
       api
         .phoneLoginFn(this.phone, this.pwd)
         .then(result => {
           console.log(result.data);
+          this.$store.commit("SET_TOKEN", result.data.token);
+          this.$store.commit("SET_PROFILE", result.data.profile);
+          // TODO 接口未确定登录状态字段，自定义记录，后续修正
+          this.$store.commit("SET_LOGIN_STATE", 1);//1为已登录/0为未登录
           this.$router.push({
             path: "/FindHome"
           });
         })
         .catch(err => {});
+    },
+    loginStatusFn() {
+      api
+        .loginStatusFn()
+        .then(result => {
+          console.log(result.data);
+          this.bannerList = result.data.banners;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   //输入监听控制按钮样式
