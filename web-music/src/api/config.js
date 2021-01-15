@@ -17,6 +17,8 @@ export const loginStatus = api + '/login/status' // 手机号登陆
 
 //我的模块
 export const likeList = api + '/likelist' // 我喜欢的音乐
+export const userPlayList = api + '/user/playlist' // 获取用户歌单（登录内）
+
 
 
 

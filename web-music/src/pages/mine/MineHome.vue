@@ -22,9 +22,8 @@
     </div>
     <!-- 我喜欢的音乐 -->
     <div class="favorite-music">
-      <div class="icon">
-        <i class="iconfont icon-huatong"></i>
-      </div>
+      <!-- TODO占位处理 -->
+      <img class="icon" :src="this.firstItem.coverImgUrl" />
       <div class="tip">
         <span>我喜欢的音乐</span>
         <span>{{likeSongNum}}</span>
@@ -42,7 +41,13 @@
                 <i class="iconfont icon-huatong"></i>
               </div>
             </div>
-            <div class="list-content"></div>
+            <div class="list-content" v-for="item in createList ">
+              <img class="left" :src="item.coverImgUrl" />
+              <div class="right">
+                <span>{{item.name}}</span>
+                <span>{{item.trackCount}}首</span>
+              </div>
+            </div>
           </div>
         </van-tab>
         <van-tab title="收藏歌单">
@@ -51,24 +56,19 @@
               <span>收藏歌单</span>
               <div class="icon">
                 <i class="iconfont icon-huatong"></i>
-                <i class="iconfont icon-huatong"></i>
               </div>
             </div>
-            <div class="list-content"></div>
+            <div class="list-content" v-for="item in collectList ">
+              <img class="left" :src="item.coverImgUrl" />
+              <div class="right">
+                <span>{{item.name}}</span>
+                <span>{{item.trackCount}}首</span>
+              </div>
+            </div>
           </div>
         </van-tab>
       </van-tabs>
     </div>
-    <!-- <div class="setup-list">
-      <div class="list-title">
-        <span>创建歌单</span>
-        <div class="icon">
-          <i class="iconfont icon-huatong"></i>
-          <i class="iconfont icon-huatong"></i>
-        </div>
-      </div>
-      <div class="list-content"></div>
-    </div>-->
   </div>
 </template>
 <script>
@@ -88,7 +88,11 @@ export default {
       loginState: "",
       profile: {},
       findIcons: [],
-      likeSongNum: 0
+      likeSongNum: 0,
+      playlist: [], //歌单
+      createList: [], //创建歌单
+      collectList: [], //收藏歌单
+      firstItem: {}
     };
   },
   mounted() {
@@ -96,27 +100,41 @@ export default {
     // this.profile = this.$store.state.profile;
     this.loginState = localStorage.getItem("loginState");
     this.profile = JSON.parse(localStorage.getItem("profile"));
-    console.log(this.loginState);
-    console.log(this.profile);
     this.iniData();
     if (this.loginState == "1") {
-      this.likeListFn();
+      this.userPlayListFn();
     }
   },
   methods: {
     async iniData() {
       this.findIcons = findIcons();
     },
-
-    likeListFn() {
+    userPlayListFn() {
       api
-        .likeListFn(this.profile.userId)
+        .userPlayListFn(this.profile.userId)
         .then(result => {
-          console.log(result.data);
-          console.log(result.data.ids.length);
-          this.likeSongNum = result.data.ids.length;
+          this.playlist = result.data.playlist;//原始列表
+          this.firstItem = result.data.playlist.shift();//删除首个元素，返回对象
+          this.filterArr(result.data.playlist);//拆分为创建歌单与收藏歌单
         })
         .catch(err => {});
+    },
+    //歌单拆分
+    filterArr(arr) {
+      let createList = [];
+      let collectList = [];
+      arr.forEach(val => {
+        if (val.subscribed === false) {
+          createList.push(val);
+        } else {
+          collectList.push(val);
+          ``;
+        }
+      });
+      this.createList = createList;
+      this.collectList = collectList;
+      console.log(createList);
+      console.log(collectList);
     }
   }
 };
@@ -127,7 +145,7 @@ export default {
 @import '../../assets/styles/mixin'
 .content
   background-color #e9e9e9
-  height 1200px
+  padding-bottom 60px
   .user
     display flex
     align-items center
@@ -191,6 +209,7 @@ export default {
     background-color #e9e9e9
   .setup-list
     margin 10px
+    padding-bottom 20px
     border-radius 10px
     background-color #ffffff
     .list-title
@@ -200,5 +219,20 @@ export default {
       align-items center
       margin 10px
     .list-content
-      height 100px
+      padding 5px 0
+      margin 0 20px
+      display flex
+      justify-content flex-start
+      align-items center
+      .left
+        height 50px
+        width 50px
+        background-color grey
+        border-radius 10px
+      .right
+        margin-left 10px
+        display flex
+        justify-content center
+        align-items baseline
+        flex-direction column
 </style>
