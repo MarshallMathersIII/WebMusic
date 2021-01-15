@@ -37,6 +37,7 @@
       <div class="new-more">更多</div>
     </div>
     <!-- 新歌/新碟/数字专辑列表 -->
+    <!-- TODO 接口返回图片过大newSonglist -->
     <div class="new-list" v-for="item in newSonglist">
       <img class="new-img" v-lazy="item.picUrl" />
       <div class="new-info">
@@ -52,9 +53,9 @@
     </div>
     <!-- TODO:popu滑动穿透 -->
     <van-popup
-      bind:after-enter
       :zIndex="20000"
       v-model="popShow"
+      :close-on-popstate="true"
       position="left"
       :style="{ height: '100%',width:'80%'}"
     >
@@ -116,6 +117,8 @@ export default {
     };
   },
   mounted() {
+    console.log(this.popShow);
+
     this.iniData();
     this.bannerSwiperFn();
     this.playListFn();

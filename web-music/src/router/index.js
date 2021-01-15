@@ -59,21 +59,16 @@ const router = new Router({
 
 /**导航守卫使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆 */
 router.beforeEach((to, from, next) => {
-  if (to.path === '/LoginHome') {
+  let loginState = localStorage.getItem('loginState');
+  if (to.path === '/FindHome' || to.path === '/MineHome' || to.path === '/PhonePwd' || to.path === '/LoginHome') {
     next();
-  } else if (to.path === '/FindHome') {
-    next();
+    return;
   }
-  else if (to.path === '/MineHome') {
-    next();
-  } else {
-    let loginState = localStorage.getItem('loginState');
-    if (loginState == null || loginState === '') {
-      next('/LoginHome');
-    } else {
-      next();
-    }
+  if (loginState == null || loginState === '') {
+    next('/LoginHome');
+    return;
   }
+  next();
 })
 
 export default router;
