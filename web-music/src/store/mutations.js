@@ -10,7 +10,7 @@ const mutations = {
   },
   [types.SET_PROFILE](state, profile) {
     state.profile = profile
-    localStorage.setItem("profile", profile)
+    localStorage.setItem("profile", JSON.stringify(profile))
   }
 }
 

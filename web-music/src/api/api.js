@@ -1,11 +1,19 @@
 import axios from 'axios'
 import router from '@/router/index'
 
-import { loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, getDishInfo, newSongs, newAlbum, recommendSong } from './config.js'
+import { likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, getDishInfo, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
 export default {
+    //我喜欢的音乐
+    likeListFn(uid) {
+        return axios.get(likeList, {
+            params: {
+                uid
+            }
+        })
+    },
     //获取登录状态
     loginStatusFn() {
         return axios.get(loginStatus)
@@ -115,6 +123,18 @@ axios.interceptors.response.use(
                     position: 'bottom',
                 });
                 console.log('404')
+                break;
+            case 502:
+                Toast({
+                    message: '密码错误，请重新登录',
+                    duration: 1000,
+                    forbidClick: true,
+                    position: 'bottom',
+                });
+                router.replace({
+                    path: '/LoginHome',
+                });
+                console.log('502')
                 break;
             // 其他错误，直接抛出错误提示
             default:

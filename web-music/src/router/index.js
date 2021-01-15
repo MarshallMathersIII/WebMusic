@@ -6,7 +6,7 @@ import KtvHome from './../pages/ktv/KtvHome'
 import RadioHome from './../pages/radio/RadioHome'
 import FindHome from './../pages/find/FindHome'
 import LoginHome from './../pages/login/LoginHome'
-import PhonePwd from './../pages/login/phonePwd'
+import PhonePwd from './../pages/login/PhonePwd'
 
 Vue.use(Router)
 

@@ -47,6 +47,7 @@ export default {
 
 <style scoped lang="stylus">
 .title
+  background-color #fff
   height 60px
   justify-content space-between
   align-items center
