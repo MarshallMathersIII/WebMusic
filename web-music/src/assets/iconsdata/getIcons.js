@@ -6,3 +6,6 @@ import icons from './icons'
 export const findIcons = () => {
   return icons.findIcons
 }
+export const popupIcons = () => {
+  return icons.popupIcons
+}

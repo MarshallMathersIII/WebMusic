@@ -2,13 +2,13 @@
   <div>
     <div class="wrapper">
       <!-- v-if当数据请求完成创建，默认显示第一张 不出现逻辑代码 -->
-      <swiper :options="swiperOption" >
+      <swiper :options="swiperOption">
         <!-- slides -->
         <swiper-slide v-for="(item,index) in bannerList" :key="index">
           <img class="swiper-img" :src="item.pic" />
         </swiper-slide>
         <!-- Optional controls -->
-        <div  class="swiper-pagination" slot="pagination"></div>
+        <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
   </div>
@@ -19,9 +19,9 @@ export default {
   props: {
     bannerList: {
       type: Array,
-      default: function () {
-        return []
-    }
+      default: function() {
+        return [];
+      }
     }
   },
   data() {

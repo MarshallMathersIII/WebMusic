@@ -51,54 +51,20 @@
         </div>
       </div>
     </div>
-    <!-- TODO:popu滑动穿透 -->
-    <van-popup
-      :zIndex="20000"
-      v-model="popShow"
-      :close-on-popstate="true"
-      position="left"
-      :style="{ height: '100%',width:'80%'}"
-    >
-      <div class="popup-content">
-        <div @click="toUserPage()" class="user">
-          <div class="user-img"></div>
-          <div>立即登录</div>
-          <i class="iconfont icon-huatong"></i>
-        </div>
-        <div class="setting">
-          <div class="item-wapper">
-            <div class="title">其他</div>
-            <div class="divider"></div>
-            <div
-              class="item"
-              v-for="(item,index) in findIcons"
-              :key="index"
-              @click="sliderBtn(index)"
-            >
-              <div class="left">
-                <i class="iconfont icon-diantai"></i>
-                <p>电台</p>
-              </div>
-              <div class="right">
-                <i class="iconfont icon-diantai"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </van-popup>
+    <slider v-model="popShow" :popupIcons="popupIcons" :findIcons="findIcons"></slider>
   </div>
 </template>
 <script>
 import IconList from "../../components/IconList";
 import api from "../../api/api.js";
 import BannerSwiper from "./component/BannerSwiper";
-import { findIcons } from "../../assets/iconsdata/getIcons.js";
-
+import Slider from "./component/Slider";
+import { findIcons, popupIcons } from "../../assets/iconsdata/getIcons.js";
 export default {
   components: {
     IconList,
-    BannerSwiper
+    BannerSwiper,
+    Slider
   },
   data() {
     return {
@@ -108,6 +74,8 @@ export default {
       value: "",
       bannerList: [],
       findIcons: [],
+      popupIcons: [],
+
       playList: [],
       type: 1,
       newSonglist: [],
@@ -117,8 +85,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.popShow);
-
     this.iniData();
     this.bannerSwiperFn();
     this.playListFn();
@@ -143,11 +109,12 @@ export default {
       }
     },
     showPopup() {
+      console.log(this.popShow);
       this.popShow = true;
     },
     async iniData() {
-      console.log(findIcons());
       this.findIcons = findIcons();
+      this.popupIcons = popupIcons();
     },
     bannerSwiperFn() {
       api
@@ -310,41 +277,4 @@ export default {
         margin-top 4px
         font-size 8px
         color grey
-  .popup-content
-    .user
-      display flex
-      align-items center
-      justify-content flex-start
-      padding 40px 10px 10px 10px
-    .user-img
-      height 30px
-      width 30px
-      border-radius 50%
-      background-color pink
-    :nth-child(2)
-      margin-left 10px
-  .setting
-    margin 10px
-    border-radius 10px
-    background-color pink
-    .item-wapper
-      margin 10px
-      .title
-        margin-top 24px
-        height 40px
-        line-height 40px
-      .divider
-        divider-1()
-      .item
-        height 40px
-        display flex
-        justify-content space-between
-        align-items center
-        .left
-          display flex
-          justify-content center
-          align-items center
-          :first-child
-            font-size 20px
-            margin-right 10px
 </style>

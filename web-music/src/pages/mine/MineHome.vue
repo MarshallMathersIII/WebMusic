@@ -23,10 +23,10 @@
     <!-- 我喜欢的音乐 -->
     <div class="favorite-music">
       <!-- TODO占位处理 -->
-      <img class="icon" :src="this.firstItem.coverImgUrl" />
+      <img class="icon" :src="firstItem.coverImgUrl" />
       <div class="tip">
         <span>我喜欢的音乐</span>
-        <span>{{likeSongNum}}</span>
+        <span>{{firstItem.trackCount}}首</span>
       </div>
     </div>
     <!--歌单模块  -->
@@ -88,7 +88,6 @@ export default {
       loginState: "",
       profile: {},
       findIcons: [],
-      likeSongNum: 0,
       playlist: [], //歌单
       createList: [], //创建歌单
       collectList: [], //收藏歌单
