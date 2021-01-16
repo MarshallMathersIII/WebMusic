@@ -1,11 +1,15 @@
 import axios from 'axios'
 import router from '@/router/index'
 
-import { userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, getDishInfo, newSongs, newAlbum, recommendSong } from './config.js'
+import {logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, getDishInfo, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
 export default {
+      //退出登录
+      logoutFn() {
+        return axios.get(logout)
+    },
     //我喜欢的音乐
     userPlayListFn(uid, limit, offset) {
         return axios.get(userPlayList, {

@@ -151,8 +151,10 @@ export default {
 @import '../../assets/styles/variable'
 @import '../../assets/styles/mixin'
 .content
-  background-color #e9e9e9
+  background-color $color-background-grey
+  height 100%
   padding-bottom 60px
+  position: absolute
   .user
     display flex
     align-items center
@@ -162,7 +164,7 @@ export default {
       height 60px
       width 60px
       border-radius 50%
-      background-color pink
+      background-color $color-background-white
     :nth-child(2)
       margin-left 10px
   .user-app
@@ -199,7 +201,7 @@ export default {
       height 50px
       width 50px
       border-radius 10px
-      background-color #e9e9e9
+      background-color $color-background-grey
     .tip
       margin-left 10px
       display flex
@@ -209,11 +211,11 @@ export default {
       span
         padding 2px
   .song-list>>> .van-tabs__line
-    background-color pink
+    background-color $color-theme
   .song-list>>> .van-ellipsis
-    background-color #e9e9e9
+    background-color $color-background-grey
   .song-list>>> .van-tab
-    background-color #e9e9e9
+    background-color $color-background-grey
   .setup-list
     margin 10px
     padding-bottom 20px

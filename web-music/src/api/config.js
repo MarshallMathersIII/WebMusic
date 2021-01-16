@@ -14,6 +14,7 @@ export const newAlbum = api + '/album/newest' // 发现页新歌
 export const phoneRegistered = api + '/cellphone/existence/check' // 手机号是否被注册
 export const phoneLogin = api + '/login/cellphone' // 手机号登陆
 export const loginStatus = api + '/login/status' // 手机号登陆
+export const logout = api + '/logout' // 退出登录
 
 //我的模块
 export const likeList = api + '/likelist' // 我喜欢的音乐

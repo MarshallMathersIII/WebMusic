@@ -93,21 +93,6 @@ export default {
     // this.newAlbumFn();
   },
   methods: {
-    toUserPage() {
-      this.$router.push({
-        path: "/RadioHome"
-      });
-    },
-    sliderBtn(btnType) {
-      switch (btnType) {
-        case 1:
-          this.$toast(btnType);
-          console.log(btnType);
-          break;
-        default:
-          break;
-      }
-    },
     showPopup() {
       console.log(this.popShow);
       this.popShow = true;

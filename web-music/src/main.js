@@ -11,7 +11,7 @@ import './assets/styles/border.css'
 import './assets/styles/index.styl'
 //使用 astClick移动端300毫秒点击延时问题
 import fastClick from 'fastclick'
-import { Search, Toast, Field, Tab, Tabs, Popup, Divider, Skeleton } from 'vant';
+import { Dialog,ShareSheet,Search, Toast, Field, Tab, Tabs, Popup, Divider, Skeleton } from 'vant';
 //轮播组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 //懒加载
@@ -27,6 +27,10 @@ Vue.use(Search);
 Vue.use(Popup);
 Vue.use(Divider);
 Vue.use(Skeleton);
+Vue.use(ShareSheet);
+Vue.use(Dialog);
+
+
 // Vue.use(VueLazyload)  // 不带参数注册指令
 
 Vue.use(VueLazyload, {
