@@ -3,7 +3,7 @@
     <title-bar :milddleTip="milddleTip"></title-bar>
     <!-- 头像区 -->
     <div class="user" v-if="loginState=='1'">
-      <img class="user-img" :src="profile.avatarUrl" />
+      <img class="user-img" :src="profile.avatarUrl" @click="showPopup" />
       <!-- <div class="user-img"  :style="{background: 'url(' + profile.avatarUrl + ')'}"></div> -->
       <div>{{profile.nickname}}</div>
       <i class="iconfont icon-huatong"></i>
@@ -69,19 +69,23 @@
         </van-tab>
       </van-tabs>
     </div>
+    <slider v-model="popShow"></slider>
   </div>
 </template>
 <script>
 import TitleBar from "@/components/Titlebar";
-import { findIcons } from "../../assets/iconsdata/getIcons.js";
+import Slider from "@/pages/find/component/Slider";
+import { findIcons, popupIcons } from "../../assets/iconsdata/getIcons.js";
 import api from "../../api/api.js";
 
 export default {
   components: {
-    TitleBar
+    TitleBar,
+    Slider
   },
   data() {
     return {
+      popShow: false,
       list: ["1", "2", "3", "3", "1", "2", "3", "3"],
       active: 2,
       milddleTip: "我的",
@@ -105,6 +109,10 @@ export default {
     }
   },
   methods: {
+    showPopup() {
+      console.log(this.popShow);
+      this.popShow = true;
+    },
     async iniData() {
       this.findIcons = findIcons();
     },
@@ -112,9 +120,9 @@ export default {
       api
         .userPlayListFn(this.profile.userId)
         .then(result => {
-          this.playlist = result.data.playlist;//原始列表
-          this.firstItem = result.data.playlist.shift();//删除首个元素，返回对象
-          this.filterArr(result.data.playlist);//拆分为创建歌单与收藏歌单
+          this.playlist = result.data.playlist; //原始列表
+          this.firstItem = result.data.playlist.shift(); //删除首个元素，返回对象
+          this.filterArr(result.data.playlist); //拆分为创建歌单与收藏歌单
         })
         .catch(err => {});
     },

@@ -1,7 +1,7 @@
 <template>
   <div class="title">
     <div class="left" :style="changeStyle(leftShow)">
-      <i class="iconfont icon-faxian" :style="changeStyle(leftIconShow)"></i>
+      <i class="iconfont icon-fanhui1" :style="changeStyle(leftIconShow)"></i>
       <span :style="changeStyle(leftTipShow)">返回</span>
     </div>
     <div class="middle">{{milddleTip}}</div>

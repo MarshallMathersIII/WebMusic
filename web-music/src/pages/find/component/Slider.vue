@@ -15,7 +15,7 @@
         <div @click="toUserPage()" class="user">
           <div class="user-img"></div>
           <div>立即登录</div>
-          <i class="iconfont icon-huatong"></i>
+          <i class="iconfont icon-jiantou"></i>
         </div>
         <!-- popup上半区 -->
         <div class="setting">
@@ -33,7 +33,7 @@
                 <p>{{item.text}}</p>
               </div>
               <div class="right">
-                <i class="iconfont icon-diantai"></i>
+                <i class="iconfont icon-jiantou"></i>
               </div>
             </div>
           </div>
@@ -52,7 +52,7 @@
                 <p>电台</p>
               </div>
               <div class="right">
-                <i class="iconfont icon-diantai"></i>
+                <i class="iconfont icon-jiantou"></i>
               </div>
             </div>
           </div>
@@ -63,8 +63,16 @@
   </div>
 </template>
 <script>
+import api from "@/api/api.js";
+import { findIcons, popupIcons } from "@/assets/iconsdata/getIcons.js";
 export default {
   name: "Slider",
+  data() {
+    return {
+      findIcons: [],
+      popupIcons: []
+    };
+  },
   props: {
     value: {
       type: Boolean,
@@ -73,26 +81,26 @@ export default {
     popShow: {
       type: Boolean,
       default: false
-    },
-    findIcons: {
-      type: Array,
-      default: function() {
-        return [];
-      }
-    },
-    popupIcons: {
-      type: Array,
-      default: function() {
-        return [];
-      }
     }
+  },
+  methods: {
+    iniData() {
+      this.findIcons = findIcons();
+      this.popupIcons = popupIcons();
+      console.log(this.popupIcons);
+    }
+  },
+  mounted() {
+    this.iniData();
   }
 };
 </script>
 
 <style scoped lang="stylus">
+@import '../../../assets/styles/variable'
+@import '../../../assets/styles/mixin'
 .van-popup
-  background-color #e9e9e9
+  background-color $color-background-grey
   .popup-content
     .user
       display flex
@@ -103,12 +111,12 @@ export default {
       height 40px
       width 40px
       border-radius 50%
-      background-color #ffffff
+      background-color $color-background-white
       margin-right 10px
     .setting
       margin 10px
       border-radius 10px
-      background-color #ffffff
+      background-color $color-background-white
       .item-wapper
         margin 10px
         .title
@@ -131,8 +139,8 @@ export default {
     .btn
       margin 20px 10px
       height 40px
-      background-color #ffffff
-      color red
+      background-color $color-background-white
+      color $color-theme
       line-height 40px
       text-align center
       border-radius 5px

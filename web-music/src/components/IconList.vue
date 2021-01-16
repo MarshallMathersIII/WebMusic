@@ -21,6 +21,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+@import "../assets/styles/variable"
+@import '../assets/styles/mixin'
 .icons
   // 外层容器高度低于子元素，hidden隐藏进度条
   overflow hidden
@@ -42,7 +44,10 @@ export default {
       justify-content center
       align-items center
       .iconfont
-        font-size 38px
+        font-size 28px
+        color $color-theme
       span
-        font-size 6px
+        margin-top 5px
+        font-size $font-size-small-s
+        color grey
 </style>

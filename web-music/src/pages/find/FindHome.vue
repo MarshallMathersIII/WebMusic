@@ -2,7 +2,7 @@
   <div class="content">
     <!-- 搜索 -->
     <div class="search">
-      <i @click="showPopup" class="iconfont icon-fanhui"></i>
+      <i @click="showPopup" class="iconfont icon-gongnengtubiao-86"></i>
       <div class="serach-wapper">
         <van-search v-model="value" placeholder="请输入搜索关键词" shape="round" />
       </div>
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <slider v-model="popShow" :popupIcons="popupIcons" :findIcons="findIcons"></slider>
+    <slider v-model="popShow" ></slider>
   </div>
 </template>
 <script>

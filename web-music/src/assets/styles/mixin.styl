@@ -1,3 +1,5 @@
+@import "./variable.styl"
+
 // 不换行
 no-wrap()
   text-overflow ellipsis
@@ -7,7 +9,7 @@ no-wrap()
 btn()
   margin 20px 10px
   height 40px
-  background-color red
+  background-color $color-theme
   color #ffffff
   line-height 40px
   text-align center
@@ -16,7 +18,7 @@ btn()
 btn-inactive()
   margin 20px 10px
   height 40px
-  background-color red
+  background-color $color-theme
   color #ffffff
   line-height 40px
   text-align center
@@ -25,7 +27,7 @@ btn-inactive()
 // 分割线
 divider()
   height 4px
-  background-color #F7F8FA
+  background-color #F5F5F5
 divider-1()
   height 1px
-  background-color #F7F8FA
+  background-color #F5F5F5
