@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-    <div class="left" :style="changeStyle(leftShow)">
+    <div class="left" :style="changeStyle(leftShow)" @click="leftClick">
       <i class="iconfont icon-fanhui1" :style="changeStyle(leftIconShow)"></i>
       <span :style="changeStyle(leftTipShow)">返回</span>
     </div>
@@ -40,6 +40,9 @@ export default {
     //动态切换显示隐藏函数，保持占位不改变布局
     changeStyle(show) {
       return { visibility: show ? "initial" : "hidden" };
+    },
+    leftClick(){
+      this.$emit('leftBtn')
     }
   }
 };

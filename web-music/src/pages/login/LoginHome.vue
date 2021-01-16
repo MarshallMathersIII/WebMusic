@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <title-bar :milddleTip="milddleTip"></title-bar>
+    <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
     <p style="font-size:16px">登录体验更多精彩</p>
     <p style="color:grey">未注册手机号登录自动创建账号</p>
     <!-- TODO后续改为手机号类型 -->
@@ -37,6 +37,9 @@ export default {
           });
         })
         .catch(err => {});
+    },
+    leftClickBtn(){
+      this.$router.back(-1)
     }
   },
   //输入监听控制按钮样式

@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <title-bar :milddleTip="milddleTip"></title-bar>
+    <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
     <van-field v-model="pwd" type="password" placeholder="请输入密码" />
     <div v-if="btnShow" class="btn" @click="login()">立即登录</div>
     <div v-else class="btn-inactive">立即登录</div>
@@ -28,6 +28,9 @@ export default {
     this.phone = this.$route.query.phone;
   },
   methods: {
+    leftClickBtn(){
+      this.$router.back(-1)
+    },
     login() {
       api
         .phoneLoginFn(this.phone, this.pwd)

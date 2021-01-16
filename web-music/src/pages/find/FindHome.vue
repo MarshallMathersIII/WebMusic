@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <slider v-model="popShow" ></slider>
+    <slider v-model="popShow"></slider>
   </div>
 </template>
 <script>

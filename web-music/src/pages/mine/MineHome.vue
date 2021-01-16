@@ -1,17 +1,17 @@
 <template>
   <div class="content">
-    <title-bar :milddleTip="milddleTip"></title-bar>
+    <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn" ></title-bar>
     <!-- 头像区 -->
     <div class="user" v-if="loginState=='1'">
-      <img class="user-img" :src="profile.avatarUrl" @click="showPopup" />
+      <img class="user-img" :src="profile.avatarUrl" />
       <!-- <div class="user-img"  :style="{background: 'url(' + profile.avatarUrl + ')'}"></div> -->
       <div>{{profile.nickname}}</div>
-      <i class="iconfont icon-huatong"></i>
+      <i class="iconfont icon-jiantou"></i>
     </div>
-    <div class="user" v-else>
+    <div class="user" v-else @click="login">
       <div class="user-img"></div>
       <div>立即登录</div>
-      <i class="iconfont icon-huatong"></i>
+      <i class="iconfont icon-jiantou"></i>
     </div>
     <!-- 应用icon -->
     <div class="user-app">
@@ -21,12 +21,20 @@
       </div>
     </div>
     <!-- 我喜欢的音乐 -->
-    <div class="favorite-music">
+    <div class="favorite-music" v-if="loginState=='1'">
       <!-- TODO占位处理 -->
       <img class="icon" :src="firstItem.coverImgUrl" />
       <div class="tip">
         <span>我喜欢的音乐</span>
         <span>{{firstItem.trackCount}}首</span>
+      </div>
+    </div>
+    <div class="favorite-music" v-else>
+      <!-- TODO占位处理 -->
+      <div class="icon" />
+      <div class="tip">
+        <span>我喜欢的音乐</span>
+        <span>0首</span>
       </div>
     </div>
     <!--歌单模块  -->
@@ -37,17 +45,20 @@
             <div class="list-title">
               <span>创建歌单</span>
               <div class="icon">
-                <i class="iconfont icon-huatong"></i>
-                <i class="iconfont icon-huatong"></i>
+                <i class="iconfont icon-hao"></i>
+                <i class="iconfont icon-gengduo"></i>
               </div>
             </div>
-            <div class="list-content" v-for="item in createList ">
-              <img class="left" :src="item.coverImgUrl" />
-              <div class="right">
-                <span>{{item.name}}</span>
-                <span>{{item.trackCount}}首</span>
+            <div v-if="loginState=='1'">
+              <div class="list-content" v-for="item in createList">
+                <img class="left" :src="item.coverImgUrl" />
+                <div class="right">
+                  <span>{{item.name}}</span>
+                  <span>{{item.trackCount}}首</span>
+                </div>
               </div>
             </div>
+            <div v-else class="list-content-nodata">暂无新建歌单</div>
           </div>
         </van-tab>
         <van-tab title="收藏歌单">
@@ -55,16 +66,19 @@
             <div class="list-title">
               <span>收藏歌单</span>
               <div class="icon">
-                <i class="iconfont icon-huatong"></i>
+                <i class="iconfont icon-gengduo"></i>
               </div>
             </div>
-            <div class="list-content" v-for="item in collectList ">
-              <img class="left" :src="item.coverImgUrl" />
-              <div class="right">
-                <span>{{item.name}}</span>
-                <span>{{item.trackCount}}首</span>
+            <div v-if="loginState=='1'">
+              <div class="list-content" v-for="item in collectList ">
+                <img class="left" :src="item.coverImgUrl" />
+                <div class="right">
+                  <span>{{item.name}}</span>
+                  <span>{{item.trackCount}}首</span>
+                </div>
               </div>
             </div>
+            <div v-else class="list-content-nodata">暂无收藏歌单</div>
           </div>
         </van-tab>
       </van-tabs>
@@ -109,6 +123,15 @@ export default {
     }
   },
   methods: {
+    login() {
+      this.$router.push({
+        path: "/LoginHome"
+      });
+    },
+    leftClickBtn() {
+      console.log(this.popShow);
+      this.popShow = true;
+    },
     showPopup() {
       console.log(this.popShow);
       this.popShow = true;
@@ -154,7 +177,6 @@ export default {
   background-color $color-background-grey
   height 100%
   padding-bottom 60px
-  position: absolute
   .user
     display flex
     align-items center
@@ -186,6 +208,9 @@ export default {
       flex-direction column
       :first-child
         font-size 30px
+        color $color-theme
+      span
+        color grey
   .favorite-music
     height 80px
     margin 10px
@@ -202,6 +227,10 @@ export default {
       width 50px
       border-radius 10px
       background-color $color-background-grey
+    // img去边框
+    img[src=''], img:not([src])
+      opacity 0
+      background-color $color-background-grey
     .tip
       margin-left 10px
       display flex
@@ -210,6 +239,8 @@ export default {
       flex-direction column
       span
         padding 2px
+      :nth-child(2)
+        color grey
   .song-list>>> .van-tabs__line
     background-color $color-theme
   .song-list>>> .van-ellipsis
@@ -244,4 +275,10 @@ export default {
         justify-content center
         align-items baseline
         flex-direction column
+    .list-content-nodata
+      display flex
+      justify-content center
+      align-items center
+      height 100px
+      color grey
 </style>
