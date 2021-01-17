@@ -98,6 +98,7 @@ export default {
   methods: {
     //TODO 路由封装
     toUserPage() {
+      this.value=false;
       this.$router.push({
         path: "/RadioHome"
       });

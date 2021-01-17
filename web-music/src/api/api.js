@@ -1,11 +1,15 @@
 import axios from 'axios'
 import router from '@/router/index'
 
-import {logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, getDishInfo, newSongs, newAlbum, recommendSong } from './config.js'
+import {homepage,logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
 export default {
+     //发现页面
+     homepageFn() {
+        return axios.get(homepage)
+    },
       //退出登录
       logoutFn() {
         return axios.get(logout)
@@ -67,8 +71,8 @@ export default {
         })
     },
     //新歌
-    newSongsFn(type = 0) {
-        return axios.get(newSongs, {
+    topSongFn(type = 96) {
+        return axios.get(topSong, {
             params: {
                 type
             }

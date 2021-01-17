@@ -2,9 +2,9 @@
   <div id="app">
     <tab></tab>
     <!-- TODO keep-alive缓存popup状态，无法关闭-->
-    <!-- <keep-alive> -->
+    <keep-alive>
       <router-view></router-view>
-    <!-- </keep-alive> -->
+    </keep-alive>
   </div>
 </template>
 

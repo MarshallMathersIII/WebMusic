@@ -39,7 +39,7 @@
     <!-- 新歌/新碟/数字专辑列表 -->
     <!-- TODO 接口返回图片过大newSonglist -->
     <div class="new-list" v-for="item in newSonglist">
-      <img class="new-img" v-lazy="item.picUrl" />
+      <img class="new-img" v-lazy="item.blurPicUrl" />
       <div class="new-info">
         <div class="info-up">
           <span>{{item.name}}</span>
@@ -75,24 +75,32 @@ export default {
       bannerList: [],
       findIcons: [],
       popupIcons: [],
-
       playList: [],
       type: 1,
-      newSonglist: [],
+      newSonglist: [],//临时歌单
       topSongList: [], //新歌
       albumList: [], //数字专辑
       topDishList: [] //新碟
     };
   },
   mounted() {
+    // this.homepageFn();
     this.iniData();
     this.bannerSwiperFn();
     this.playListFn();
-    // this.newDishFn();
-    // this.newSongsFn();
-    // this.newAlbumFn();
+    this.newDishFn();
+    this.newAlbumFn();
+    this.topSongFn();
   },
   methods: {
+    homepageFn() {
+      api
+        .homepageFn()
+        .then(result => {
+          console.log(result.data);
+        })
+        .catch(err => {});
+    },
     showPopup() {
       console.log(this.popShow);
       this.popShow = true;
@@ -127,20 +135,20 @@ export default {
       api
         .newDishFn()
         .then(result => {
-          this.topDishList = result.data.albums.slice(0, 4);
+          this.topDishList = result.data.albums.slice(0, 3);
           console.log(result.data);
         })
         .catch(err => {
           console.log(err);
         });
     },
-    newSongsFn() {
-      console.log("newSongsFn");
+    topSongFn() {
       api
-        .newSongsFn()
+        .topSongFn()
         .then(result => {
-          console.log(result.data);
-          // this.topSongList = result.data.slice(0, 3);
+          console.log(result.data.data);
+          this.newSonglist = result.data.data.slice(0, 3);
+          console.log(result.data.data.slice(0, 3));
         })
         .catch(err => {
           console.log(err);
@@ -151,7 +159,7 @@ export default {
       api
         .newAlbumFn()
         .then(result => {
-          this.albumList = result.data.albums.slice(0, 4);
+          this.albumList = result.data.albums.slice(0, 3);
           this.newSonglist = this.albumList; //初始化加载
         })
         .catch(err => {
@@ -166,11 +174,9 @@ export default {
           this.newSonglist = this.topDishList;
           break;
         case 2:
-          type = 2;
           this.newSonglist = this.albumList;
           break;
         case 3:
-          type = 3;
           this.newSonglist = this.topDishList;
           break;
         default:
