@@ -20,37 +20,58 @@ const router = new Router({
     {
       path: '/LoginHome',
       name: 'LoginHome',
-      component: LoginHome
+      component: LoginHome,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path: '/',
-      redirect: '/FindHome'
+      redirect: '/FindHome',
+      meta: {
+        keepAlive: true
+      }
     },
 
     {
       path: '/FriendHome',
       name: 'FriendHome',
-      component: FriendHome
+      component: FriendHome,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path: '/MineHome',
       name: 'MineHome',
-      component: MineHome
+      component: MineHome,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/RadioHome',
       name: 'RadioHome',
-      component: RadioHome
+      component: RadioHome,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/FindHome',
       name: 'FindHome',
-      component: FindHome
+      component: FindHome,
+      meta: {
+        keepAlive: true // 不需要被缓存
+      }
     },
     {
       path: '/KtvHome',
       name: 'KtvHome',
-      component: KtvHome
+      component: KtvHome,
+      meta: {
+        keepAlive: true
+      }
     }
 
   ]
@@ -60,7 +81,7 @@ const router = new Router({
 /**导航守卫使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆 */
 router.beforeEach((to, from, next) => {
   let loginState = localStorage.getItem('loginState');
-  if (to.path === '/FindHome' || to.path === '/MineHome' || to.path === '/PhonePwd' || to.path === '/LoginHome') {
+  if (to.path === '/FindHome' || to.path === '/MineHome' || to.path === '/PhonePwd' || to.path === '/LoginHome' || to.path === '/RadioHome') {
     next();
     return;
   }

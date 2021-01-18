@@ -2,9 +2,10 @@
   <div id="app">
     <tab></tab>
     <!-- TODO keep-alive缓存popup状态，无法关闭-->
-    <keep-alive>
+    <keep-alive v-if="$route.meta.keepAlive">
       <router-view></router-view>
     </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 

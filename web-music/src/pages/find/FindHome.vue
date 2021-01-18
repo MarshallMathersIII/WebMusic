@@ -178,7 +178,7 @@ export default {
           this.newSonglist = this.albumList;
           break;
         case 3:
-          this.isTabActive = '3';
+          this.isTabActive = "3";
           this.newSonglist = this.topDishList;
           break;
         default:
