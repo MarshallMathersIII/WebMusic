@@ -98,11 +98,13 @@ export default {
   methods: {
     //TODO 路由封装
     toUserPage() {
-      this.value=false;
-      this.$router.push({
-        path: "/RadioHome"
-      });
+      // this.$router.push({
+      //   path: "/RadioHome"
+      // });
+      // 修复路由重定向报错 Error: Redirected from X to Y via a navigation guard.
+      this.$router.push("/RadioHome", () => {});
     },
+
     handleBtn() {
       this.$dialog
         .confirm({
