@@ -10,7 +10,14 @@ export const topSong = api + '/top/song' // 发现页新歌
 export const newDish = api + '/top/album' // 发现页新碟
 export const getDishInfo = api + '/album' // 获取专辑内容
 export const newAlbum = api + '/album/newest' // 发现页新歌/homepage/block/page
-export const homepage = api +'/homepage/block/page' //
+
+export const homepage = api +'/homepage/block/page' //TODO首页数据接口，暂不可用，用以上三接代替，后续修改
+
+//电台模块
+export const djBanner = api + '/dj/banner' // 电台页面的轮播图
+export const djPerfered = api + '/dj/today/perfered' // 电台推荐数据
+export const djPaygift = api + '/dj/paygift' // 电台精品推荐
+
 
 //登录模块
 export const phoneRegistered = api + '/cellphone/existence/check' // 手机号是否被注册

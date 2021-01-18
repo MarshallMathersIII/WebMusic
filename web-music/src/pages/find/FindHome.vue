@@ -13,18 +13,7 @@
     <!-- Icon图标 -->
     <icon-list :icons="findIcons"></icon-list>
     <!-- 推荐歌单 -->
-    <div class="song-title">
-      <div>推荐歌单</div>
-      <div class="more">更多</div>
-    </div>
-    <div class="wapper">
-      <div class="song-list">
-        <div class="song-item" v-for="(item) in playList">
-          <img :src="item.coverImgUrl" alt class="song-img" />
-          <span>{{item.name}}</span>
-        </div>
-      </div>
-    </div>
+    <roll-list :list="playList" :title="title" :type="rollType"></roll-list>
     <!-- 分割线 -->
     <div v-if="playList.length>0" class="divider"></div>
     <!-- TODO新歌/新碟/数字专辑 切换tab 样式改变 -->
@@ -57,17 +46,24 @@
 <script>
 import IconList from "../../components/IconList";
 import api from "../../api/api.js";
-import BannerSwiper from "./component/BannerSwiper";
+import BannerSwiper from "@/components/BannerSwiper";
+import RollList from "@/components/RollList";
 import Slider from "./component/Slider";
 import { findIcons, popupIcons } from "../../assets/iconsdata/getIcons.js";
 export default {
   components: {
+    RollList,
     IconList,
     BannerSwiper,
     Slider
   },
   data() {
     return {
+      title: {
+        leftText: "推荐歌单",
+        rightText: "更多"
+      },
+      rollType:"2",
       isTabActive: "1",
       show: false,
       popShow: false,
@@ -205,39 +201,6 @@ export default {
       width 90%
     .iconfont
       font-size 20px
-  .song-title
-    display flex
-    justify-content space-between
-    align-items center
-    margin 14px 10px 0 10px
-  .wapper
-    overflow hidden
-    height 0px
-    padding-bottom 38%
-    .song-list
-      display flex
-      justify-content center
-      align-items center
-      justify-content space-between
-      overflow-x auto
-      overflow-y hidden
-      .song-item
-        height 130px
-        padding 10px
-        white-space nowrap
-        display flex
-        flex-direction column
-        justify-content center
-        align-items flex-start
-        .song-img
-          border-radius 10px
-          height 100px
-          width 100px
-        span
-          margin-top 4px
-          width 100px
-          font-size 8px
-          no-wrap()
   .divider
     divider()
   .new-title

@@ -33,6 +33,8 @@ export default {
       }
     };
   },
+  mounted() {
+  },
   computed: {
     showSwiper() {
       return this.bannerList.length;

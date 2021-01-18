@@ -1,17 +1,32 @@
 import axios from 'axios'
 import router from '@/router/index'
 
-import {homepage,logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import { djBanner, djPerfered,djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
+// export const djBanner = api + '/dj/banner' // 电台页面的轮播图
+// export const djPerfered = api + '/dj/today/perfered' // 电台推荐数据
+// export const djPaygift = api + '/dj/paygift' // 电台精品推荐
 
 export default {
-     //发现页面
-     homepageFn() {
+    //电台baner
+    djBannerFn() {
+        return axios.get(djBanner)
+    },
+     //电台baner
+     djPerferedFn() {
+        return axios.get(djPerfered)
+    },
+     //电台baner
+     djPaygiftFn() {
+        return axios.get(djPaygift)
+    },
+    //发现页面
+    homepageFn() {
         return axios.get(homepage)
     },
-      //退出登录
-      logoutFn() {
+    //退出登录
+    logoutFn() {
         return axios.get(logout)
     },
     //我喜欢的音乐

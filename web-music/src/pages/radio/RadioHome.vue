@@ -8,26 +8,69 @@
       @click-left="onClickLeft"
       @click-right="onClickRight"
     />
-    <roll-list></roll-list>
+    <roll-list :list="djPaygiftList" :title="title" :type="rollType"></roll-list>
+    <banner-swiper :bannerList="djBannerList" ></banner-swiper>
   </div>
 </template>
 <script>
 import api from "../../api/api.js";
 import RollList from "@/components/RollList";
+import BannerSwiper from "@/components/BannerSwiper";
 
 import { Toast } from "vant";
 
 export default {
-   components: {
-    RollList
+  data() {
+    return {
+      djBannerList: [],
+      djPaygiftList: [],
+      title: {
+        leftText: "精品电台",
+        rightText: "更多"
+      },
+      rollType:"1"
+    };
   },
-  mounted() {},
+  components: {
+    RollList,
+    BannerSwiper
+  },
+  mounted() {
+    this.djPerferedFn();
+    this.djBannerFn();
+    this.djPaygiftFn();
+  },
   methods: {
     onClickLeft() {
       Toast("返回");
     },
     onClickRight() {
       Toast("按钮");
+    },
+    djBannerFn() {
+      api
+        .djBannerFn()
+        .then(result => {
+          this.djBannerList = result.data.data;
+        })
+        .catch(err => {});
+    },
+    djPerferedFn() {
+      api
+        .djPerferedFn()
+        .then(result => {
+          console.log(result.data);
+        })
+        .catch(err => {});
+    },
+    djPaygiftFn() {
+      api
+        .djPaygiftFn()
+        .then(result => {
+          console.log(result.data.data.list);
+          this.djPaygiftList = result.data.data.list.slice(0, 6);
+        })
+        .catch(err => {});
     }
   }
 };
@@ -48,4 +91,7 @@ export default {
   color black
 .content >>> .van-nav-bar .van-icon
   color black
+.content >>> .van-nav-bar__content
+  height 60px
+
 </style>
