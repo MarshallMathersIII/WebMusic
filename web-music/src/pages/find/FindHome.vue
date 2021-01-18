@@ -30,9 +30,9 @@
     <!-- TODO新歌/新碟/数字专辑 切换tab 样式改变 -->
     <div class="new-title">
       <div class="new-left">
-        <div @click="tabChange(1)">新歌</div>|
-        <div @click="tabChange(2)">新碟</div>|
-        <div @click="tabChange(3)">数字专辑</div>
+        <div @click="tabChange(1)" :class="[isTabActive=='1'?'tabActive':'']">新歌</div>|
+        <div @click="tabChange(2)" :class="[isTabActive=='2'?'tabActive':'']">新碟</div>|
+        <div @click="tabChange(3)" :class="[isTabActive=='3'?'tabActive':'']">数字专辑</div>
       </div>
       <div class="new-more">更多</div>
     </div>
@@ -68,6 +68,7 @@ export default {
   },
   data() {
     return {
+      isTabActive: "1",
       show: false,
       popShow: false,
       milddleTip: "发现页面",
@@ -76,8 +77,7 @@ export default {
       findIcons: [],
       popupIcons: [],
       playList: [],
-      type: 1,
-      newSonglist: [],//临时歌单
+      newSonglist: [], //临时歌单
       topSongList: [], //新歌
       albumList: [], //数字专辑
       topDishList: [] //新碟
@@ -170,13 +170,15 @@ export default {
     tabChange(type) {
       switch (type) {
         case 1:
-          type = 1;
+          this.isTabActive = "1";
           this.newSonglist = this.topDishList;
           break;
         case 2:
+          this.isTabActive = "2";
           this.newSonglist = this.albumList;
           break;
         case 3:
+          this.isTabActive = '3';
           this.newSonglist = this.topDishList;
           break;
         default:
@@ -249,6 +251,8 @@ export default {
       div
         color grey
         padding 0 5px
+      .tabActive
+        color black
   .new-list
     display flex
     align-items center
