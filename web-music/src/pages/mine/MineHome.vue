@@ -198,7 +198,7 @@ export default {
     flex-wrap wrap
     align-items center
     .item
-      flex 0 0 19.8%
+      flex 0 0 19.2%
       padding 10px
       width 50px
       height 50px

@@ -16,6 +16,9 @@ import { Dialog,ShareSheet,Search, Toast, Field, Tab, Tabs, Popup, Divider, Skel
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 //懒加载
 import VueLazyload from 'vue-lazyload'
+//移动端适配
+import 'postcss-pxtorem'
+
 // swipper必须
 require('swiper/dist/css/swiper.css')
 Vue.use(Toast);

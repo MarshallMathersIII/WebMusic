@@ -88,9 +88,9 @@ export default {
     this.iniData();
     this.bannerSwiperFn();
     this.playListFn();
-    this.newDishFn();
-    this.newAlbumFn();
-    this.topSongFn();
+    // this.newDishFn();
+    // this.newAlbumFn();
+    // this.topSongFn();
   },
   methods: {
     homepageFn() {
