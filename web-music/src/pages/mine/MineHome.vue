@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn" ></title-bar>
+    <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
     <!-- 头像区 -->
     <div class="user" v-if="loginState=='1'">
       <img class="user-img" :src="profile.avatarUrl" />
@@ -39,14 +39,15 @@
     </div>
     <!--歌单模块  -->
     <div class="song-list">
-      <van-tabs v-model="active">
+      <!-- swipeable滑动控制 -->
+      <van-tabs v-model="active" swipeable>
         <van-tab title="创建歌单">
           <div class="setup-list">
             <div class="list-title">
               <span>创建歌单</span>
               <div class="icon">
-                <i class="iconfont icon-hao"></i>
-                <i class="iconfont icon-gengduo"></i>
+                <i class="iconfont icon-hao" @click="setupList"></i>
+                <i class="iconfont icon-gengduo" @click="setupList"></i>
               </div>
             </div>
             <div v-if="loginState=='1'">
@@ -83,6 +84,9 @@
         </van-tab>
       </van-tabs>
     </div>
+    <van-action-sheet title="标题" v-model="show" @select="onSelect" :safe-area-inset-bottom="true">
+      <div class="sheetPop"></div>
+    </van-action-sheet>
     <slider v-model="popShow"></slider>
   </div>
 </template>
@@ -99,6 +103,8 @@ export default {
   },
   data() {
     return {
+      show: false,
+      actions: [{ name: "选项一" }, { name: "选项二" }, { name: "选项三" }],
       popShow: false,
       list: ["1", "2", "3", "3", "1", "2", "3", "3"],
       active: 2,
@@ -123,6 +129,15 @@ export default {
     }
   },
   methods: {
+    setupList() {
+      this.show = true;
+    },
+    onSelect(item) {
+      // 默认情况下点击选项时不会自动收起
+      // 可以通过 close-on-click-action 属性开启自动收起
+      this.show = false;
+      Toast(item.name);
+    },
     login() {
       this.$router.push({
         path: "/LoginHome"
@@ -176,7 +191,9 @@ export default {
 .content
   background-color $color-background-grey
   height 100%
-  padding-bottom 60px
+  padding-bottom 80px
+  .sheetPop
+    height 200px
   .user
     display flex
     align-items center

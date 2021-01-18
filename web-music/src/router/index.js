@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import FriendHome from './../pages/friends/FriendHome'
 import MineHome from './../pages/mine/MineHome'
-import KtvHome from './../pages/ktv/KtvHome'
+import VideoHome from './../pages/video/VideoHome'
 import RadioHome from './../pages/radio/RadioHome'
 import FindHome from './../pages/find/FindHome'
 import LoginHome from './../pages/login/LoginHome'
@@ -66,9 +66,9 @@ const router = new Router({
       }
     },
     {
-      path: '/KtvHome',
-      name: 'KtvHome',
-      component: KtvHome,
+      path: '/VideoHome',
+      name: 'VideoHome',
+      component: VideoHome,
       meta: {
         keepAlive: true
       }
@@ -81,7 +81,7 @@ const router = new Router({
 /**导航守卫使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆 */
 router.beforeEach((to, from, next) => {
   let loginState = localStorage.getItem('loginState');
-  if (to.path === '/FindHome' || to.path === '/MineHome' || to.path === '/PhonePwd' || to.path === '/LoginHome' || to.path === '/RadioHome') {
+  if (to.path === '/FindHome' || to.path === '/MineHome' || to.path === '/PhonePwd' || to.path === '/LoginHome' || to.path === '/RadioHome'|| to.path === '/VideoHome') {
     next();
     return;
   }

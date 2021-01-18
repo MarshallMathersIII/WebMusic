@@ -1,5 +1,5 @@
 <template>
-  <div class="content">ktv</div>
+  <div class="content">video</div>
 </template>
 <script>
 export default {};
@@ -10,6 +10,5 @@ export default {};
   position fixed
   width 100%
   bottom 60px
-  background pink
   top 0
 </style>

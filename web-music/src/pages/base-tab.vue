@@ -19,9 +19,9 @@
       <i class="iconfont icon-huatong"></i>
       <p>k歌</p>
     </router-link> -->
-    <router-link tag="div" class="tab-item" to="LoginHome">
+    <router-link tag="div" class="tab-item" to="VideoHome">
       <i class="iconfont icon-pengyou"></i>
-      <p>云村</p>
+      <p>视频</p>
     </router-link>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
 <style scoped lang="stylus" >
 .tab
   background-color #fff
-  z-index 20000
+  z-index 1000
   display flex
   position fixed
   bottom 0
