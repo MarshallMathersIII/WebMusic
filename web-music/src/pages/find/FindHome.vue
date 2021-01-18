@@ -211,7 +211,7 @@ export default {
   .wapper
     overflow hidden
     height 0px
-    padding-bottom 39%
+    padding-bottom 38%
     .song-list
       display flex
       justify-content center
@@ -220,7 +220,7 @@ export default {
       overflow-x auto
       overflow-y hidden
       .song-item
-        height 120px
+        height 130px
         padding 10px
         white-space nowrap
         display flex
