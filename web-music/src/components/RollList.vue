@@ -8,8 +8,13 @@
       <div class="wapper">
         <div class="song-list">
           <div class="song-item" v-for="(item) in list">
-            <img :src="item.picUrl" alt class="song-img" v-if="type=='1'" />
-            <img :src="item.coverImgUrl" alt class="song-img" v-else />
+            <img
+              :src="item.picUrl"
+              class="song-img"
+              v-if="type=='1'"
+              :onerror="defaultImg"
+            />
+            <img :src="item.coverImgUrl" class="song-img" v-else />
             <span>{{item.name}}</span>
           </div>
         </div>
@@ -20,6 +25,11 @@
 <script>
 export default {
   name: "RollList",
+  data() {
+    return {
+      defaultImg: 'this.src="' + require("../assets/img/lazy_load.png") + '"' //默认图地址
+    };
+  },
   props: {
     list: {
       type: Array,
