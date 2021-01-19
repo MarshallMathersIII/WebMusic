@@ -39,8 +39,8 @@
     </div>
     <!--歌单模块  -->
     <div class="song-list">
-      <!-- swipeable滑动控制 -->
-      <van-tabs v-model="active" swipeable>
+      <!-- swipeable滑动控制 animated转场动画 -->
+      <van-tabs v-model="active" swipeable animated>
         <van-tab title="创建歌单">
           <div class="setup-list">
             <div class="list-title">

@@ -12,10 +12,11 @@
     >
       <div class="popup-content">
         <!-- popup头部 -->
-        <div @click="toUserPage()" class="user" v-if="loginState=='1'">
+        <div @click="toUserPage()" class="user" v-if="loginState=='1'" :style="{ 'background': 'url(' + profile.backgroundUrl + ') no-repeat center center', 'background-size': 'cover'}">
+          <!-- TODO 后续实现动态提取背景主题色或毛玻璃效果 -->
           <img class="user-img" :src="profile.avatarUrl" />
-          <div>{{profile.nickname}}</div>
-          <i class="iconfont icon-jiantou"></i>
+          <div  :style="{'color':'white'}">{{profile.nickname}}</div>
+          <i  :style="{'color':'white'}" class="iconfont icon-jiantou"></i>
         </div>
         <div @click="toUserPage()" class="user" v-else>
           <div class="user-img"></div>
@@ -192,10 +193,11 @@ export default {
       display flex
       align-items center
       justify-content flex-start
-      margin 40px 10px 40px 10px
+      height 128px
+      padding-left 10px
     .user-img
-      height 40px
-      width 40px
+      height 50px
+      width 50px
       border-radius 50%
       background-color $color-background-white
       margin-right 10px

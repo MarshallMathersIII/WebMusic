@@ -87,7 +87,9 @@ export default {
 @import '../../assets/styles/variable'
 @import '../../assets/styles/mixin'
 .content
-  height 750px
+  background-color $color-background-grey
+  height 100%
+  padding-bottom 60px
 .content >>> .van-nav-bar__text
   color black
 .content >>> .van-nav-bar .van-icon
