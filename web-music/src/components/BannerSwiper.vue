@@ -5,7 +5,7 @@
       <swiper :options="swiperOption">
         <!-- slides -->
         <swiper-slide v-for="(item,index) in bannerList" :key="index">
-          <img class="swiper-img" :src="item.pic" />
+          <img class="swiper-img" :src="item.pic"  :onerror="defaultImg"/>
         </swiper-slide>
         <!-- Optional controls -->
         <div class="swiper-pagination" slot="pagination"></div>
@@ -30,11 +30,11 @@ export default {
         pagination: ".swiper-pagination",
         loop: true,
         autoplay: 3000
-      }
+      },
+      defaultImg: 'this.src="' + require("../assets/img/lazy_load.png") + '"' //默认图地址
     };
   },
-  mounted() {
-  },
+  mounted() {},
   computed: {
     showSwiper() {
       return this.bannerList.length;
