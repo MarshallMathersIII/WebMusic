@@ -1,24 +1,24 @@
 import axios from 'axios'
 import router from '@/router/index'
+import store from '@/store/index'
+import qs from "qs";
 
-import { djBanner, djPerfered,djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+
+import { djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
-// export const djBanner = api + '/dj/banner' // 电台页面的轮播图
-// export const djPerfered = api + '/dj/today/perfered' // 电台推荐数据
-// export const djPaygift = api + '/dj/paygift' // 电台精品推荐
 
 export default {
     //电台baner
     djBannerFn() {
         return axios.get(djBanner)
     },
-     //电台baner
-     djPerferedFn() {
+    //电台baner
+    djPerferedFn() {
         return axios.get(djPerfered)
     },
-     //电台baner
-     djPaygiftFn() {
+    //电台baner
+    djPaygiftFn() {
         return axios.get(djPaygift)
     },
     //发现页面
@@ -106,9 +106,31 @@ export default {
 
 //请求超时时间
 axios.defaults.timeout = 30000
-
 //请求头设置
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+// 定时器数组，一般我们都是等请求时间超过1秒后，才出现loading状态，如果一开始就提示，用户体验也不是很好
+let timers = [],
+    timer = null;
+function clearAllTimer() {
+    timers.forEach(item => {
+        clearTimeout(item);
+    });
+    timers = [];
+}
+//拦截请求
+axios.interceptors.request.use((request) => {
+    //1秒内请求不显示loading
+    timer = setTimeout(() => {
+        !store.state.isAppending && store.commit("SET_APPENDING", true);
+    }, 1000);
+    timers.push(timer);
+    let REQUEST_DATA = request.data
+    //统一进行qs模块转换
+    request.data = qs.stringify(REQUEST_DATA)
+    return request;
+}, function (error) {
+    return Promise.reject(error);
+});
 
 // 响应拦截器
 axios.interceptors.response.use(
@@ -116,8 +138,12 @@ axios.interceptors.response.use(
         // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
         // 否则的话抛出错误
         if (response.status === 200) {
+            clearAllTimer();
+            store.commit("SET_APPENDING", false);
             return Promise.resolve(response);
         } else {
+            clearAllTimer();
+            store.commit("SET_APPENDING", false);
             return Promise.reject(response);
         }
     },
@@ -127,7 +153,6 @@ axios.interceptors.response.use(
     // 下面列举几个常见的操作，其他需求可自行扩展
     error => {
         // if (error.response.status) {
-
         switch (error.response.status) {
             // 301: 未登录
             // 未登录则跳转登录页面，并携带当前页面的路径

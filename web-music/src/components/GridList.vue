@@ -4,6 +4,7 @@
       <div>{{title.leftText}}</div>
       <div class="more">{{title.rightText}}</div>
     </div>
+    <!-- TODO 最后一行不满三个左对齐 -->
     <div class="grid">
       <div class="item" v-for="item in list">
         <img class="img" :src="item.picUrl" />
