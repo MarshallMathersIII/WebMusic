@@ -12,7 +12,7 @@
 <script>
 import axios from "axios";
 import api from "@/api/api.js";
-import TitleBar from "@/components/Titlebar";
+import TitleBar from "@/components/TitleBar";
 
 export default {
   components: {

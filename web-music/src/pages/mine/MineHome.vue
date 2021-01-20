@@ -91,7 +91,7 @@
   </div>
 </template>
 <script>
-import TitleBar from "@/components/Titlebar";
+import TitleBar from "@/components/TitleBar";
 import Slider from "@/pages/find/component/Slider";
 import { findIcons, popupIcons } from "../../assets/iconsdata/getIcons.js";
 import api from "../../api/api.js";

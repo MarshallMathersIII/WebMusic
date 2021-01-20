@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import api from "../../api/api.js";
+import api from "api/api.js";
 import RollList from "components/RollList";
 import GridList from "components/GridList";
 import BannerSwiper from "components/BannerSwiper";

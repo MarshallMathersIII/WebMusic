@@ -19,7 +19,6 @@ import VueLazyload from 'vue-lazyload'
 //移动端适配
 import 'postcss-pxtorem'
 
-
 // swipper必须
 require('swiper/dist/css/swiper.css')
 Vue.use(Toast);
@@ -36,12 +35,11 @@ Vue.use(ActionSheet);
 Vue.use(NavBar);
 
 // Vue.use(VueLazyload)  // 不带参数注册指令
-
 Vue.use(VueLazyload, {
   preLoad: 1, //预加载的宽高比
-  error: require('./assets/img/lazy_load.png'), //图片加载失败时使用的图片源
+  error: require('assets/img/lazy_load.png'), //图片加载失败时使用的图片源
   attempt: 3, //尝试加载次数
-  loading: require('./assets/img/lazy_load.png') //图片加载的路径
+  loading: require('assets/img/lazy_load.png') //图片加载的路径
 })
 
 fastClick.attach(document.body)

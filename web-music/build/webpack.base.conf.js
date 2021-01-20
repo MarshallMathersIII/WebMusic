@@ -31,11 +31,13 @@ module.exports = {
       'api': resolve('src/api'),
       'assets': resolve('src/assets'),
       'base': resolve('src/base'),
-      'find': resolve('src/components/find'),
-      'friends': resolve('src/components/friends'),
-      'mine': resolve('src/components/mine'),
-      'radio': resolve('src/components/radio'),
-      'video': resolve('src/components/video'),
+      'pages': resolve('src/pages'),
+      'find': resolve('src/pages/find'),
+      'friends': resolve('src/pages/friends'),
+      'mine': resolve('src/pages/mine'),
+      'radio': resolve('src/pages/radio'),
+      'video': resolve('src/pages/video'),
+
     }
   },
   module: {
