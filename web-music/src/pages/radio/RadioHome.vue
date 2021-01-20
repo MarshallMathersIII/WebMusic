@@ -84,8 +84,8 @@ export default {
 
 <style scoped lang="stylus">
 // stylus引入
-@import '../../assets/styles/variable'
-@import '../../assets/styles/mixin'
+@import '~assets/styles/variable'
+@import '~assets/styles/mixin'
 .content
   background-color $color-background-grey
   height 100%

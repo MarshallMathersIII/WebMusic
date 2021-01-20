@@ -186,8 +186,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-@import '../../assets/styles/variable'
-@import '../../assets/styles/mixin'
+@import '~assets/styles/variable'
+@import '~assets/styles/mixin'
 .content
   // 底部Tab遮挡解决
   padding-bottom 60px
@@ -209,6 +209,7 @@ export default {
     align-items center
     justify-content space-between
     margin 10px 10px 10px 5px
+    font-size $font-size-medium
     .new-left
       display flex
       div

@@ -49,12 +49,17 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+@import '~assets/styles/variable'
+@import '~assets/styles/mixin'
 .title
   background-color #fff
   height 60px
   justify-content space-between
   align-items center
   display flex
+  font-size $font-size-large
+  .iconfont
+    font-size $font-size-large
   div
     flex 1
     display flex

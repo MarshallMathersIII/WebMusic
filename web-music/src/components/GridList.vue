@@ -49,7 +49,7 @@ export default {
   justify-content space-between
   align-items center
   margin 14px 10px 10px 10px
-  font-size 16px
+  font-size $font-size-medium
 .grid
   display flex
   align-items center
@@ -68,6 +68,7 @@ export default {
       width 100px
       background pink
     span
+      font-size $font-size-small
       margin-top 5px
       width 100px
       no-wrap()

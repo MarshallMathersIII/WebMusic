@@ -186,8 +186,8 @@ export default {
 </script>
 
 <style scoped  lang="stylus">
-@import '../../assets/styles/variable'
-@import '../../assets/styles/mixin'
+@import '~assets/styles/variable'
+@import '~assets/styles/mixin'
 .content
   background-color $color-background-grey
   height 100%
@@ -199,13 +199,16 @@ export default {
     align-items center
     justify-content flex-start
     margin 10px
+    font-size $font-size-small
     .user-img
-      height 60px
-      width 60px
+      height 50px
+      width 50px
       border-radius 50%
       background-color $color-background-white
     :nth-child(2)
       margin-left 10px
+    i
+      font-size $font-size-small
   .user-app
     border-radius 10px
     background-color #ffffff
@@ -228,6 +231,8 @@ export default {
         color $color-theme
       span
         color grey
+        font-size $font-size-small-s
+        margin-top 5px
   .favorite-music
     height 80px
     margin 10px
@@ -254,6 +259,7 @@ export default {
       justify-content center
       align-items flex-start
       flex-direction column
+      font-size $font-size-small
       span
         padding 2px
       :nth-child(2)
@@ -264,10 +270,12 @@ export default {
     background-color $color-background-grey
   .song-list>>> .van-tab
     background-color $color-background-grey
+    font-size $font-size-medium
   .setup-list
     margin 10px
     padding-bottom 20px
     border-radius 10px
+    font-size $font-size-small
     background-color #ffffff
     .list-title
       padding 10px

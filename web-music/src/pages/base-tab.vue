@@ -35,6 +35,8 @@ export default {
 };
 </script>
 <style scoped lang="stylus" >
+@import '~assets/styles/variable'
+@import '~assets/styles/mixin'
 .tab
   background-color #fff
   z-index 1000
@@ -56,14 +58,16 @@ export default {
     justify-content center
     // router-link切换标签改变样式/iconfont图标大小控制使用font-size
     .iconfont
-      font-size 28px
+      font-size 30px
     p
-      font-size 8px
+      text-align center
+      font-size $font-size-small
     &.router-link-active
       .iconfont
-        font-size 28px
-        color red
+        font-size 30px
+        color $color-theme
       p
-        font-size 8px
-        color red
+        text-align center
+        font-size $font-size-small
+        color $color-theme
 </style>

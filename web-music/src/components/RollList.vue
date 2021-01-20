@@ -58,6 +58,7 @@ export default {
 @import '../assets/styles/variable'
 @import '../assets/styles/mixin'
 .content
+  font-size $font-size-medium
   margin-bottom 10px
   .song-title
     display flex
@@ -90,6 +91,6 @@ export default {
         span
           margin-top 4px
           width 100px
-          font-size 8px
+          font-size $font-size-small
           no-wrap()
 </style>
