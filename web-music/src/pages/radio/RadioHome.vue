@@ -18,9 +18,9 @@
 </template>
 <script>
 import api from "../../api/api.js";
-import RollList from "@/components/RollList";
-import GridList from "@/components/GridList";
-import BannerSwiper from "@/components/BannerSwiper";
+import RollList from "components/RollList";
+import GridList from "components/GridList";
+import BannerSwiper from "components/BannerSwiper";
 
 import { Toast } from "vant";
 
