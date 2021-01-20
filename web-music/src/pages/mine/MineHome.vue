@@ -3,7 +3,7 @@
     <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
     <!-- 头像区 -->
     <div class="user" v-if="loginState=='1'">
-      <img class="user-img" :src="profile.avatarUrl" />
+      <img class="user-img" :src="profile.avatarUrl" :onerror="defaultImg" />
       <!-- <div class="user-img"  :style="{background: 'url(' + profile.avatarUrl + ')'}"></div> -->
       <div>{{profile.nickname}}</div>
       <i class="iconfont icon-jiantou"></i>
@@ -23,7 +23,7 @@
     <!-- 我喜欢的音乐 -->
     <div class="favorite-music" v-if="loginState=='1'">
       <!-- TODO占位处理 -->
-      <img class="icon" :src="firstItem.coverImgUrl" />
+      <img class="icon" :src="firstItem.coverImgUrl" :onerror="defaultImg" />
       <div class="tip">
         <span>我喜欢的音乐</span>
         <span>{{firstItem.trackCount}}首</span>
@@ -52,7 +52,7 @@
             </div>
             <div v-if="loginState=='1'">
               <div class="list-content" v-for="item in createList">
-                <img class="left" :src="item.coverImgUrl" />
+                <img class="left" v-lazy="item.coverImgUrl" :onerror="defaultImg" />
                 <div class="right">
                   <span>{{item.name}}</span>
                   <span>{{item.trackCount}}首</span>
@@ -72,7 +72,7 @@
             </div>
             <div v-if="loginState=='1'">
               <div class="list-content" v-for="item in collectList ">
-                <img class="left" :src="item.coverImgUrl" />
+                <img class="left" v-lazy="item.coverImgUrl" :onerror="defaultImg" />
                 <div class="right">
                   <span>{{item.name}}</span>
                   <span>{{item.trackCount}}首</span>
@@ -115,7 +115,8 @@ export default {
       playlist: [], //歌单
       createList: [], //创建歌单
       collectList: [], //收藏歌单
-      firstItem: {}
+      firstItem: {},
+      defaultImg: 'this.src="' + require("assets/img/lazy_load.png") + '"' //默认图地址
     };
   },
   mounted() {
@@ -270,7 +271,7 @@ export default {
     background-color $color-background-grey
   .song-list>>> .van-tab
     background-color $color-background-grey
-    font-size $font-size-medium
+    title()
   .setup-list
     margin 10px
     padding-bottom 20px
@@ -292,7 +293,6 @@ export default {
       .left
         height 50px
         width 50px
-        background-color grey
         border-radius 10px
       .right
         margin-left 10px
@@ -300,6 +300,9 @@ export default {
         justify-content center
         align-items baseline
         flex-direction column
+        :nth-child(2)
+          tips()
+          margin-top 4px
     .list-content-nodata
       display flex
       justify-content center

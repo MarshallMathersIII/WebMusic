@@ -60,7 +60,7 @@ export default {
   margin 0 10px
   border-radius 10px
   overflow hidden
-  background #ee
+  background $color-background-grey
   height 0
   padding-bottom 37%
   .swiper-img

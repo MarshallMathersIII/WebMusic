@@ -9,12 +9,12 @@
         <div class="song-list">
           <div class="song-item" v-for="(item) in list">
             <img
-              :src="item.picUrl"
+              v-lazy="item.picUrl"
               class="song-img"
               v-if="type=='1'"
               :onerror="defaultImg"
             />
-            <img :src="item.coverImgUrl" class="song-img" v-else />
+            <img v-lazy="item.coverImgUrl" class="song-img" v-else />
             <span>{{item.name}}</span>
           </div>
         </div>
@@ -58,13 +58,13 @@ export default {
 @import '../assets/styles/variable'
 @import '../assets/styles/mixin'
 .content
-  font-size $font-size-medium
   margin-bottom 10px
   .song-title
     display flex
     justify-content space-between
     align-items center
     margin 14px 10px 0 10px
+    title()
   .wapper
     overflow hidden
     height 0px

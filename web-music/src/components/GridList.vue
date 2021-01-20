@@ -7,7 +7,7 @@
     <!-- TODO 最后一行不满三个左对齐 -->
     <div class="grid">
       <div class="item" v-for="item in list">
-        <img class="img" :src="item.picUrl" />
+        <img class="img" :src="item.picUrl"  :onerror="defaultImg" />
         <span>{{item.name}}</span>
       </div>
     </div>
@@ -49,7 +49,7 @@ export default {
   justify-content space-between
   align-items center
   margin 14px 10px 10px 10px
-  font-size $font-size-medium
+  title()
 .grid
   display flex
   align-items center
@@ -66,7 +66,7 @@ export default {
       border-radius 10px
       height 100px
       width 100px
-      background pink
+      background $color-background-grey
     span
       font-size $font-size-small
       margin-top 5px

@@ -11,7 +11,7 @@
     <!-- 横向滚动 -->
     <roll-list :list="djPaygiftList" :title="title" :type="rollType"></roll-list>
     <!-- 轮播图 -->
-    <banner-swiper  :bannerList="djBannerList" ></banner-swiper>
+    <banner-swiper :bannerList="djBannerList"></banner-swiper>
     <!-- Grid组件 -->
     <grid-list :title="title" :list="djPaygiftList"></grid-list>
   </div>
@@ -33,7 +33,8 @@ export default {
         leftText: "精品电台",
         rightText: "更多"
       },
-      rollType:"1"
+      rollType: "1",
+      defaultImg: 'this.src="' + require("assets/img/lazy_load.png") + '"' //默认图地址
     };
   },
   components: {
@@ -87,7 +88,7 @@ export default {
 @import '~assets/styles/variable'
 @import '~assets/styles/mixin'
 .content
-  background-color $color-background-grey
+  background-color white
   height 100%
   padding-bottom 60px
 .content >>> .van-nav-bar__text

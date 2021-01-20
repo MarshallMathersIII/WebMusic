@@ -209,7 +209,7 @@ export default {
     align-items center
     justify-content space-between
     margin 10px 10px 10px 5px
-    font-size $font-size-medium
+    title()
     .new-left
       display flex
       div
