@@ -4,11 +4,19 @@ import store from '@/store/index'
 import qs from "qs";
 
 
-import { djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import {playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
 export default {
+    // 歌单详情
+    playlistDetailFn(id, s) {
+        return axios.get(playlistDetail, {
+            params: {
+                id, s
+            }
+        })
+    },
     //电台baner
     djBannerFn() {
         return axios.get(djBanner)

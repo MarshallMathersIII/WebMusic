@@ -30,5 +30,5 @@ export const likeList = api + '/likelist' // 我喜欢的音乐
 export const userPlayList = api + '/user/playlist' // 获取用户歌单（登录内）
 
 
-
-
+//歌单详情
+export const playlistDetail = api + '/playlist/detail' // 获取歌单详情

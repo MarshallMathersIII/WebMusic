@@ -51,7 +51,7 @@
               </div>
             </div>
             <div v-if="loginState=='1'">
-              <div class="list-content" v-for="item in createList">
+              <div class="list-content" v-for="item in createList" @click="toListDetail(item.id)">
                 <img class="left" v-lazy="item.coverImgUrl" :onerror="defaultImg" />
                 <div class="right">
                   <span>{{item.name}}</span>
@@ -130,6 +130,12 @@ export default {
     }
   },
   methods: {
+    toListDetail(id) {
+      this.$router.push({
+        path: "/ListHome",
+        query: { id: id }
+      });
+    },
     setupList() {
       this.show = true;
     },

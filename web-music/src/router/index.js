@@ -7,7 +7,7 @@ import RadioHome from 'pages/radio/RadioHome'
 import FindHome from 'pages/find/FindHome'
 import LoginHome from 'pages/login/LoginHome'
 import PhonePwd from 'pages/login/PhonePwd'
-import SongList from 'pages/songlist/SongList'
+import ListHome from 'pages/songlist/ListHome'
 
 
 Vue.use(Router)
@@ -76,11 +76,11 @@ const router = new Router({
       }
     },
     {
-      path: '/SongList',
-      name: 'SongList',
-      component: SongList,
+      path: '/ListHome',
+      name: 'ListHome',
+      component: ListHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     }
 
@@ -91,7 +91,7 @@ const router = new Router({
 /**导航守卫使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆 */
 router.beforeEach((to, from, next) => {
   let loginState = localStorage.getItem('loginState');
-  if (to.path === '/FindHome' || to.path === '/MineHome' || to.path === '/PhonePwd' || to.path === '/LoginHome' || to.path === '/RadioHome'|| to.path === '/VideoHome'|| to.path === '/SongList') {
+  if (to.path === '/FindHome' || to.path === '/MineHome' || to.path === '/PhonePwd' || to.path === '/LoginHome' || to.path === '/RadioHome'|| to.path === '/VideoHome'|| to.path === '/ListHome') {
     next();
     return;
   }
