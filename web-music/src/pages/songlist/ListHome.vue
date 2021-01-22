@@ -2,16 +2,17 @@
   <div class="content">
     <title-bar :milddleTip="milddleTip"></title-bar>
     <div class="header-wapper">
+      <!-- TODO 背景图实现高斯模糊 -->
       <div class="header">
         <!--@load需加载完成执行提取色方法 crossorigin="anonymous"解决网络图片跨域问题 -->
+        <!-- 歌单头部 -->
         <img
-          ref="bgImg"
+          ref="bgImg"   
           class="img"
           v-lazy="playlist.coverImgUrl"
           :onerror="defaultImg"
           @load="getBgColor"
-          crossorigin="anonymous"
-        />
+          crossorigin="anonymous" />    
         <div class="info">
           <span>{{playlist.name}}</span>
           <div class="author" v-if="playlist.creator!==undefined">
@@ -21,23 +22,29 @@
           <span>{{playlist.description}}</span>
         </div>
       </div>
+      <!-- 头部 收藏/评论分享 -->
       <div class="btn-wapper"></div>
       <div class="btn">
         <div>
           <i class="iconfont icon-xuanze"></i>
           <i>{{playlist.subscribedCount}}</i>
         </div>
+        <!-- 分割线 -->
+        <div style="float:left;width: 1px;height: 16px; background: grey;"></div> 
         <div>
           <i class="iconfont icon-pinglun"></i>
-          <i>{{playlist.commentCount}}</i>
+          <i>{{playlist.commentCount}}</i>  
         </div>
+          <div style="float:left;width: 1px;height: 16px; background: grey;"></div> 
         <div>
           <i class="iconfont icon-fenxiang"></i>
           <i>{{playlist.shareCount}}</i>
         </div>
       </div>
     </div>
+    <!-- 歌单列表 -->
     <div class="song-list">
+      <!-- 列表头部 -->
       <div class="list-title">
         <div class="left">
           <i class="iconfont icon-bofang-01"></i>
@@ -48,6 +55,7 @@
           <i class="iconfont icon-xuanze"></i>
         </div>
       </div>
+      <!-- 列表内容 -->
       <div class="list-content" v-for="(item,index) in tracks" :key="item.id">
         <div class="left">
           <i>{{index+1}}</i>
@@ -60,6 +68,7 @@
           <i class="iconfont icon-gengduo"></i>
         </div>
       </div>
+      <!-- 列表底部 -->
       <div class="list-bottom" v-if="playlist.subscribedCount!==0">
         <div class="left" >
           <img v-lazy="item.avatarUrl" class="bottom-img" v-for="item in subscribers.slice(0,5)" />

@@ -4,7 +4,7 @@ import store from '@/store/index'
 import qs from "qs";
 
 
-import {playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import { playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
@@ -148,6 +148,7 @@ axios.interceptors.response.use(
         if (response.status === 200) {
             clearAllTimer();
             store.commit("SET_APPENDING", false);
+            console.log(response)
             return Promise.resolve(response);
         } else {
             clearAllTimer();
@@ -160,7 +161,8 @@ axios.interceptors.response.use(
     // 然后根据返回的状态码进行一些操作，例如登录过期提示，错误提示等等
     // 下面列举几个常见的操作，其他需求可自行扩展
     error => {
-        // if (error.response.status) {
+        clearAllTimer();
+        store.commit("SET_APPENDING", false);
         switch (error.response.status) {
             // 301: 未登录
             // 未登录则跳转登录页面，并携带当前页面的路径
@@ -169,6 +171,14 @@ axios.interceptors.response.use(
                 console.log('301')
                 router.replace({
                     path: '/LoginHome',
+                });
+                break;
+            case 400:
+                Toast({
+                    message: '请求参数错误',
+                    duration: 1000,
+                    forbidClick: true,
+                    position: 'bottom',
                 });
                 break;
             // 403 token过期
