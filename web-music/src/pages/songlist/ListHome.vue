@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip"></title-bar>
-    <div>
+    <div class="header-wapper">
       <div class="header">
         <!--@load需加载完成执行提取色方法 crossorigin="anonymous"解决网络图片跨域问题 -->
         <img
@@ -24,16 +24,49 @@
       <div class="btn-wapper"></div>
       <div class="btn">
         <div>
-          <i class="iconfont icon-diantai"></i>
+          <i class="iconfont icon-xuanze"></i>
           <i>{{playlist.subscribedCount}}</i>
         </div>
         <div>
-          <i class="iconfont icon-diantai"></i>
+          <i class="iconfont icon-pinglun"></i>
           <i>{{playlist.commentCount}}</i>
         </div>
         <div>
           <i class="iconfont icon-fenxiang"></i>
           <i>{{playlist.shareCount}}</i>
+        </div>
+      </div>
+    </div>
+    <div class="song-list">
+      <div class="list-title">
+        <div class="left">
+          <i class="iconfont icon-bofang-01"></i>
+          <span>播放全部({{playlist.trackCount}})</span>
+        </div>
+        <div class="right">
+          <i class="iconfont icon-xiazai"></i>
+          <i class="iconfont icon-xuanze"></i>
+        </div>
+      </div>
+      <div class="list-content" v-for="(item,index) in tracks" :key="item.id">
+        <div class="left">
+          <i>{{index+1}}</i>
+          <div class="song-info">
+            <span>{{item.name}}</span>
+            <span v-for="singer in item.ar">{{singer.name}}</span>
+          </div>
+        </div>
+        <div class="right">
+          <i class="iconfont icon-gengduo"></i>
+        </div>
+      </div>
+      <div class="list-bottom" v-if="playlist.subscribedCount!==0">
+        <div class="left" >
+          <img v-lazy="item.avatarUrl" class="bottom-img" v-for="item in subscribers.slice(0,5)" />
+        </div>
+        <div class="right" >
+          <span>{{playlist.subscribedCount}}人收藏</span>
+          <i class="iconfont icon-jiantou"></i>
         </div>
       </div>
     </div>
@@ -53,7 +86,9 @@ export default {
       id: "",
       playlist: [],
       defaultImg: 'this.src="' + require("assets/img/lazy_load.png") + '"',
-      color: [] //提取背景色
+      color: [], //提取背景色
+      tracks: [],
+      subscribers: []
     };
   },
   mounted() {
@@ -75,70 +110,124 @@ export default {
         .then(result => {
           console.log(result.data.playlist);
           this.playlist = result.data.playlist;
+          this.tracks = result.data.playlist.tracks;
+          this.subscribers = result.data.playlist.subscribers;
         })
         .catch(err => {});
     }
   },
-  computed: {
-
-  }
+  computed: {}
 };
 </script>
 
 <style scoped lang="stylus">
 @import '~assets/styles/variable'
 @import '~assets/styles/mixin'
-.header
-  position relative
-  padding 10px
-  display flex
-  justify-content flex-start
-  align-items center
-  height 160px
-  background-color pink
-  z-index 1000
-  .img
-    height 100px
-    width 100px
-    border-radius 10px
-  .info
-    color white
-    flex 1
-    height 100px
+.content
+  background-color white
+  height 100%
+  padding-bottom 60px
+.header-wapper
+  height 220px
+  .header
+    position relative
+    padding 10px
+    display flex
+    justify-content flex-start
+    align-items center
+    height 160px
+    background-color pink
+    z-index 1000
+    .img
+      height 100px
+      width 100px
+      border-radius 10px
+    .info
+      color white
+      flex 1
+      height 100px
+      display flex
+      justify-content space-around
+      flex-direction column
+      align-items flex-start
+      margin-left 10px
+      .author
+        display flex
+        justify-content flex-start
+        align-items center
+        .author-img
+          border-radius 50%
+          height 25px
+          width 25px
+          background grey
+          margin-right 6px
+  .btn-wapper
+    z-index 900
+    position relative
+    bottom 30px
+    background-color white
+    height 80px
+    display flex
+    justify-content center
+    align-items center
+  .btn
+    position relative
+    z-index 1900
+    background-color white
+    height 50px
+    width 280px
+    margin 0 auto
+    bottom 100px
+    border-radius 25px
     display flex
     justify-content space-around
-    flex-direction column
-    align-items flex-start
-    margin-left 10px
-    .author
+    align-items center
+    box-shadow inset 0 0 2px #CCC
+.song-list
+  padding 0 10px
+  .list-title
+    height 60px
+    width 100%
+    align-items center
+    justify-content space-between
+    display flex
+    .left
+      font-size $font-size-medium-x
+      i
+        color red
+        font-size 18px
+  .list-content
+    height 50px
+    display flex
+    align-items center
+    justify-content space-between
+    .left
       display flex
-      justify-content flex-start
       align-items center
-      .author-img
-        border-radius 50%
-        height 25px
-        width 25px
-        background grey 
-.btn-wapper
-  z-index 900
-  position relative
-  bottom 30px
-  background-color white
-  height 80px
+      justify-content flex-start
+      .song-info
+        margin-left 10px
+        display flex
+        justify-content center
+        align-items flex-start
+        flex-direction column
+        :first-child
+          color black
+          font-size $font-size-small
+        :nth-child(2)
+          color grey
+.list-bottom
+  margin-top 6px
+  height 30px
+  width 100%
   display flex
-  justify-content center
+  justify-content space-between
   align-items center
-.btn
-  position relative
-  z-index 1900
-  background-color white
-  height 50px
-  width 280px
-  margin 0 auto
-  bottom 100px
-  border-radius 25px
-  display flex
-  justify-content space-around
-  align-items center
-  box-shadow inset 0 0 2px #CCC
+  .left
+    display flex
+    .bottom-img
+      border-radius 10px
+      margin-left 5px
+      width 20px
+      height 20px
 </style>
