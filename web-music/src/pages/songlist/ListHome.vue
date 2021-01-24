@@ -7,12 +7,13 @@
         <!--@load需加载完成执行提取色方法 crossorigin="anonymous"解决网络图片跨域问题 -->
         <!-- 歌单头部 -->
         <img
-          ref="bgImg"   
+          ref="bgImg"
           class="img"
           v-lazy="playlist.coverImgUrl"
           :onerror="defaultImg"
           @load="getBgColor"
-          crossorigin="anonymous" />    
+          crossorigin="anonymous"
+        />
         <div class="info">
           <span>{{playlist.name}}</span>
           <div class="author" v-if="playlist.creator!==undefined">
@@ -30,12 +31,12 @@
           <i>{{playlist.subscribedCount}}</i>
         </div>
         <!-- 分割线 -->
-        <div style="float:left;width: 1px;height: 16px; background: grey;"></div> 
+        <div style="float:left;width: 1px;height: 16px; background: grey;"></div>
         <div>
           <i class="iconfont icon-pinglun"></i>
-          <i>{{playlist.commentCount}}</i>  
+          <i>{{playlist.commentCount}}</i>
         </div>
-          <div style="float:left;width: 1px;height: 16px; background: grey;"></div> 
+        <div style="float:left;width: 1px;height: 16px; background: grey;"></div>
         <div>
           <i class="iconfont icon-fenxiang"></i>
           <i>{{playlist.shareCount}}</i>
@@ -61,7 +62,9 @@
           <i>{{index+1}}</i>
           <div class="song-info">
             <span>{{item.name}}</span>
-            <span v-for="singer in item.ar">{{singer.name}}</span>
+            <div class="artists">
+              <span v-for="singer in item.ar">{{singer.name}}</span>
+            </div>
           </div>
         </div>
         <div class="right">
@@ -70,10 +73,10 @@
       </div>
       <!-- 列表底部 -->
       <div class="list-bottom" v-if="playlist.subscribedCount!==0">
-        <div class="left" >
+        <div class="left">
           <img v-lazy="item.avatarUrl" class="bottom-img" v-for="item in subscribers.slice(0,5)" />
         </div>
-        <div class="right" >
+        <div class="right">
           <span>{{playlist.subscribedCount}}人收藏</span>
           <i class="iconfont icon-jiantou"></i>
         </div>
@@ -223,8 +226,8 @@ export default {
         :first-child
           color black
           font-size $font-size-small
-        :nth-child(2)
-          color grey
+        .artists
+          display flex
 .list-bottom
   margin-top 6px
   height 30px

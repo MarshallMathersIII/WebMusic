@@ -21,7 +21,7 @@
       </div>
     </div>
     <!-- 我喜欢的音乐 -->
-    <div class="favorite-music" v-if="loginState=='1'">
+    <div class="favorite-music" v-if="loginState=='1'" @click="toListDetail(firstItem.id)">
       <!-- TODO占位处理 -->
       <img class="icon" :src="firstItem.coverImgUrl" :onerror="defaultImg" />
       <div class="tip">
@@ -71,7 +71,7 @@
               </div>
             </div>
             <div v-if="loginState=='1'">
-              <div class="list-content" v-for="item in collectList ">
+              <div class="list-content" v-for="item in collectList " @click="toListDetail(item.id)">
                 <img class="left" v-lazy="item.coverImgUrl" :onerror="defaultImg" />
                 <div class="right">
                   <span>{{item.name}}</span>
