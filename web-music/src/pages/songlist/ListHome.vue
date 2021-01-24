@@ -59,7 +59,7 @@
       <!-- 列表内容 -->
       <div class="list-content" v-for="(item,index) in tracks" :key="item.id">
         <div class="left">
-          <i>{{index+1}}</i>
+          <span>{{index+1}}</span>
           <div class="song-info">
             <span>{{item.name}}</span>
             <div class="artists">
@@ -214,12 +214,24 @@ export default {
     align-items center
     justify-content space-between
     .left
+      height 30px
       display flex
       align-items center
       justify-content flex-start
+      flex 1
+      no-wrap()
+      span
+        color red
+        width 14px
+        height 14px
+        line-height 14px
+        text-align center
       .song-info
         margin-left 10px
+        margin-right 6px
         display flex
+        flex 1
+        no-wrap()
         justify-content center
         align-items flex-start
         flex-direction column
@@ -227,19 +239,27 @@ export default {
           color black
           font-size $font-size-small
         .artists
-          display flex
-.list-bottom
-  margin-top 6px
-  height 30px
-  width 100%
-  display flex
-  justify-content space-between
-  align-items center
-  .left
+          display felx
+          justify-content flex-start
+          span
+            padding-right 2px
+            color grey
+          ::after
+            content '/'
+          :last-child::after
+            content ''
+  .list-bottom
+    margin-top 6px
+    height 30px
+    width 100%
     display flex
-    .bottom-img
-      border-radius 10px
-      margin-left 5px
-      width 20px
-      height 20px
+    justify-content space-between
+    align-items center
+    .left
+      display flex
+      .bottom-img
+        border-radius 10px
+        margin-left 5px
+        width 20px
+        height 20px
 </style>
