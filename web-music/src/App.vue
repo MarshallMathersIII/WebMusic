@@ -14,7 +14,6 @@ import Tab from "./pages/base-tab";
 import { Toast } from "vant";
 import { mapState } from "vuex";
 
-
 export default {
   components: {
     Tab

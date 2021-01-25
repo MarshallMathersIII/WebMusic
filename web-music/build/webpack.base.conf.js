@@ -37,7 +37,7 @@ module.exports = {
       'mine': resolve('src/pages/mine'),
       'radio': resolve('src/pages/radio'),
       'video': resolve('src/pages/video'),
-
+      'player': resolve('src/pages/player'),
     }
   },
   module: {

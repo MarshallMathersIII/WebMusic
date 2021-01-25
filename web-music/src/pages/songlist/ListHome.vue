@@ -222,7 +222,7 @@ export default {
       no-wrap()
       span
         color red
-        width 14px
+        width 24px
         height 14px
         line-height 14px
         text-align center

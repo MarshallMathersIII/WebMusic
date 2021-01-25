@@ -8,6 +8,8 @@ import FindHome from 'pages/find/FindHome'
 import LoginHome from 'pages/login/LoginHome'
 import PhonePwd from 'pages/login/PhonePwd'
 import ListHome from 'pages/songlist/ListHome'
+import PlayerHome from 'pages/player/PlayerHome'
+
 
 
 Vue.use(Router)
@@ -80,7 +82,15 @@ const router = new Router({
       name: 'ListHome',
       component: ListHome,
       meta: {
-        keepAlive: false
+        keepAlive: true
+      }
+    },
+    {
+      path: '/PlayerHome',
+      name: 'PlayerHome',
+      component: PlayerHome,
+      meta: {
+        keepAlive: true
       }
     }
 
