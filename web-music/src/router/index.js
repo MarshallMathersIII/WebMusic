@@ -82,7 +82,7 @@ const router = new Router({
       name: 'ListHome',
       component: ListHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -90,7 +90,7 @@ const router = new Router({
       name: 'PlayerHome',
       component: PlayerHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     }
 

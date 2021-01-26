@@ -17,7 +17,7 @@
         <div class="info">
           <span>{{playlist.name}}</span>
           <div class="author" v-if="playlist.creator!==undefined">
-            <img v-lazy="playlist.creator.avatarUrl" class="author-img" />
+            <img v-lazy="playlist.creator.avatarUrl" class="author-img"  :onerror="defaultImg"/>
             <div class="author-tip">{{playlist.creator.nickname}}</div>
           </div>
           <span>{{playlist.description}}</span>
@@ -58,7 +58,7 @@
       </div>
       <!-- 列表内容 -->
       <div class="list-content" v-for="(item,index) in tracks" :key="item.id">
-        <div class="left">
+        <div class="left" @click="playingMusic(item)">
           <span>{{index+1}}</span>
           <div class="song-info">
             <span>{{item.name}}</span>
@@ -109,6 +109,12 @@ export default {
     this.playlistDetailFn(this.id);
   },
   methods: {
+    playingMusic(tracksItem){
+       this.$router.push({
+        path: "/PlayerHome",
+        query: { tracksItem: tracksItem }
+      });
+    },
     getBgColor() {
       console.log("palette");
       var colorThief = new ColorThief();
@@ -171,7 +177,6 @@ export default {
           border-radius 50%
           height 25px
           width 25px
-          background grey
           margin-right 6px
   .btn-wapper
     z-index 900

@@ -4,11 +4,29 @@ import store from '@/store/index'
 import qs from "qs";
 
 
-import { playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import { checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
 export default {
+    getSongUrlFn(id, br) {
+        return axios.get(songUrl, {
+            params: {
+                id, br
+            }
+        })
+    },
+    /**
+     * 音乐是否可用
+     * 说明: 调用此接口,传入歌曲 id, 可获取音乐是否可用,返回 { success: true, message: 'ok' } 或者 { success: false, message: '亲爱的,暂无版权' }
+     */
+    checkMusicFn(id, br) {
+        return axios.get(checkMusic, {
+            params: {
+                id, br
+            }
+        })
+    },
     // 歌单详情
     playlistDetailFn(id, s) {
         return axios.get(playlistDetail, {

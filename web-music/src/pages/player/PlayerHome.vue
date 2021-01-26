@@ -1,27 +1,35 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
+    <!-- 唱盘主义 -->
     <div class="vinyl-content">
       <div class="stylus">
         <div class="spot"></div>
         <img src="../../assets/img/stylus.png" :class="[isPlaying?playClass:stopClass]" />
       </div>
-      <div :class="[isPlaying?vinyl:vinylStop]">gil scott-heron</div>
+      <div :class="[isPlaying?vinyl:vinylStop]">
+        <img :src="picUrl" alt class="vinyl-pic" />
+      </div>
     </div>
+    <!-- 喜欢/下载/评论 -->
     <div class="btn-wapper">
       <i class="iconfont icon-xihuan1"></i>
       <i class="iconfont icon-xiazai1"></i>
       <i class="iconfont icon-pinglun1"></i>
       <i class="iconfont icon-gengduo1"></i>
     </div>
+    <!-- 播放时间进度条 -->
     <div class="palyer-progress"></div>
+    <!-- 播放控制栏 -->
     <div class="palyer">
-      <i class="iconfont icon-suijibofang"></i>
-      <i class="iconfont icon-shangyishouxianxing"></i>
-      <i class="iconfont icon-bofang" @click="play"></i>
-      <i class="iconfont icon-xiayishouxianxing"></i>
+      <i class="iconfont icon-suijibofang" @click="playMode"></i>
+      <i class="iconfont icon-shangyishouxianxing" @click="prePlay"></i>
+      <i @click="changePlaying" :class="playIcon"></i>
+      <i class="iconfont icon-xiayishouxianxing" @click="nextPlay"></i>
       <i class="iconfont icon-juxing"></i>
     </div>
+    <!-- 播放器 -->
+    <audio id="music-audio" ref="audio" autoplay></audio>
   </div>
 </template>
 <script>
@@ -39,19 +47,48 @@ export default {
       milddleTip: "播放组件",
       phone: "",
       btnShow: false,
-      isPlaying: true,
+      isPlaying: false,
       playClass: "play",
       stopClass: "stop",
       vinyl: "vinyl",
-      vinylStop: "vinyl-stop"
+      vinylStop: "vinyl-stop",
+      tracksItem: {},
+      songUrl: "",
+      picUrl: ""
     };
   },
+  mounted() {
+    this.tracksItem = this.$route.query.tracksItem; //歌曲
+    this.picUrl = this.$route.query.tracksItem.al.picUrl; //唱片封面
+    console.log(this.tracksItem);
+    this.getSongUrlFn(this.tracksItem.id);
+  },
+  computed: {
+    playIcon() {
+      return this.isPlaying ? "iconfont icon-zanting" : "iconfont icon-bofang";
+    }
+  },
   methods: {
+    playMode() {},
+    nextPlay() {},
+    prePlay() {},
+    changePlaying() {
+      this.$refs.audio.src = this.songUrl;
+      this.isPlaying = this.isPlaying ? false : true;
+      this.isPlaying ? this.$refs.audio.play() : this.$refs.audio.pause();
+    },
     leftClickBtn() {
       this.$router.back(-1);
     },
-    play() {
-      this.isPlaying = this.isPlaying ? false : true;
+    getSongUrlFn(id) {
+      api
+        .getSongUrlFn(id)
+        .then(result => {
+          console.log(result.data);
+          this.songUrl = result.data.data[0].url;
+          console.log(result.data.data[0].url);
+        })
+        .catch(err => {});
     }
   }
 };
@@ -112,10 +149,11 @@ export default {
     display flex
     align-items center
     justify-content center
-    animation palying 4s infinite linear
-    animation-fill-mode forwards
-    -webkit-animation-iteration-count 1
-    -webkit-animation-fill-mode forwards
+    animation palying 8s infinite linear
+    img
+      height 200px
+      width 200px
+      border-radius 50%
   @keyframes palying
     0%
       -webkit-transform rotate(0deg)
@@ -133,6 +171,10 @@ export default {
     display flex
     align-items center
     justify-content center
+    img
+      height 200px
+      width 200px
+      border-radius 50%
 .btn-wapper
   height 40px
   display flex
