@@ -17,7 +17,7 @@
         <div class="info">
           <span>{{playlist.name}}</span>
           <div class="author" v-if="playlist.creator!==undefined">
-            <img v-lazy="playlist.creator.avatarUrl" class="author-img"  :onerror="defaultImg"/>
+            <img v-lazy="playlist.creator.avatarUrl" class="author-img" :onerror="defaultImg" />
             <div class="author-tip">{{playlist.creator.nickname}}</div>
           </div>
           <span>{{playlist.description}}</span>
@@ -58,7 +58,7 @@
       </div>
       <!-- 列表内容 -->
       <div class="list-content" v-for="(item,index) in tracks" :key="item.id">
-        <div class="left" @click="playingMusic(item)">
+        <div class="left" @click="playingMusic(item,index)">
           <span>{{index+1}}</span>
           <div class="song-info">
             <span>{{item.name}}</span>
@@ -88,6 +88,7 @@
 import TitleBar from "@/components/TitleBar";
 import api from "api/api.js";
 import ColorThief from "color-thief";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   components: {
     TitleBar
@@ -109,11 +110,16 @@ export default {
     this.playlistDetailFn(this.id);
   },
   methods: {
-    playingMusic(tracksItem){
-       this.$router.push({
-        path: "/PlayerHome",
-        query: { tracksItem: tracksItem }
-      });
+    playingMusic(item, index) {
+      console.log(index);
+      this.setFullScreen(true);
+      this.setPlaylist(this.tracks);
+      this.setCurrentIndex(index);
+      this.setPlayingState(true);
+      // this.$store.commit("SET_FULL_SCREEN", true);
+      // this.$store.commit("SET_PLAYLIST", this.tracks);
+      // this.$store.commit("SET_CURRENT_INDEX", index);
+      // this.$store.commit("SET_PLAYING_STATE", true);
     },
     getBgColor() {
       console.log("palette");
@@ -132,9 +138,17 @@ export default {
           this.subscribers = result.data.playlist.subscribers;
         })
         .catch(err => {});
-    }
+    },
+    ...mapMutations({
+      setFullScreen: "SET_FULL_SCREEN",
+      setPlaylist: "SET_PLAYLIST",
+      setCurrentIndex: "SET_CURRENT_INDEX",
+      setPlayingState: "SET_PLAYING_STATE"
+    })
   },
-  computed: {}
+  computed: {
+    ...mapGetters([])
+  }
 };
 </script>
 

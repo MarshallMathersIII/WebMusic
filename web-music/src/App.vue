@@ -6,21 +6,25 @@
       <router-view></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
+    <player :fullScreen="fullScreen"></player>
+    <!-- TODO侧滑栏全局控制 -->
   </div>
 </template>
 
 <script>
 import Tab from "./pages/base-tab";
+import Player from "./pages/player/Player";
 import { Toast } from "vant";
 import { mapState } from "vuex";
 
 export default {
   components: {
-    Tab
+    Tab,
+    Player
   },
   methods: {},
   computed: {
-    ...mapState(["isAppending"])
+    ...mapState(["isAppending", "fullScreen"])
   },
   //监听请求Loading状态值改变
   watch: {

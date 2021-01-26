@@ -1,13 +1,13 @@
 <template>
-  <div class="content">
+  <div class="content" v-show="fullScreen">
     <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
     <!-- 唱盘主义 -->
     <div class="vinyl-content">
       <div class="stylus">
         <div class="spot"></div>
-        <img src="../../assets/img/stylus.png" :class="[isPlaying?playClass:stopClass]" />
+        <img src="../../assets/img/stylus.png" :class="[playing?playClass:stopClass]" />
       </div>
-      <div :class="[isPlaying?vinyl:vinylStop]">
+      <div :class="[playing?vinyl:vinylStop]">
         <img :src="picUrl" alt class="vinyl-pic" />
       </div>
     </div>
@@ -36,49 +36,78 @@
 import axios from "axios";
 import api from "@/api/api.js";
 import TitleBar from "@/components/TitleBar";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
+  name: "Player",
   components: {
     TitleBar
   },
-
   data() {
     return {
       milddleTip: "播放组件",
       phone: "",
-      btnShow: false,
-      isPlaying: false,
       playClass: "play",
       stopClass: "stop",
       vinyl: "vinyl",
       vinylStop: "vinyl-stop",
-      tracksItem: {},
       songUrl: "",
-      picUrl: ""
+      picUrl: "",
+      show: true,
+      id: "" //当前歌曲id
     };
   },
   mounted() {
-    this.tracksItem = this.$route.query.tracksItem; //歌曲
-    this.picUrl = this.$route.query.tracksItem.al.picUrl; //唱片封面
-    console.log(this.tracksItem);
-    this.getSongUrlFn(this.tracksItem.id);
+    console.log("mounted");
+    this.picUrl = this.currentSong.al.picUrl; //歌曲封面
+    this.id = this.currentSong.id; //歌曲id
+    this.getSongUrlFn(this.id);
+  },
+  created() {
+    console.log("created");
   },
   computed: {
+    ...mapGetters([
+      "playlist",
+      "fullScreen",
+      "currentSong",
+      "playing",
+      "currentIndex",
+      "mode",
+      "sequenceList"
+    ]),
     playIcon() {
-      return this.isPlaying ? "iconfont icon-zanting" : "iconfont icon-bofang";
+      if (this.playing) {
+        return "iconfont icon-zanting";
+      } else {
+        return "iconfont icon-bofang";
+      }
     }
   },
   methods: {
     playMode() {},
-    nextPlay() {},
+    nextPlay() {
+      console.log(this.playing);
+      console.log(this.fullScreen);
+      console.log(this.currentIndex);
+      console.log(this.playlist);
+      console.log(this.currentSong);
+    },
     prePlay() {},
     changePlaying() {
       this.$refs.audio.src = this.songUrl;
-      this.isPlaying = this.isPlaying ? false : true;
-      this.isPlaying ? this.$refs.audio.play() : this.$refs.audio.pause();
+      if (this.playing) {
+        this.setPlayingState(false);
+      } else {
+        this.setPlayingState(true);
+      }
+      this.playing ? this.$refs.audio.play() : this.$refs.audio.pause();
+      this.picUrl = this.currentSong.al.picUrl; //歌曲封面
+      this.id = this.currentSong.id; //歌曲id
+      this.getSongUrlFn(this.id);
     },
     leftClickBtn() {
-      this.$router.back(-1);
+      this.setFullScreen(false);
     },
     getSongUrlFn(id) {
       api
@@ -89,20 +118,28 @@ export default {
           console.log(result.data.data[0].url);
         })
         .catch(err => {});
-    }
+    },
+    ...mapMutations({
+      setFullScreen: "SET_FULL_SCREEN",
+      setPlaylist: "SET_PLAYLIST",
+      setCurrentIndex: "SET_CURRENT_INDEX",
+      setPlayingState: "SET_PLAYING_STATE"
+    })
   }
 };
 </script>
 
 <style scoped lang="stylus">
-@import '../../assets/styles/variable'
-@import '../../assets/styles/mixin'
+@import '~assets/styles/variable'
+@import '~assets/styles/mixin'
 .content
   background-color #ffffff
-  position absolute
-  z-index 1000
-  width 100%
-  height 100%
+  position fixed
+  top 0
+  left 0
+  bottom 0
+  right 0
+  z-index 3000
   .vinyl-content
     width 100%
     display flex

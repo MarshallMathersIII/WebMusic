@@ -7,3 +7,9 @@ export const btnType = {
     share: 6,
     show: 5
 }
+
+export const palyMode = {
+   sequence:0,
+   loop:1,
+   random:2
+}
