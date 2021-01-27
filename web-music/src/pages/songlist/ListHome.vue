@@ -116,10 +116,6 @@ export default {
       this.setPlaylist(this.tracks);
       this.setCurrentIndex(index);
       this.setPlayingState(true);
-      // this.$store.commit("SET_FULL_SCREEN", true);
-      // this.$store.commit("SET_PLAYLIST", this.tracks);
-      // this.$store.commit("SET_CURRENT_INDEX", index);
-      // this.$store.commit("SET_PLAYING_STATE", true);
     },
     getBgColor() {
       console.log("palette");

@@ -49,7 +49,7 @@ const router = new Router({
       name: 'MineHome',
       component: MineHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {

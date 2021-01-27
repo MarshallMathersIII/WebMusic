@@ -6,7 +6,7 @@
       <router-view></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <player :fullScreen="fullScreen"></player>
+    <player :fullScreen="fullScreen" v-show="currentSong!=null"></player>
     <!-- TODO侧滑栏全局控制 -->
   </div>
 </template>
@@ -15,7 +15,7 @@
 import Tab from "./pages/base-tab";
 import Player from "./pages/player/Player";
 import { Toast } from "vant";
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   components: {
@@ -24,7 +24,17 @@ export default {
   },
   methods: {},
   computed: {
-    ...mapState(["isAppending", "fullScreen"])
+    ...mapState(["isAppending", "fullScreen"]),
+    ...mapGetters([
+      "playlist",
+      "fullScreen",
+      "currentSong",
+      "playing",
+      "currentIndex",
+      "mode",
+      "sequenceList",
+      "songUrl"
+    ])
   },
   //监听请求Loading状态值改变
   watch: {

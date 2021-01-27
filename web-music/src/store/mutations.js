@@ -34,6 +34,9 @@ const mutations = {
   [types.SET_CURRENT_INDEX] (state, index) {
     state.currentIndex = index
   },
+  [types.SET_SONG_URL] (state, songUrl) {
+    state.songUrl = songUrl
+  },
 }
 
 export default mutations

@@ -1,31 +1,41 @@
 <template>
-  <div class="content" v-show="fullScreen">
-    <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
-    <!-- 唱盘主义 -->
-    <div class="vinyl-content">
-      <div class="stylus">
-        <div class="spot"></div>
-        <img src="../../assets/img/stylus.png" :class="[playing?playClass:stopClass]" />
+  <div class="content">
+    <div class="normal-player" v-show="fullScreen">
+      <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
+      <!-- 唱盘主义 -->
+      <div class="vinyl-content">
+        <div class="stylus">
+          <div class="spot"></div>
+          <img src="../../assets/img/stylus.png" :class="[playing?playClass:stopClass]" />
+        </div>
+        <div :class="[playing?vinyl:vinylStop]">
+          <img :src="currentSong.al.picUrl" alt class="vinyl-pic" />
+        </div>
       </div>
-      <div :class="[playing?vinyl:vinylStop]">
-        <img :src="picUrl" alt class="vinyl-pic" />
+      <!-- 喜欢/下载/评论 -->
+      <div class="btn-wapper">
+        <i class="iconfont icon-xihuan1"></i>
+        <i class="iconfont icon-xiazai1"></i>
+        <i class="iconfont icon-pinglun1"></i>
+        <i class="iconfont icon-gengduo1"></i>
+      </div>
+      <!-- 播放时间进度条 -->
+      <div class="palyer-progress"></div>
+      <!-- 播放控制栏 -->
+      <div class="palyer">
+        <i class="iconfont icon-suijibofang" @click="playMode"></i>
+        <i class="iconfont icon-shangyishouxianxing" @click="prePlay"></i>
+        <i @click="changePlaying" :class="playIcon"></i>
+        <i class="iconfont icon-xiayishouxianxing" @click="nextPlay"></i>
+        <i class="iconfont icon-juxing"></i>
       </div>
     </div>
-    <!-- 喜欢/下载/评论 -->
-    <div class="btn-wapper">
-      <i class="iconfont icon-xihuan1"></i>
-      <i class="iconfont icon-xiazai1"></i>
-      <i class="iconfont icon-pinglun1"></i>
-      <i class="iconfont icon-gengduo1"></i>
-    </div>
-    <!-- 播放时间进度条 -->
-    <div class="palyer-progress"></div>
-    <!-- 播放控制栏 -->
-    <div class="palyer">
-      <i class="iconfont icon-suijibofang" @click="playMode"></i>
-      <i class="iconfont icon-shangyishouxianxing" @click="prePlay"></i>
+    <div class="mini-player" v-show="!fullScreen">
+      <div :class="[playing?miniVinyl:miniVinylStop]">
+        <img class="song-img" :src="currentSong.al.picUrl" @click="goPlayer" />
+      </div>
+      <span class="song-name" @click="goPlayer">{{currentSong.name}}</span>
       <i @click="changePlaying" :class="playIcon"></i>
-      <i class="iconfont icon-xiayishouxianxing" @click="nextPlay"></i>
       <i class="iconfont icon-juxing"></i>
     </div>
     <!-- 播放器 -->
@@ -51,20 +61,9 @@ export default {
       stopClass: "stop",
       vinyl: "vinyl",
       vinylStop: "vinyl-stop",
-      songUrl: "",
-      picUrl: "",
-      show: true,
-      id: "" //当前歌曲id
+      miniVinyl: "mini-vinyl",
+      miniVinylStop: "mini-vinyl-stop"
     };
-  },
-  mounted() {
-    console.log("mounted");
-    this.picUrl = this.currentSong.al.picUrl; //歌曲封面
-    this.id = this.currentSong.id; //歌曲id
-    this.getSongUrlFn(this.id);
-  },
-  created() {
-    console.log("created");
   },
   computed: {
     ...mapGetters([
@@ -74,7 +73,8 @@ export default {
       "playing",
       "currentIndex",
       "mode",
-      "sequenceList"
+      "sequenceList",
+      "songUrl"
     ]),
     playIcon() {
       if (this.playing) {
@@ -85,6 +85,9 @@ export default {
     }
   },
   methods: {
+    goPlayer() {
+      this.setFullScreen(true);
+    },
     playMode() {},
     nextPlay() {
       console.log(this.playing);
@@ -95,16 +98,15 @@ export default {
     },
     prePlay() {},
     changePlaying() {
-      this.$refs.audio.src = this.songUrl;
+      this.getSongUrlFn(this.currentSong.id);
       if (this.playing) {
+        this.$refs.audio.pause();
         this.setPlayingState(false);
       } else {
+        this.$refs.audio.play();
         this.setPlayingState(true);
+        this.$refs.audio.src = this.songUrl;
       }
-      this.playing ? this.$refs.audio.play() : this.$refs.audio.pause();
-      this.picUrl = this.currentSong.al.picUrl; //歌曲封面
-      this.id = this.currentSong.id; //歌曲id
-      this.getSongUrlFn(this.id);
     },
     leftClickBtn() {
       this.setFullScreen(false);
@@ -114,8 +116,7 @@ export default {
         .getSongUrlFn(id)
         .then(result => {
           console.log(result.data);
-          this.songUrl = result.data.data[0].url;
-          console.log(result.data.data[0].url);
+          this.setSongUrl(result.data.data[0].url);
         })
         .catch(err => {});
     },
@@ -123,7 +124,8 @@ export default {
       setFullScreen: "SET_FULL_SCREEN",
       setPlaylist: "SET_PLAYLIST",
       setCurrentIndex: "SET_CURRENT_INDEX",
-      setPlayingState: "SET_PLAYING_STATE"
+      setPlayingState: "SET_PLAYING_STATE",
+      setSongUrl: "SET_SONG_URL"
     })
   }
 };
@@ -133,13 +135,14 @@ export default {
 @import '~assets/styles/variable'
 @import '~assets/styles/mixin'
 .content
-  background-color #ffffff
-  position fixed
-  top 0
-  left 0
-  bottom 0
-  right 0
-  z-index 3000
+  .normal-player
+    background-color #ffffff
+    position fixed
+    top 0
+    left 0
+    bottom 0
+    right 0
+    z-index 3000
   .vinyl-content
     width 100%
     display flex
@@ -212,29 +215,79 @@ export default {
       height 200px
       width 200px
       border-radius 50%
-.btn-wapper
-  height 40px
-  display flex
-  justify-content space-around
-  align-items center
-  i
-    font-size 24px
-    color black
-.palyer-progress
-  background-color pink
-  height 30px
-.palyer
-  position fixed
-  bottom 0
+  .btn-wapper
+    height 40px
+    display flex
+    justify-content space-around
+    align-items center
+    i
+      font-size 24px
+      color black
+  .palyer-progress
+    background-color pink
+    height 30px
+  .palyer
+    position fixed
+    bottom 0
+    width 100%
+    display flex
+    justify-content space-around
+    align-items center
+    padding 20px 0px
+    i
+      margin-top 16px
+      font-size 28px
+      color $color-theme
+    :nth-child(3)
+      font-size 40px
+.mini-player
+  height 50px
   width 100%
-  display flex
-  justify-content space-around
+  background-color $color-background-grey
+  position fixed
+  bottom 60px
+  justify-content space-between
   align-items center
-  padding 20px 0px
+  display flex
+  padding 0 10px
+  border-top 1px solid rgba(0, 0, 0, 0.2)
+  .mini-vinyl-stop
+    background url('../../assets/img/vinyl.png')
+    background-size cover
+    width 50px
+    height 50px
+    border-radius 50%
+    margin-bottom 16px
+    display flex
+    justify-content center
+    align-items center
+  .mini-vinyl
+    background url('../../assets/img/vinyl.png')
+    background-size cover
+    width 50px
+    height 50px
+    border-radius 50%
+    margin-bottom 14px
+    display flex
+    justify-content center
+    align-items center
+    animation palying 8s infinite linear
+  @keyframes palying
+    0%
+      -webkit-transform rotate(0deg)
+      transform rotate(0deg)
+    100%
+      -webkit-transform rotate(360deg)
+      transform rotate(360deg)
+  .song-img
+    width 34px
+    height 34px
+    border-radius 50%
+  .song-name
+    flex 5
+    margin-left 10px
+    no-wrap()
   i
-    margin-top 16px
-    font-size 28px
-    color $color-theme
-  :nth-child(3)
-    font-size 40px
+    flex 1
+    font-size 24px
 </style>

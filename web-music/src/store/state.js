@@ -11,6 +11,7 @@ const state = {
   sequenceList: [],
   mode: palyMode.sequence,
   currentIndex: -1,
+  songUrl:''
 }
 
 export default state
