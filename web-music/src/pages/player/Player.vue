@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <!-- 普通播放 -->
     <div class="normal-player" v-show="fullScreen">
       <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
       <!-- 唱盘主义 -->
@@ -8,7 +9,7 @@
           <div class="spot"></div>
           <img src="../../assets/img/stylus.png" :class="[playing?playClass:stopClass]" />
         </div>
-        <div :class="[playing?vinyl:vinylStop]">
+        <div class="vinyl" :class="vinylPlay">
           <img :src="currentSong.al.picUrl" alt class="vinyl-pic" />
         </div>
       </div>
@@ -30,15 +31,15 @@
         <i class="iconfont icon-juxing"></i>
       </div>
     </div>
+    <!-- 迷你播放 -->
     <div class="mini-player" v-show="!fullScreen">
-      <div :class="[playing?miniVinyl:miniVinylStop]">
-        <img class="song-img" :src="currentSong.al.picUrl" @click="goPlayer" />
+      <div class="mini-vinyl" :class="vinylPlay">
+        <img class="song-img" :src="currentSong.al.picUrl" @click="setFullScreen" />
       </div>
-      <span class="song-name" @click="goPlayer">{{currentSong.name}}</span>
+      <span class="song-name" @click="setFullScreen">{{currentSong.name}}</span>
       <i @click="changePlaying" :class="playIcon"></i>
       <i class="iconfont icon-juxing"></i>
     </div>
-    <!-- 播放器 -->
     <audio id="music-audio" ref="audio" autoplay></audio>
   </div>
 </template>
@@ -58,11 +59,7 @@ export default {
       milddleTip: "播放组件",
       phone: "",
       playClass: "play",
-      stopClass: "stop",
-      vinyl: "vinyl",
-      vinylStop: "vinyl-stop",
-      miniVinyl: "mini-vinyl",
-      miniVinylStop: "mini-vinyl-stop"
+      stopClass: "stop"
     };
   },
   computed: {
@@ -76,17 +73,19 @@ export default {
       "sequenceList",
       "songUrl"
     ]),
+    vinylPlay() {
+      return this.playing ? "vinyl-play" : "vinyl-stop";
+    },
     playIcon() {
-      if (this.playing) {
-        return "iconfont icon-zanting";
-      } else {
-        return "iconfont icon-bofang";
-      }
+      return this.playing ? "iconfont icon-zanting" : "iconfont icon-bofang";
     }
   },
   methods: {
-    goPlayer() {
+    setFullScreen() {
       this.setFullScreen(true);
+    },
+    leftClickBtn() {
+      this.setFullScreen(false);
     },
     playMode() {},
     nextPlay() {
@@ -107,9 +106,6 @@ export default {
         this.setPlayingState(true);
         this.$refs.audio.src = this.songUrl;
       }
-    },
-    leftClickBtn() {
-      this.setFullScreen(false);
     },
     getSongUrlFn(id) {
       api
@@ -189,32 +185,14 @@ export default {
     display flex
     align-items center
     justify-content center
-    animation palying 8s infinite linear
-    img
-      height 200px
-      width 200px
-      border-radius 50%
-  @keyframes palying
-    0%
-      -webkit-transform rotate(0deg)
-      transform rotate(0deg)
-    100%
-      -webkit-transform rotate(360deg)
-      transform rotate(360deg)
-  .vinyl-stop
-    position relative
-    bottom 60px
-    height 300px
-    width 300px
-    background url('../../assets/img/vinyl.png')
-    background-size 300px 300px
-    display flex
-    align-items center
-    justify-content center
-    img
-      height 200px
-      width 200px
-      border-radius 50%
+    &.vinyl-play
+      animation palying 8s infinite linear
+    &.vinyl-stop
+      animation-play-state stop
+  img
+    height 200px
+    width 200px
+    border-radius 50%
   .btn-wapper
     height 40px
     display flex
@@ -251,7 +229,7 @@ export default {
   display flex
   padding 0 10px
   border-top 1px solid rgba(0, 0, 0, 0.2)
-  .mini-vinyl-stop
+  .mini-vinyl
     background url('../../assets/img/vinyl.png')
     background-size cover
     width 50px
@@ -261,24 +239,10 @@ export default {
     display flex
     justify-content center
     align-items center
-  .mini-vinyl
-    background url('../../assets/img/vinyl.png')
-    background-size cover
-    width 50px
-    height 50px
-    border-radius 50%
-    margin-bottom 14px
-    display flex
-    justify-content center
-    align-items center
-    animation palying 8s infinite linear
-  @keyframes palying
-    0%
-      -webkit-transform rotate(0deg)
-      transform rotate(0deg)
-    100%
-      -webkit-transform rotate(360deg)
-      transform rotate(360deg)
+    &.vinyl-play
+      animation palying 8s infinite linear
+    &.vinyl-stop
+      animation-play-state stop
   .song-img
     width 34px
     height 34px
@@ -290,4 +254,11 @@ export default {
   i
     flex 1
     font-size 24px
+@keyframes palying
+  0%
+    -webkit-transform rotate(0deg)
+    transform rotate(0deg)
+  100%
+    -webkit-transform rotate(360deg)
+    transform rotate(360deg)
 </style>
