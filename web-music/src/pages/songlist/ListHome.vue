@@ -111,11 +111,20 @@ export default {
   },
   methods: {
     playingMusic(item, index) {
-      console.log(index);
-      this.setFullScreen(true);
+      this.getSongUrlFn(item.id);
       this.setPlaylist(this.tracks);
       this.setCurrentIndex(index);
       this.setPlayingState(true);
+      this.setFullScreen(true);
+    },
+    getSongUrlFn(id) {
+      api
+        .getSongUrlFn(id)
+        .then(result => {
+          console.log(result.data);
+          this.setSongUrl(result.data.data[0].url);
+        })
+        .catch(err => {});
     },
     getBgColor() {
       console.log("palette");
@@ -139,7 +148,8 @@ export default {
       setFullScreen: "SET_FULL_SCREEN",
       setPlaylist: "SET_PLAYLIST",
       setCurrentIndex: "SET_CURRENT_INDEX",
-      setPlayingState: "SET_PLAYING_STATE"
+      setPlayingState: "SET_PLAYING_STATE",
+      setSongUrl: "SET_SONG_URL"
     })
   },
   computed: {

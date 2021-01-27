@@ -40,7 +40,7 @@
       <i @click="changePlaying" :class="playIcon"></i>
       <i class="iconfont icon-juxing"></i>
     </div>
-    <audio id="music-audio" ref="audio" autoplay></audio>
+    <audio id="music-audio" ref="audio" autoplay :src="songUrl"></audio>
   </div>
 </template>
 <script>
@@ -59,7 +59,8 @@ export default {
       milddleTip: "播放组件",
       phone: "",
       playClass: "play",
-      stopClass: "stop"
+      stopClass: "stop",
+      songReady: false
     };
   },
   computed: {
@@ -89,23 +90,30 @@ export default {
     },
     playMode() {},
     nextPlay() {
-      console.log(this.playing);
-      console.log(this.fullScreen);
-      console.log(this.currentIndex);
-      console.log(this.playlist);
-      console.log(this.currentSong);
-    },
-    prePlay() {},
-    changePlaying() {
+      let index = this.currentIndex + 1;
+      if (index === this.playlist.length) {
+        index = 0;
+      }
+      this.setCurrentIndex(index);
       this.getSongUrlFn(this.currentSong.id);
+      this.setPlayingState(true);
+    },
+    prePlay() {
+      let index = this.currentIndex - 1;
+      if (index === -1) {
+        index = this.playlist.length - 1;
+      }
+      this.setCurrentIndex(index);
+      this.getSongUrlFn(this.currentSong.id);
+      this.setPlayingState(true);
+    },
+    changePlaying() {
       if (this.playing) {
         this.$refs.audio.pause();
-        this.setPlayingState(false);
       } else {
         this.$refs.audio.play();
-        this.setPlayingState(true);
-        this.$refs.audio.src = this.songUrl;
       }
+      this.setPlayingState(!this.playing);
     },
     getSongUrlFn(id) {
       api
@@ -113,6 +121,7 @@ export default {
         .then(result => {
           console.log(result.data);
           this.setSongUrl(result.data.data[0].url);
+          console.log(result.data.data[0].url);
         })
         .catch(err => {});
     },
@@ -186,7 +195,7 @@ export default {
     align-items center
     justify-content center
     &.vinyl-play
-      animation palying 8s infinite linear
+      animation palying 14s infinite linear
     &.vinyl-stop
       animation-play-state stop
   img
@@ -240,7 +249,7 @@ export default {
     justify-content center
     align-items center
     &.vinyl-play
-      animation palying 8s infinite linear
+      animation palying 14s infinite linear
     &.vinyl-stop
       animation-play-state stop
   .song-img
