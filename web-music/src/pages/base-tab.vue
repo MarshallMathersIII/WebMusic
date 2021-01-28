@@ -1,5 +1,5 @@
 <template>
-  <div class="tab">
+  <div class="tab" v-show="true">
     <!--router-link 需要加tag=‘div’ -->
     <router-link tag="div" class="tab-item" to="FindHome">
       <div>

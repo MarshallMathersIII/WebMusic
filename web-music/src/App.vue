@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <tab></tab>
+    <tab v-if="$route.meta.footShow"></tab>
     <!-- TODO keep-alive缓存popup状态，无法关闭-->
     <keep-alive v-if="$route.meta.keepAlive">
       <router-view></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <player :fullScreen="fullScreen" v-show="playlist.length>0"></player>
+    <player :fullScreen="fullScreen" v-show="playlist.length>0" :isBottom="!$route.meta.footShow"></player>
     <!-- TODO侧滑栏全局控制 -->
   </div>
 </template>

@@ -32,7 +32,8 @@ const router = new Router({
       path: '/',
       redirect: '/FindHome',
       meta: {
-        keepAlive: true
+        keepAlive: true,
+        footShow: true,
       }
     },
 
@@ -49,7 +50,8 @@ const router = new Router({
       name: 'MineHome',
       component: MineHome,
       meta: {
-        keepAlive: false
+        keepAlive: false,
+        footShow: true,
       }
     },
     {
@@ -57,7 +59,8 @@ const router = new Router({
       name: 'RadioHome',
       component: RadioHome,
       meta: {
-        keepAlive: true
+        keepAlive: true,
+        footShow: true,
       }
     },
     {
@@ -65,7 +68,8 @@ const router = new Router({
       name: 'FindHome',
       component: FindHome,
       meta: {
-        keepAlive: true // 不需要被缓存
+        keepAlive: true, // 不需要被缓存
+        footShow: true,
       }
     },
     {
@@ -73,7 +77,8 @@ const router = new Router({
       name: 'VideoHome',
       component: VideoHome,
       meta: {
-        keepAlive: true
+        keepAlive: true,
+        footShow: true,
       }
     },
     {

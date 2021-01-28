@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <title-bar :milddleTip="milddleTip"></title-bar>
+    <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
     <div class="header-wapper">
       <!-- TODO 背景图实现高斯模糊 -->
       <div class="header">
@@ -110,6 +110,9 @@ export default {
     this.playlistDetailFn(this.id);
   },
   methods: {
+    leftClickBtn() {
+      this.$router.back(-1);
+    },
     playingMusic(item, index) {
       this.getSongUrlFn(item.id);
       this.setPlaylist(this.tracks);

@@ -32,7 +32,7 @@
       </div>
     </div>
     <!-- 迷你播放 -->
-    <div class="mini-player" v-show="!fullScreen">
+    <div class="mini-player" v-show="!fullScreen" :style="{bottom:bottomHeight + 'px'}">
       <div class="mini-vinyl" :class="vinylPlay">
         <img class="song-img" :src="currentSong.al.picUrl" @click="setFullScreen" />
       </div>
@@ -40,6 +40,7 @@
       <i @click="changePlaying" :class="playIcon"></i>
       <i class="iconfont icon-juxing"></i>
     </div>
+    <!--TODO audio属性补充使用 -->
     <audio id="music-audio" ref="audio" autoplay :src="songUrl"></audio>
   </div>
 </template>
@@ -54,13 +55,19 @@ export default {
   components: {
     TitleBar
   },
+  props: {
+    isBottom: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       milddleTip: "播放组件",
       phone: "",
       playClass: "play",
       stopClass: "stop",
-      songReady: false
+      songReady: false,
     };
   },
   computed: {
@@ -79,6 +86,9 @@ export default {
     },
     playIcon() {
       return this.playing ? "iconfont icon-zanting" : "iconfont icon-bofang";
+    },
+     bottomHeight() {
+      return this.isBottom ? "0" : "60";
     }
   },
   methods: {
@@ -99,6 +109,7 @@ export default {
       this.setPlayingState(true);
     },
     prePlay() {
+      console.log(this.bottomHeight)
       let index = this.currentIndex - 1;
       if (index === -1) {
         index = this.playlist.length - 1;
@@ -232,7 +243,6 @@ export default {
   width 100%
   background-color $color-background-grey
   position fixed
-  bottom 60px
   justify-content space-between
   align-items center
   display flex
