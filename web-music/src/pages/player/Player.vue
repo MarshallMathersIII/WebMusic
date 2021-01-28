@@ -17,14 +17,14 @@
       <div class="btn-wapper">
         <i class="iconfont icon-xihuan1"></i>
         <i class="iconfont icon-xiazai1"></i>
-        <i class="iconfont icon-pinglun1"></i>
+        <i class="iconfont icon-pinglun1" @click="test"></i>
         <i class="iconfont icon-gengduo1"></i>
       </div>
       <!-- 播放时间进度条 -->
       <div class="palyer-progress"></div>
       <!-- 播放控制栏 -->
       <div class="palyer">
-        <i class="iconfont icon-suijibofang" @click="playMode"></i>
+        <i :class="modeIcon" @click="changeMode"></i>
         <i class="iconfont icon-shangyishouxianxing" @click="prePlay"></i>
         <i @click="changePlaying" :class="playIcon"></i>
         <i class="iconfont icon-xiayishouxianxing" @click="nextPlay"></i>
@@ -49,6 +49,9 @@ import axios from "axios";
 import api from "@/api/api.js";
 import TitleBar from "@/components/TitleBar";
 import { mapGetters, mapMutations } from "vuex";
+import { palyMode } from "base/config";
+import { shuffle } from "base/utils";
+import { Toast } from "vant";
 
 export default {
   name: "Player",
@@ -66,8 +69,7 @@ export default {
       milddleTip: "播放组件",
       phone: "",
       playClass: "play",
-      stopClass: "stop",
-      songReady: false,
+      stopClass: "stop"
     };
   },
   computed: {
@@ -84,21 +86,62 @@ export default {
     vinylPlay() {
       return this.playing ? "vinyl-play" : "vinyl-stop";
     },
+    modeIcon() {
+      switch (this.mode) {
+        case palyMode.sequence:
+          return "iconfont icon-xunhuanbofang";
+          break;
+        case palyMode.loop:
+          return "iconfont icon-icon_danqubofang";
+          break;
+        case palyMode.random:
+          return "iconfont icon-suijibofang";
+          break;
+        default:
+          return "iconfont icon-xunhuanbofang";
+          break;
+      }
+    },
     playIcon() {
       return this.playing ? "iconfont icon-zanting" : "iconfont icon-bofang";
     },
-     bottomHeight() {
+    bottomHeight() {
       return this.isBottom ? "0" : "60";
     }
   },
   methods: {
+    test() {
+      console.log(this.currentSong.id);
+    },
+    changeMode() {
+      const mode = (this.mode + 1) % 3;
+      this.setPlayMode(mode);
+      let list = null;
+      if (mode === palyMode.random) {
+        Toast("随机播放");
+        list = shuffle(this.sequenceList);
+      } else if (mode === palyMode.loop) {
+        list = this.sequenceList;
+        Toast("单曲循环");
+      } else {
+        Toast("列表循环");
+        list = this.sequenceList;
+      }
+      this.resetCurrentIndex(list);
+      this.setPlaylist(list);
+    },
+    resetCurrentIndex(list) {
+      let index = list.findIndex(item => {
+        return item.id === this.currentSong.id;
+      });
+      this.setCurrentIndex(index);
+    },
     setFullScreen() {
       this.setFullScreen(true);
     },
     leftClickBtn() {
       this.setFullScreen(false);
     },
-    playMode() {},
     nextPlay() {
       let index = this.currentIndex + 1;
       if (index === this.playlist.length) {
@@ -109,7 +152,6 @@ export default {
       this.setPlayingState(true);
     },
     prePlay() {
-      console.log(this.bottomHeight)
       let index = this.currentIndex - 1;
       if (index === -1) {
         index = this.playlist.length - 1;
@@ -141,7 +183,9 @@ export default {
       setPlaylist: "SET_PLAYLIST",
       setCurrentIndex: "SET_CURRENT_INDEX",
       setPlayingState: "SET_PLAYING_STATE",
-      setSongUrl: "SET_SONG_URL"
+      setSongUrl: "SET_SONG_URL",
+      setPlayMode: "SET_PLAY_MODE",
+      setSequenceList: "SET_SEQUENCE_LIST"
     })
   }
 };
@@ -158,7 +202,7 @@ export default {
     left 0
     bottom 0
     right 0
-    z-index 3000
+    z-index 2000
   .vinyl-content
     width 100%
     display flex
@@ -222,8 +266,8 @@ export default {
       font-size 24px
       color black
   .palyer-progress
+    padding 0 10px
     background-color pink
-    height 30px
   .palyer
     position fixed
     bottom 0

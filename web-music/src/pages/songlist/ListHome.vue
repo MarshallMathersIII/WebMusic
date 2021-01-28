@@ -116,6 +116,7 @@ export default {
     playingMusic(item, index) {
       this.getSongUrlFn(item.id);
       this.setPlaylist(this.tracks);
+      this.setSequenceList(this.tracks);
       this.setCurrentIndex(index);
       this.setPlayingState(true);
       this.setFullScreen(true);
@@ -152,7 +153,8 @@ export default {
       setPlaylist: "SET_PLAYLIST",
       setCurrentIndex: "SET_CURRENT_INDEX",
       setPlayingState: "SET_PLAYING_STATE",
-      setSongUrl: "SET_SONG_URL"
+      setSongUrl: "SET_SONG_URL",
+      setSequenceList: "SET_SEQUENCE_LIST"
     })
   },
   computed: {
