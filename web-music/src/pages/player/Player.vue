@@ -35,7 +35,7 @@
       </div>
     </div>
     <!-- 迷你播放 -->
-    <div class="mini-player" v-show="!fullScreen" :style="{bottom:bottomHeight + 'px'}">
+    <div class="mini-player" v-show="!fullScreen" :style="{bottom:bottomHeight + 'vw'}">
       <div class="mini-vinyl" :class="vinylPlay">
         <img class="song-img" :src="currentSong.al.picUrl" @click="setFullScreen" />
       </div>
@@ -109,7 +109,7 @@ export default {
       return this.playing ? "iconfont icon-zanting" : "iconfont icon-bofang";
     },
     bottomHeight() {
-      return this.isBottom ? "0" : "50";
+      return this.isBottom ? "0" : "16";
     }
   },
   methods: {
@@ -298,7 +298,7 @@ export default {
 .mini-player
   height 50px
   width 100%
-  background-color $color-background-grey
+  background-color #ffffff
   position fixed
   justify-content space-between
   align-items center

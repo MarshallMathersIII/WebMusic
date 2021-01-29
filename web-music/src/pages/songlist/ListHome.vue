@@ -176,10 +176,11 @@ export default {
   height 220px
   .background
     position absolute
-    left 0
     top 0
-    bottom 450px
-    right 0
+    left 0
+    height 0
+    width 100%
+    height 28%
     z-index -1
     opacity 0.8
     filter blur(10px)
@@ -255,7 +256,7 @@ export default {
     align-items center
     justify-content space-between
     .left
-      height 36px
+      height 38px
       display flex
       align-items center
       justify-content flex-start
