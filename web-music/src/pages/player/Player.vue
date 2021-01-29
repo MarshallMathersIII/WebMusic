@@ -18,9 +18,9 @@
       </div>
       <!-- 喜欢/下载/评论 -->
       <div class="btn-wapper">
-        <i class="iconfont icon-xihuan1"></i>
+        <i class="iconfont icon-xihuan1" :style="{color:(isLike?'red':'white')}" @click="likeMusic"></i>
         <i class="iconfont icon-xiazai1"></i>
-        <i class="iconfont icon-pinglun1" @click="test"></i>
+        <i class="iconfont icon-pinglun1"></i>
         <i class="iconfont icon-gengduo1"></i>
       </div>
       <!-- 播放时间进度条 -->
@@ -70,9 +70,9 @@ export default {
   data() {
     return {
       milddleTip: "播放组件",
-      phone: "",
       playClass: "play",
-      stopClass: "stop"
+      stopClass: "stop",
+      isLike: true
     };
   },
   computed: {
@@ -113,8 +113,18 @@ export default {
     }
   },
   methods: {
-    test() {
-      console.log(this.currentSong.id);
+    likeMusic() {
+      api
+        .likeMusicFn(this.currentSong.id, !this.isLike)
+        .then(result => {
+          console.log(result.data);
+          if (result.data.code !== 200) {
+            Toast("操作失败");
+            return;
+          }
+          this.isLike = !this.isLike;
+        })
+        .catch(err => {});
     },
     changeMode() {
       const mode = (this.mode + 1) % 3;
@@ -277,7 +287,7 @@ export default {
     align-items center
     i
       font-size 24px
-      color black
+      color white
   .palyer-progress
     padding 0 10px
     background-color pink
@@ -292,7 +302,7 @@ export default {
     i
       margin-top 16px
       font-size 28px
-      color $color-theme
+      color white
     :nth-child(3)
       font-size 40px
 .mini-player

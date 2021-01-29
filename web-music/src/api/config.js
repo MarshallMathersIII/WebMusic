@@ -36,5 +36,8 @@ export const playlistDetail = api + '/playlist/detail' // 获取歌单详情
 
 //歌曲播放
 export const songUrl = api + '/song/url' // 获取歌曲url
-
 export const checkMusic = api + '/check/music' // 查看歌曲是否可用
+export const likeMusic = api + '/like' // 喜欢歌曲
+
+
+
