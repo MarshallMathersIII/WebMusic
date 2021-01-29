@@ -3,6 +3,9 @@
     <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
     <div class="header-wapper">
       <!-- TODO 背景图实现高斯模糊 -->
+      <div class="background" :style="{backgroundImage: 'url(' + playlist.coverImgUrl + ')' }">
+        <!-- <img :src="currentSong.al.picUrl" /> -->
+      </div>
       <div class="header">
         <!--@load需加载完成执行提取色方法 crossorigin="anonymous"解决网络图片跨域问题 -->
         <!-- 歌单头部 -->
@@ -167,11 +170,20 @@ export default {
 @import '~assets/styles/variable'
 @import '~assets/styles/mixin'
 .content
-  background-color white
   height 100%
   padding-bottom 60px
 .header-wapper
   height 220px
+  .background
+    position absolute
+    left 0
+    top 0
+    bottom 450px
+    right 0
+    z-index -1
+    opacity 0.8
+    filter blur(10px)
+    transform scale(1.2) // 去除模糊背景白边
   .header
     position relative
     padding 10px
@@ -179,7 +191,6 @@ export default {
     justify-content flex-start
     align-items center
     height 160px
-    background-color pink
     z-index 1000
     .img
       height 100px
@@ -206,10 +217,10 @@ export default {
   .btn-wapper
     z-index 900
     position relative
-    bottom 30px
-    background-color white
-    height 80px
+    bottom 10px
+    height 70px
     display flex
+    background-color #fff
     justify-content center
     align-items center
   .btn
@@ -244,7 +255,7 @@ export default {
     align-items center
     justify-content space-between
     .left
-      height 30px
+      height 36px
       display flex
       align-items center
       justify-content flex-start

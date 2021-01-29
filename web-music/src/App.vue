@@ -6,7 +6,7 @@
       <router-view></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <player :fullScreen="fullScreen" v-show="playlist.length>0" :isBottom="!$route.meta.footShow"></player>
+    <player :fullScreen="fullScreen" v-if="playlist.length>0" :isBottom="!$route.meta.footShow"></player>
     <!-- TODO侧滑栏全局控制 -->
   </div>
 </template>

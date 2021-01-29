@@ -47,7 +47,7 @@ export default {
   align-items center
   height 60px
   width 100%
-  border-top 1px solid rgba(0, 0, 0, 0.2)
+  // border-top 1px solid rgba(0, 0, 0, 0.2)
   .tab-item
     flex-direction column
     height 100%

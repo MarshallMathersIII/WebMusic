@@ -2,6 +2,9 @@
   <div class="content">
     <!-- 普通播放 -->
     <div class="normal-player" v-show="fullScreen">
+      <div class="background" :style="{backgroundImage: 'url(' + currentSong.al.picUrl + ')' }">
+        <!-- <img :src="currentSong.al.picUrl" /> -->
+      </div>
       <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
       <!-- 唱盘主义 -->
       <div class="vinyl-content">
@@ -106,7 +109,7 @@ export default {
       return this.playing ? "iconfont icon-zanting" : "iconfont icon-bofang";
     },
     bottomHeight() {
-      return this.isBottom ? "0" : "60";
+      return this.isBottom ? "0" : "50";
     }
   },
   methods: {
@@ -203,6 +206,16 @@ export default {
     bottom 0
     right 0
     z-index 2000
+  .background
+    position absolute
+    left 0
+    top 0
+    width 100%
+    height 100%
+    z-index -1
+    opacity 0.5
+    filter blur(24px)
+    transform scale(1.2) // 去除模糊背景白边
   .vinyl-content
     width 100%
     display flex
@@ -292,6 +305,7 @@ export default {
   display flex
   padding 0 10px
   border-top 1px solid rgba(0, 0, 0, 0.2)
+  z-index 2000
   .mini-vinyl
     background url('../../assets/img/vinyl.png')
     background-size cover

@@ -52,7 +52,6 @@ export default {
 @import '~assets/styles/variable'
 @import '~assets/styles/mixin'
 .title
-  background-color #fff
   height 60px
   justify-content space-between
   align-items center
