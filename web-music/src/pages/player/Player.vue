@@ -313,13 +313,13 @@ export default {
 .mini-player
   height 50px
   width 100%
-  background-color #ffffff
+  background-color #FCFDFC
   position fixed
   justify-content space-between
   align-items center
   display flex
   padding 0 10px
-  border-top 1px solid rgba(0, 0, 0, 0.2)
+  // border-top 1px solid rgba(0, 0, 0, 0.2)
   z-index 2000
   .mini-vinyl
     background url('../../assets/img/vinyl.png')

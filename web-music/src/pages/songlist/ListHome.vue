@@ -23,7 +23,7 @@
             <img v-lazy="playlist.creator.avatarUrl" class="author-img" :onerror="defaultImg" />
             <div class="author-tip">{{playlist.creator.nickname}}</div>
           </div>
-          <span>{{playlist.description}}</span>
+          <span class="author-des">{{playlist.description}}</span>
         </div>
       </div>
       <!-- 头部 收藏/评论分享 -->
@@ -205,6 +205,8 @@ export default {
       flex-direction column
       align-items flex-start
       margin-left 10px
+      margin-right 10px
+      no-wrap()
       .author
         display flex
         justify-content flex-start
@@ -214,6 +216,8 @@ export default {
           height 25px
           width 25px
           margin-right 6px
+      .author-des
+        font-size $font-size-small-s
   .btn-wapper
     z-index 900
     position relative

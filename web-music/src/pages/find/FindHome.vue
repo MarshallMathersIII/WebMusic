@@ -13,7 +13,7 @@
     <!-- Icon图标 -->
     <icon-list :icons="findIcons"></icon-list>
     <!-- 推荐歌单 -->
-    <roll-list :list="playList" :title="title" :type="rollType"></roll-list>
+    <roll-list :list="playList" :title="title" :type="rollType" @rollListClick="rollListClick"></roll-list>
     <!-- 分割线 -->
     <div v-if="playList.length>0" class="divider"></div>
     <!-- TODO新歌/新碟/数字专辑 切换tab 样式改变 -->
@@ -92,6 +92,16 @@ export default {
     this.popShow = false;
   },
   methods: {
+    rollListClick(val) {
+      console.log(val);
+      this.toListDetail(val)
+    },
+    toListDetail(id) {
+      this.$router.push({
+        path: "/ListHome",
+        query: { id: id }
+      });
+    },
     homepageFn() {
       api
         .homepageFn()

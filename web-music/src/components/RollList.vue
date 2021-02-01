@@ -13,8 +13,9 @@
               class="song-img"
               v-if="type=='1'"
               :onerror="defaultImg"
+              @click="itemClick(item.id)"
             />
-            <img v-lazy="item.coverImgUrl" class="song-img" v-else />
+            <img v-lazy="item.coverImgUrl" class="song-img" v-else @click="itemClick(item.id)" />
             <span>{{item.name}}</span>
           </div>
         </div>
@@ -49,6 +50,11 @@ export default {
     type: {
       type: String,
       default: ""
+    }
+  },
+  methods: {
+    itemClick(id) {
+      this.$emit("rollListClick",id);
     }
   }
 };
