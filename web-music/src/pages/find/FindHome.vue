@@ -8,8 +8,8 @@
       </div>
       <i class="iconfont icon-huatong1"></i>
     </div>
-    <!-- 轮播图 -->
-    <banner-swiper :bannerList="bannerList"></banner-swiper>
+    <!-- 轮播图  bannerClick-->
+    <banner-swiper :bannerList="bannerList" @bannerClick="bannerClick"></banner-swiper>
     <!-- Icon图标 -->
     <icon-list :icons="findIcons"></icon-list>
     <!-- 推荐歌单 -->
@@ -50,6 +50,8 @@ import BannerSwiper from "@/components/BannerSwiper";
 import RollList from "@/components/RollList";
 import Slider from "./component/Slider";
 import { findIcons, popupIcons } from "../../assets/iconsdata/getIcons.js";
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   components: {
     RollList,
@@ -76,7 +78,8 @@ export default {
       newSonglist: [], //临时歌单
       topSongList: [], //新歌
       albumList: [], //数字专辑
-      topDishList: [] //新碟
+      topDishList: [], //新碟
+      tracks: []
     };
   },
   mounted() {
@@ -92,9 +95,32 @@ export default {
     this.popShow = false;
   },
   methods: {
+    //TODO 歌曲封面切换，深、浅拷贝问题
+    bannerClick(val) {
+      console.log(val);
+      this.tracks.push(val);
+      this.playingMusic(val,0);
+    },
+    playingMusic(val, index) {
+      this.getSongUrlFn(val.id);
+      this.setPlaylist(this.tracks.slice());
+      this.setSequenceList(this.tracks.slice());
+      this.setCurrentIndex(index);
+      this.setPlayingState(true);
+      this.setFullScreen(true);
+    },
+    getSongUrlFn(id) {
+      api
+        .getSongUrlFn(id)
+        .then(result => {
+          console.log(result.data);
+          this.setSongUrl(result.data.data[0].url);
+        })
+        .catch(err => {});
+    },
     rollListClick(val) {
       console.log(val);
-      this.toListDetail(val)
+      this.toListDetail(val);
     },
     toListDetail(id) {
       this.$router.push({
@@ -192,7 +218,27 @@ export default {
         default:
           break;
       }
-    }
+    },
+    ...mapMutations({
+      setFullScreen: "SET_FULL_SCREEN",
+      setPlaylist: "SET_PLAYLIST",
+      setCurrentIndex: "SET_CURRENT_INDEX",
+      setPlayingState: "SET_PLAYING_STATE",
+      setSongUrl: "SET_SONG_URL",
+      setSequenceList: "SET_SEQUENCE_LIST"
+    })
+  },
+  computed: {
+    ...mapGetters([
+      "playlist",
+      "fullScreen",
+      "currentSong",
+      "playing",
+      "currentIndex",
+      "mode",
+      "sequenceList",
+      "songUrl"
+    ])
   }
 };
 </script>

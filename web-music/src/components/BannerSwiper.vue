@@ -5,7 +5,12 @@
       <swiper :options="swiperOption">
         <!-- slides -->
         <swiper-slide v-for="(item,index) in bannerList" :key="index">
-          <img class="swiper-img" :src="item.pic"  :onerror="defaultImg"/>
+          <img
+            class="swiper-img"
+            :src="item.pic"
+            :onerror="defaultImg"
+            @click="itemClick(item.song,item.targetType)"
+          />
         </swiper-slide>
         <!-- Optional controls -->
         <div class="swiper-pagination" slot="pagination"></div>
@@ -40,7 +45,14 @@ export default {
       return this.bannerList.length;
     }
   },
-  methods: {}
+  methods: {
+    itemClick(song, type) {
+      if (type !== 1) {
+        return;
+      }
+      this.$emit("bannerClick", song);
+    }
+  }
 };
 </script>
 
