@@ -16,3 +16,5 @@ export const currentSong = (state) => {
     return state.playlist[state.currentIndex] || {}
 }
 export const songUrl = state => state.songUrl
+
+export const popShow = state => state.popShow

@@ -19,7 +19,7 @@
       <i class="iconfont icon-huatong"></i>
       <p>k歌</p>
     </router-link> -->
-    <router-link tag="div" class="tab-item" to="ListHome">
+    <router-link tag="div" class="tab-item" to="VideoHome">
       <i class="iconfont icon-pengyou"></i>
       <p>视频</p>
     </router-link>

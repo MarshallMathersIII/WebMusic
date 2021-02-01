@@ -1,7 +1,6 @@
 <template>
   <!-- 封装popup参考：https://blog.csdn.net/gp3098/article/details/104407980 -->
   <div class="content">
-    <!-- TODO:popu滑动穿透 -->
     <van-popup
       :zIndex="20000"
       :value="value"
@@ -12,11 +11,16 @@
     >
       <div class="popup-content">
         <!-- popup头部 -->
-        <div @click="toUserPage()" class="user" v-if="loginState=='1'" :style="{ 'background': 'url(' + profile.backgroundUrl + ') no-repeat center center', 'background-size': 'cover'}">
+        <div
+          @click="toUserPage()"
+          class="user"
+          v-if="loginState=='1'"
+          :style="{ 'background': 'url(' + profile.backgroundUrl + ') no-repeat center center', 'background-size': 'cover'}"
+        >
           <!-- TODO 后续实现动态提取背景主题色或毛玻璃效果 -->
-          <img class="user-img" :src="profile.avatarUrl" />
-          <div  :style="{'color':'white'}">{{profile.nickname}}</div>
-          <i  :style="{'color':'white'}" class="iconfont icon-jiantou"></i>
+          <img class="user-img" v-lazy="profile.avatarUrl" />
+          <div :style="{'color':'white'}">{{profile.nickname}}</div>
+          <i :style="{'color':'white'}" class="iconfont icon-jiantou"></i>
         </div>
         <div @click="toUserPage()" class="user" v-else>
           <div class="user-img"></div>
@@ -103,6 +107,8 @@ export default {
       //   path: "/RadioHome"
       // });
       // 修复路由重定向报错 Error: Redirected from X to Y via a navigation guard.
+      // this.$router.push("/FriendHome", () => {});
+      // this.value = false;
       this.$router.push("/FriendHome", () => {});
     },
 

@@ -11,7 +11,8 @@ const state = {
   sequenceList: [],
   mode: palyMode.sequence,
   currentIndex: -1,
-  songUrl:''
+  songUrl: '',
+  popShow: false
 }
 
 export default state

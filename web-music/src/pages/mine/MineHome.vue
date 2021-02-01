@@ -154,10 +154,6 @@ export default {
       console.log(this.popShow);
       this.popShow = true;
     },
-    showPopup() {
-      console.log(this.popShow);
-      this.popShow = true;
-    },
     async iniData() {
       this.findIcons = findIcons();
     },

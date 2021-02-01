@@ -37,6 +37,9 @@ const mutations = {
   [types.SET_SONG_URL] (state, songUrl) {
     state.songUrl = songUrl
   },
+  [types.SET_POP_SHOW] (state, popShow) {
+    state.popShow = popShow
+  },
 }
 
 export default mutations

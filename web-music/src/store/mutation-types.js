@@ -21,4 +21,7 @@ export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX'
 
 export const SET_SONG_URL = 'SET_SONG_URL'
 
+export const SET_POP_SHOW = 'SET_POP_SHOW'
+
+
 

@@ -3,7 +3,8 @@
     <tab v-if="$route.meta.footShow"></tab>
     <!-- TODO keep-alive缓存popup状态，无法关闭-->
     <keep-alive v-if="$route.meta.keepAlive">
-      <router-view></router-view>
+      <!--同组件不同参数缓存策略 :key="$route.fullPath" -->
+      <router-view :key="$route.fullPath"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
     <player :fullScreen="fullScreen" v-if="playlist.length>0" :isBottom="!$route.meta.footShow"></player>
@@ -14,6 +15,7 @@
 <script>
 import Tab from "./pages/base-tab";
 import Player from "./pages/player/Player";
+import Slider from "./pages/find//component/Slider";
 import { Toast } from "vant";
 import { mapState, mapGetters, mapMutations } from "vuex";
 

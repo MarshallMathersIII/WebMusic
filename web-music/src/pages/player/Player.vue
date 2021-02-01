@@ -13,7 +13,7 @@
           <img src="../../assets/img/stylus.png" :class="[playing?playClass:stopClass]" />
         </div>
         <div class="vinyl" :class="vinylPlay">
-          <img :src="currentSong.al.picUrl" alt class="vinyl-pic" />
+          <img v-lazy="currentSong.al.picUrl" alt class="vinyl-pic" />
         </div>
       </div>
       <!-- 喜欢/下载/评论 -->
@@ -37,7 +37,7 @@
     <!-- 迷你播放 -->
     <div class="mini-player" v-show="!fullScreen" :style="{bottom:bottomHeight + 'vw'}">
       <div class="mini-vinyl" :class="vinylPlay">
-        <img class="song-img" :src="currentSong.al.picUrl" @click="setFullScreen" />
+        <img class="song-img" v-lazy="currentSong.al.picUrl" @click="setFullScreen" />
       </div>
       <span class="song-name" @click="setFullScreen">{{currentSong.name}}</span>
       <i @click="changePlaying" :class="playIcon"></i>
@@ -115,12 +115,17 @@ export default {
   methods: {
     likeMusic() {
       api
-        .likeMusicFn(this.currentSong.id, !this.isLike)
+        .likeMusicFn(this.currentSong.id, this.isLike)
         .then(result => {
           console.log(result.data);
           if (result.data.code !== 200) {
             Toast("操作失败");
             return;
+          }
+          if (!this.isLike === true) {
+            Toast("已添加到我喜欢的音乐");
+          } else {
+            Toast("已取消音乐");
           }
           this.isLike = !this.isLike;
         })

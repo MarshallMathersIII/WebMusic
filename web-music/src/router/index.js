@@ -42,7 +42,7 @@ const router = new Router({
       name: 'FriendHome',
       component: FriendHome,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     },
     {
@@ -50,7 +50,7 @@ const router = new Router({
       name: 'MineHome',
       component: MineHome,
       meta: {
-        keepAlive: false,
+        keepAlive: true,
         footShow: true,
       }
     },
@@ -86,7 +86,7 @@ const router = new Router({
       name: 'ListHome',
       component: ListHome,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     }
 
