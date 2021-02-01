@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <tab v-if="$route.meta.footShow"></tab>
-    <!-- TODO keep-alive缓存popup状态，无法关闭-->
     <keep-alive v-if="$route.meta.keepAlive">
       <!--同组件不同参数缓存策略 :key="$route.fullPath" -->
       <router-view :key="$route.fullPath"></router-view>

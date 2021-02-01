@@ -63,7 +63,7 @@ export default {
         leftText: "推荐歌单",
         rightText: "更多"
       },
-      rollType:"2",
+      rollType: "2",
       isTabActive: "1",
       show: false,
       popShow: false,
@@ -88,6 +88,9 @@ export default {
     // this.newAlbumFn();
     // this.topSongFn();
   },
+  activated() {
+    this.popShow = false;
+  },
   methods: {
     homepageFn() {
       api
@@ -98,7 +101,6 @@ export default {
         .catch(err => {});
     },
     showPopup() {
-      console.log(this.popShow);
       this.popShow = true;
     },
     async iniData() {

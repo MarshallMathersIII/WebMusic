@@ -129,6 +129,9 @@ export default {
       this.userPlayListFn();
     }
   },
+  activated() {
+    this.popShow = false;
+  },
   methods: {
     toListDetail(id) {
       this.$router.push({
