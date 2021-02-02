@@ -39,5 +39,11 @@ export const songUrl = api + '/song/url' // 获取歌曲url
 export const checkMusic = api + '/check/music' // 查看歌曲是否可用
 export const likeMusic = api + '/like' // 喜欢歌曲
 
+//歌手
+export const artistSong = api + '/artist/top/song' // 歌手热门50
+export const artistDetail = api + '/artist/detail' // 获取歌手详情(暂不可用)
+
+
+
 
 

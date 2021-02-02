@@ -4,11 +4,25 @@ import store from '@/store/index'
 import qs from "qs";
 
 
-import {getAlbum,likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import {artistDetail,artistSong,getAlbum,likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
 export default {
+    artistDetailFn(id) {
+        return axios.get(artistDetail, {
+            params: {
+                id
+            }
+        })
+    },
+    artistSongFn(id) {
+        return axios.get(artistSong, {
+            params: {
+                id
+            }
+        })
+    },
     getAlbumFn(id) {
         return axios.get(getAlbum, {
             params: {

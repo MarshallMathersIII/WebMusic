@@ -20,7 +20,10 @@ const router = new Router({
     {
       path: '/SingerHome',
       name: 'SingerHome',
-      component: SingerHome
+      component: SingerHome,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path: '/PhonePwd',
