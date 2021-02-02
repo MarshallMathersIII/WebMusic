@@ -8,6 +8,8 @@ import FindHome from 'pages/find/FindHome'
 import LoginHome from 'pages/login/LoginHome'
 import PhonePwd from 'pages/login/PhonePwd'
 import ListHome from 'pages/songlist/ListHome'
+import SingerHome from 'pages/singer/SingerHome'
+
 
 
 
@@ -15,6 +17,11 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [
+    {
+      path: '/SingerHome',
+      name: 'SingerHome',
+      component: SingerHome
+    },
     {
       path: '/PhonePwd',
       name: 'PhonePwd',

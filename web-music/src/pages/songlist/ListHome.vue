@@ -70,7 +70,7 @@
             </div>
           </div>
         </div>
-        <div class="right">
+        <div class="right" @click="moreBtn(item,index)">
           <i class="iconfont icon-gengduo"></i>
         </div>
       </div>
@@ -85,6 +85,32 @@
         </div>
       </div>
     </div>
+    <!-- 底部弹出窗 -->
+    <van-action-sheet v-model="sheetShow" title="标题">
+      <div class="sheet">
+        <div class="sheet-up"></div>
+        <div class="sheet-item">
+          <i class="iconfont icon-pinglun1"></i>
+          <span>歌手：</span>
+          <div class="artists">
+            <span v-for="singer in sheetItem.ar">{{singer.name}}</span>
+          </div>
+        </div>
+        <div class="sheet-item">
+          <i class="iconfont icon-pinglun1"></i>
+          <span>专辑：</span>
+          <span >{{sheetItem.al.name}}</span>
+        </div>
+        <div class="sheet-item">
+          <i class="iconfont icon-pinglun1"></i>
+          <span>分享</span>
+        </div>
+        <div class="sheet-item">
+          <i class="iconfont icon-pinglun1"></i>
+          <span>评论</span>
+        </div>
+      </div>
+    </van-action-sheet>
   </div>
 </template>
 <script>
@@ -104,7 +130,11 @@ export default {
       defaultImg: 'this.src="' + require("assets/img/lazy_load.png") + '"',
       color: [], //提取背景色
       tracks: [],
-      subscribers: []
+      subscribers: [],
+      sheetShow: false,
+      sheetItem: {
+        al: {}
+      }
     };
   },
   mounted() {
@@ -113,8 +143,21 @@ export default {
     this.playlistDetailFn(this.id);
   },
   methods: {
+    getAlbumFn(id){
+       api
+        .getAlbumFn(id)
+        .then(result => {
+          console.log(result.data);
+        })
+        .catch(err => {});
+    },
     leftClickBtn() {
       this.$router.back(-1);
+    },
+    moreBtn(item, index) {
+      this.sheetItem = item;
+      console.log(item);
+      this.sheetShow = true;
     },
     playingMusic(item, index) {
       this.getSongUrlFn(item.id);
@@ -293,6 +336,8 @@ export default {
             content '/'
           :last-child::after
             content ''
+    .right
+      extend-click()
   .list-bottom
     margin-top 6px
     height 30px
@@ -307,4 +352,27 @@ export default {
         margin-left 5px
         width 20px
         height 20px
+.sheet
+  padding 0 10px
+  margin-bottom 20px
+  .sheet-up
+    height 80px
+    background pink
+  .sheet-item
+    padding 4px
+    display flex
+    justify-content flex-start
+    align-items center
+    height 40px
+    :nth-child(2)
+      padding-left 8px
+    .artists
+      display felx
+      justify-content flex-start
+      span
+        padding-right 2px
+      ::after
+        content '/'
+      :last-child::after
+        content ''
 </style>
