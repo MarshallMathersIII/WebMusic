@@ -107,9 +107,9 @@ export default {
       //   path: "/RadioHome"
       // });
       // 修复路由重定向报错 Error: Redirected from X to Y via a navigation guard.
-      // this.$router.push("/FriendHome", () => {});
+      // this.$router.push("/UserHome", () => {});
       // this.value = false;
-      this.$router.push("/FriendHome", () => {});
+      this.$router.push("/UserHome", () => {});
     },
 
     handleBtn() {

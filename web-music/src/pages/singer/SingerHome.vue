@@ -4,7 +4,6 @@
     <singer-info :name="name" :fans="fans" :type="type"></singer-info>
     <div class="tab-wapper">
       <van-tabs v-model="active" swipeable animated>
-        <van-tab title="主页"></van-tab>
         <van-tab title="歌曲">
           <!-- 歌曲列表组件 -->
           <song-list
@@ -17,6 +16,7 @@
           ></song-list>
         </van-tab>
         <van-tab title="专辑"></van-tab>
+        <van-tab title="主页"></van-tab>
       </van-tabs>
     </div>
   </div>

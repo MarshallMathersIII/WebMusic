@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import FriendHome from 'pages/friends/FriendHome'
+import UserHome from 'pages/user/UserHome'
 import MineHome from 'pages/mine/MineHome'
 import VideoHome from 'pages/video/VideoHome'
 import RadioHome from 'pages/radio/RadioHome'
@@ -22,7 +22,7 @@ const router = new Router({
       name: 'SingerHome',
       component: SingerHome,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     },
     {
@@ -48,9 +48,9 @@ const router = new Router({
     },
 
     {
-      path: '/FriendHome',
-      name: 'FriendHome',
-      component: FriendHome,
+      path: '/UserHome',
+      name: 'UserHome',
+      component: UserHome,
       meta: {
         keepAlive: true
       }

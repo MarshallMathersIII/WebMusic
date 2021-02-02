@@ -2,7 +2,7 @@
   <div class="content">
     <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
     <!-- 头像区 -->
-    <div class="user" v-if="loginState=='1'">
+    <div class="user" v-if="loginState=='1'" @click="toUserPage">
       <img class="user-img" :src="profile.avatarUrl" :onerror="defaultImg" />
       <!-- <div class="user-img"  :style="{background: 'url(' + profile.avatarUrl + ')'}"></div> -->
       <div>{{profile.nickname}}</div>
@@ -133,6 +133,9 @@ export default {
     this.popShow = false;
   },
   methods: {
+    toUserPage() {
+      this.$router.push("/UserHome", () => {});
+    },
     toListDetail(id) {
       this.$router.push({
         path: "/ListHome",
