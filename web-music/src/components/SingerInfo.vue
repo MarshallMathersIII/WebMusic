@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <!-- TODO 背景图拉伸 -->
     <div
       class="bg-img"
       :style="{ 'background': 'url(' + bgUrl + ') no-repeat center center', 'background-size': 'cover'}"
@@ -9,7 +10,9 @@
       <span>{{name}}</span>
       <span>{{fans}} 粉丝</span>
     </div>
-    <div class="user-img" v-if="type===1"></div>
+    <div class="user-img" v-if="type===1">
+      <img :src="avatarUrl" alt />
+    </div>
   </div>
 </template>
 <script>
@@ -21,8 +24,8 @@ export default {
       default: 0
     },
     fans: {
-      type: String,
-      default: "22224"
+      type: Number,
+      default: 0
     },
     name: {
       type: String,
@@ -30,8 +33,11 @@ export default {
     },
     bgUrl: {
       type: String,
-      default:
-        "http://p1.music.126.net/VRRQf1OR0_I-tGpi2_B6lQ==/109951164656872272.jpg"
+      default: ""
+    },
+    avatarUrl: {
+      type: String,
+      default: ""
     }
   }
 };
@@ -78,7 +84,10 @@ export default {
     border-radius 50%
     height 60px
     width 60px
-    background-color pink
     bottom 80px
     margin 0 auto
+    img
+      border-radius 50%
+      height 60px
+      width 60px
 </style>

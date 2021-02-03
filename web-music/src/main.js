@@ -18,9 +18,12 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueLazyload from 'vue-lazyload'
 //移动端适配
 import 'postcss-pxtorem'
-
 // swipper必须
 require('swiper/dist/css/swiper.css')
+//全局过滤器
+import filters from './base/fliters';
+
+Vue.use(filters);
 Vue.use(Toast);
 Vue.use(Tab);
 Vue.use(Tabs);

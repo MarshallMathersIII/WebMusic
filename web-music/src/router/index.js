@@ -52,7 +52,7 @@ const router = new Router({
       name: 'UserHome',
       component: UserHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {

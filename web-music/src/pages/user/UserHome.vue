@@ -1,18 +1,16 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip" @leftBtn="leftClickBtn"></title-bar>
-    <singer-info :name="name" :fans="fans" :type="type"></singer-info>
+    <singer-info :name="profile.nickname" :fans="profile.followeds" :type="type" :bgUrl="profile.backgroundUrl" :avatarUrl="avatarUrl"></singer-info>
     <div></div>
     <div class="wapper">
       <div class="user-info">
         <span class="info-title">基本信息</span>
-        <span>村龄：87238178</span>
-        <span>性别：男</span>
-        <span>年龄：20</span>
+        <span>性别：{{gender |filterGender}}</span>
+        <span>年龄：{{birthday | filterDate | filterAge}}岁</span>
         <span>地区：上海</span>
-        <span>大爷：其他对象</span>
         <span class="info-title">个人简介</span>
-        <span>狄拉克手机丢了卡就是肯德基卢卡斯大水坑里见到了空间</span>
+        <span>{{signature |capitalize}}</span>
       </div>
       <div class="kong"></div>
     </div>
@@ -34,16 +32,30 @@ export default {
       subscribers: [],
       milddleTip: "歌手",
       id: "102019",
-      name: "gil scott-heron",
-      fans: "20100",
+      name: "",
+      fans: 0,
       type: 1, //1:用户主页 2:歌手主页
-      bgUrl:
-        "http://p1.music.126.net/VRRQf1OR0_I-tGpi2_B6lQ==/109951164656872272.jpg",
-      profile: {}
+      bgUrl: "",
+      profile: {},
+      avatarUrl: "",
+      signature: "dklkasdlklasda",
+      gender: 0,
+      birthday: 0,
+      city: 0,
+      province: 0
     };
   },
   mounted() {
     this.profile = JSON.parse(localStorage.getItem("profile"));
+    this.bgUrl = this.profile.backgroundUrl;
+    this.name = this.profile.nickname;
+    this.fans = this.profile.followeds;
+    this.avatarUrl = this.profile.avatarUrl;
+    this.signature = this.profile.signature;
+    this.gender = this.profile.gender;
+    this.birthday = this.profile.birthday;
+    this.city = this.profile.city;
+    this.province = this.profile.province;
     console.log(this.profile);
   },
   methods: {
@@ -62,7 +74,7 @@ export default {
     background-color $color-background-grey
     margin-bottom 100px
     .user-info
-      height 400px
+      height 300px
       background-color white
       border-radius 10px
       margin 20px 20px
