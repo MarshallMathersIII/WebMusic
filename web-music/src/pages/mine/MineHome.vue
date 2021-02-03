@@ -41,6 +41,7 @@
     <div class="song-list">
       <!-- swipeable滑动控制 animated转场动画 -->
       <van-tabs v-model="active" swipeable animated>
+        <!--创建歌单  -->
         <van-tab title="创建歌单">
           <div class="setup-list">
             <div class="list-title">
@@ -51,17 +52,12 @@
               </div>
             </div>
             <div v-if="loginState=='1'">
-              <div class="list-content" v-for="item in createList" @click="toListDetail(item.id)">
-                <img class="left" v-lazy="item.coverImgUrl" :onerror="defaultImg" />
-                <div class="right">
-                  <span>{{item.name}}</span>
-                  <span>{{item.trackCount}}首</span>
-                </div>
-              </div>
+              <album-list :list="createList" @toListDetail="toListDetail"></album-list>
             </div>
             <div v-else class="list-content-nodata">暂无新建歌单</div>
           </div>
         </van-tab>
+        <!--收藏歌单 -->
         <van-tab title="收藏歌单">
           <div class="setup-list">
             <div class="list-title">
@@ -71,19 +67,14 @@
               </div>
             </div>
             <div v-if="loginState=='1'">
-              <div class="list-content" v-for="item in collectList " @click="toListDetail(item.id)">
-                <img class="left" v-lazy="item.coverImgUrl" :onerror="defaultImg" />
-                <div class="right">
-                  <span>{{item.name}}</span>
-                  <span>{{item.trackCount}}首</span>
-                </div>
-              </div>
+              <album-list :list="collectList" @toListDetail="toListDetail"></album-list>
             </div>
             <div v-else class="list-content-nodata">暂无收藏歌单</div>
           </div>
         </van-tab>
       </van-tabs>
     </div>
+    <!-- 底部弹窗 -->
     <van-action-sheet title="标题" v-model="show" @select="onSelect" :safe-area-inset-bottom="true">
       <div class="sheetPop"></div>
     </van-action-sheet>
@@ -91,7 +82,9 @@
   </div>
 </template>
 <script>
+import AlbumList from "@/components/AlbumList";
 import TitleBar from "@/components/TitleBar";
+
 import Slider from "@/pages/find/component/Slider";
 import { findIcons, popupIcons } from "../../assets/iconsdata/getIcons.js";
 import api from "../../api/api.js";
@@ -99,7 +92,8 @@ import api from "../../api/api.js";
 export default {
   components: {
     TitleBar,
-    Slider
+    Slider,
+    AlbumList
   },
   data() {
     return {
@@ -200,7 +194,6 @@ export default {
 .content
   background-color $color-background-grey
   height 100%
-  padding-bottom 80px
   .sheetPop
     height 200px
   .user
@@ -292,25 +285,6 @@ export default {
       justify-content space-between
       align-items center
       margin 10px
-    .list-content
-      padding 5px 0
-      margin 0 20px
-      display flex
-      justify-content flex-start
-      align-items center
-      .left
-        height 50px
-        width 50px
-        border-radius 10px
-      .right
-        margin-left 10px
-        display flex
-        justify-content center
-        align-items baseline
-        flex-direction column
-        :nth-child(2)
-          tips()
-          margin-top 4px
     .list-content-nodata
       display flex
       justify-content center

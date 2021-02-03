@@ -42,6 +42,9 @@ export const likeMusic = api + '/like' // 喜欢歌曲
 //歌手
 export const artistSong = api + '/artist/top/song' // 歌手热门50
 export const artistDetail = api + '/artist/detail' // 获取歌手详情(暂不可用)
+export const artistAlbum = api + '/artist/album' // 歌手专辑
+
+
 
 
 

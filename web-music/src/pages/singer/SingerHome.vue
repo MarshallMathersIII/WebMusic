@@ -15,7 +15,9 @@
             @playingMusic="playingMusic(arguments)"
           ></song-list>
         </van-tab>
-        <van-tab title="专辑"></van-tab>
+        <van-tab title="专辑">
+          <album-list :list="hotAlbums" @toListDetail="toListDetail" :albumType="albumType"></album-list>
+        </van-tab>
         <van-tab title="主页"></van-tab>
       </van-tabs>
     </div>
@@ -25,6 +27,7 @@
 import TitleBar from "@/components/TitleBar";
 import SingerInfo from "@/components/SingerInfo";
 import SongList from "@/components/SongList";
+import AlbumList from "@/components/AlbumList";
 
 import api from "api/api.js";
 import ColorThief from "color-thief";
@@ -33,10 +36,13 @@ export default {
   components: {
     TitleBar,
     SingerInfo,
-    SongList
+    SongList,
+    AlbumList
   },
   data() {
     return {
+      albumType: 1, //1:专辑；0：歌单
+      hotAlbums: [],
       active: 3,
       playlist: {},
       tracks: [],
@@ -52,9 +58,25 @@ export default {
   },
   mounted() {
     this.artistSongFn(this.id);
+    this.artistAlbumFn(this.id);
     // this.artistDetailFn(this.id);
   },
   methods: {
+    toListDetail(id) {
+      this.$router.push({
+        path: "/ListHome",
+        query: { id: id }
+      });
+    },
+    artistAlbumFn(id) {
+      api
+        .artistAlbumFn(id)
+        .then(result => {
+          console.log(result.data.hotAlbums);
+          this.hotAlbums = result.data.hotAlbums;
+        })
+        .catch(err => {});
+    },
     moreBtn(msg) {
       const item = msg[0];
       const index = msg[1];
