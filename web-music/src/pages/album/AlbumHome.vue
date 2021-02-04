@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
-    <album-banner :playlist="playlist" :type="albumType"></album-banner>
+    <album-banner :playlist="playlist" :type="alubmType"></album-banner>
     <!-- 歌曲列表组件 -->
     <song-list
       :playlist="playlist"
@@ -12,7 +12,7 @@
       @playingMusic="playingMusic(arguments)"
     ></song-list>
     <!-- 底部弹窗组件 .sync实现 props参数双向绑定 -->
-    <bottom-pop :sheetItem="sheetItem" :popup.sync="sheetShow" @toSingerPage="toSingerPage" @toAlbumPage="toAlbumPage"></bottom-pop>
+    <bottom-pop :sheetItem="sheetItem" :popup.sync="sheetShow" @toSingerPage="toSingerPage"></bottom-pop>
   </div>
 </template>
 <script>
@@ -43,26 +43,19 @@ export default {
       sheetItem: {
         al: {}
       },
-      type: 1,
-      albumType:0
+      type: 0,
+      alubmType: 1
     };
   },
   mounted() {
-    this.id = this.$route.query.id; //歌单id
+    this.id = this.$route.query.id; //专辑id
     console.log(this.id);
-    this.playlistDetailFn(this.id);
+    this.getAlbumFn(this.id);
   },
   activated() {
     this.sheetShow = false;
   },
   methods: {
-   toAlbumPage(albumId) {
-     console.log(albumId)
-      this.$router.push({
-        path: "/AlbumHome",
-        query: { id: albumId }
-      });
-    },
     toSingerPage(singerId) {
       this.$router.push({
         path: "/SingerHome",
@@ -74,6 +67,9 @@ export default {
         .getAlbumFn(id)
         .then(result => {
           console.log(result.data);
+          this.playlist = result.data.album;
+          this.tracks = result.data.songs;
+          //   this.subscribers = result.data.playlist.subscribers;
         })
         .catch(err => {});
     },
@@ -105,24 +101,6 @@ export default {
         .then(result => {
           console.log(result.data);
           this.setSongUrl(result.data.data[0].url);
-        })
-        .catch(err => {});
-    },
-    getBgColor() {
-      console.log("palette");
-      var colorThief = new ColorThief();
-      this.color = colorThief.getColor(this.$refs.bgImg);
-      console.log(colorThief.getPalette(this.$refs.bgImg, 8));
-      console.log(colorThief.getColor(this.$refs.bgImg));
-    },
-    playlistDetailFn(id) {
-      api
-        .playlistDetailFn(id)
-        .then(result => {
-          console.log(result.data.playlist);
-          this.playlist = result.data.playlist;
-          this.tracks = result.data.playlist.tracks;
-          this.subscribers = result.data.playlist.subscribers;
         })
         .catch(err => {});
     },

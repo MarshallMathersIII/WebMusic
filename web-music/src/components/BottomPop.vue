@@ -19,7 +19,7 @@
             <span v-for="singer in sheetItem.ar">{{singer.name}}</span>
           </div>
         </div>
-        <div class="sheet-item">
+        <div class="sheet-item" @click="toAlbumPage(sheetItem.al.id)">
           <i class="iconfont icon-pinglun1"></i>
           <span>专辑：</span>
           <span>{{sheetItem.al.name}}</span>
@@ -57,7 +57,7 @@ export default {
         return this.popup;
       },
       set(value) {
-          console.log(value)
+        console.log(value);
         this.$emit("update:popup", value);
       }
     }
@@ -65,6 +65,9 @@ export default {
   methods: {
     toSingerPage(id) {
       this.$emit("toSingerPage", id);
+    },
+    toAlbumPage(id) {
+      this.$emit("toAlbumPage", id);
     }
   }
 };

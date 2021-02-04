@@ -4,7 +4,7 @@ import store from '@/store/index'
 import qs from "qs";
 
 
-import { artistAlbum, artistDetail, artistSong, getAlbum, likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import {artistAlbum, artistDetail, artistSong, getAlbum, likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 

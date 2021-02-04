@@ -1,4 +1,5 @@
 <template>
+  <!-- 歌单/专辑列表组件 -->
   <div class="content">
     <div class="wapper" v-if="albumType===0">
       <div class="list-content" v-for="item in list" @click="toListDetail(item.id)">
@@ -51,8 +52,7 @@ export default {
 <style scoped lang="stylus">
 @import '../assets/styles/variable'
 @import '../assets/styles/mixin'
-.content
-.wrapper
+.content, .wrapper
   background-color #fff
 .list-title
   display flex

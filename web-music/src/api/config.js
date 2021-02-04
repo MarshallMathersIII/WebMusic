@@ -8,7 +8,6 @@ export const recommendSong = api + '/recommend/resource' // 获取每日推荐�
 export const topSong = api + '/top/song' // 发现页新歌
 
 export const newDish = api + '/top/album' // 发现页新碟
-export const getAlbum = api + '/album' // 获取专辑内容
 export const newAlbum = api + '/album/newest' // 发现页新歌/homepage/block/page
 
 export const homepage = api +'/homepage/block/page' //TODO首页数据接口，暂不可用，用以上三接代替，后续修改
@@ -43,6 +42,8 @@ export const likeMusic = api + '/like' // 喜欢歌曲
 export const artistSong = api + '/artist/top/song' // 歌手热门50
 export const artistDetail = api + '/artist/detail' // 获取歌手详情(暂不可用)
 export const artistAlbum = api + '/artist/album' // 歌手专辑
+export const getAlbum = api + '/album' // 获取专辑内容
+
 
 
 

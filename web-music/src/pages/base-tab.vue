@@ -19,9 +19,9 @@
       <i class="iconfont icon-huatong"></i>
       <p>k歌</p>
     </router-link> -->
-    <router-link tag="div" class="tab-item" to="SingerHome">
+    <router-link tag="div" class="tab-item" to="UserHome">
       <i class="iconfont icon-pengyou"></i>
-      <p>视频</p>
+      <p>主页</p>
     </router-link>
   </div>
 </template>

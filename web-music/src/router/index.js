@@ -9,9 +9,7 @@ import LoginHome from 'pages/login/LoginHome'
 import PhonePwd from 'pages/login/PhonePwd'
 import ListHome from 'pages/songlist/ListHome'
 import SingerHome from 'pages/singer/SingerHome'
-
-
-
+import AlbumHome from 'pages/album/AlbumHome'
 
 Vue.use(Router)
 
@@ -52,7 +50,7 @@ const router = new Router({
       name: 'UserHome',
       component: UserHome,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     },
     {
@@ -95,6 +93,14 @@ const router = new Router({
       path: '/ListHome',
       name: 'ListHome',
       component: ListHome,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: '/AlbumHome',
+      name: 'AlbumHome',
+      component: AlbumHome,
       meta: {
         keepAlive: true
       }
