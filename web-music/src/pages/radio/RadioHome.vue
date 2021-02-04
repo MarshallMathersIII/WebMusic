@@ -7,6 +7,7 @@
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
+      :fixed="true"
     />
     <!-- 横向滚动 -->
     <roll-list :list="djPaygiftList" :title="title" :type="rollType"></roll-list>

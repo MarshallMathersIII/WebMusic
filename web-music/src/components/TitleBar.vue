@@ -56,7 +56,8 @@ export default {
   justify-content space-between
   align-items center
   display flex
-  color white
+  color black
+  background-color #fff
   font-size $font-size-large
   .iconfont
     font-size $font-size-large

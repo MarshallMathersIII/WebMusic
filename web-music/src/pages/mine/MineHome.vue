@@ -1,6 +1,8 @@
 <template>
   <div class="content">
-    <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn"></title-bar>
+    <van-sticky @scroll="scroll">
+      <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn" ref="title"></title-bar>
+    </van-sticky>
     <!-- 头像区 -->
     <div class="user" v-if="loginState=='1'" @click="toUserPage">
       <img class="user-img" :src="profile.avatarUrl" :onerror="defaultImg" />
@@ -127,6 +129,17 @@ export default {
     this.popShow = false;
   },
   methods: {
+    scroll(data) {
+      console.log(`回调参数`, data); // {scrollTop:0,isFixed:true}
+      if (data.scrollTop >= 42) {
+        console.log(`ref`, this.$refs.title);
+        this.$refs.title.$el.style.backgroundColor = "white"; //动态修改子组件样式
+        this.milddleTip = this.profile.nickname;
+      } else {
+        this.$refs.title.$el.style.backgroundColor = "transparent";
+        this.milddleTip = "我的";
+      }
+    },
     toUserPage() {
       this.$router.push("/UserHome", () => {});
     },
