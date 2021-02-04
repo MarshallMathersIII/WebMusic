@@ -1,7 +1,12 @@
 <template>
   <div class="content">
     <van-sticky @scroll="scroll">
-      <title-bar :milddleTip="milddleTip" v-on:leftBtn="leftClickBtn" ref="title"></title-bar>
+      <title-bar :milddleTip="milddleTip" @leftBtn="leftClickBtn" ref="title">
+        <div class="user-title-img" v-show="softShow">
+          <img  :src="profile.avatarUrl" />
+          <span>{{profile.nickname}}</span>
+        </div>
+      </title-bar>
     </van-sticky>
     <!-- 头像区 -->
     <div class="user" v-if="loginState=='1'" @click="toUserPage">
@@ -112,7 +117,8 @@ export default {
       createList: [], //创建歌单
       collectList: [], //收藏歌单
       firstItem: {},
-      defaultImg: 'this.src="' + require("assets/img/lazy_load.png") + '"' //默认图地址
+      defaultImg: 'this.src="' + require("assets/img/lazy_load.png") + '"' ,//默认图地址
+      softShow:false
     };
   },
   mounted() {
@@ -134,9 +140,11 @@ export default {
       if (data.scrollTop >= 42) {
         console.log(`ref`, this.$refs.title);
         this.$refs.title.$el.style.backgroundColor = "white"; //动态修改子组件样式
-        this.milddleTip = this.profile.nickname;
+        this.milddleTip = "";
+        this.softShow=true
       } else {
         this.$refs.title.$el.style.backgroundColor = "transparent";
+        this.softShow=false
         this.milddleTip = "我的";
       }
     },
@@ -207,6 +215,14 @@ export default {
 .content
   background-color $color-background-grey
   height 100%
+  .user-title-img
+    img
+      width 30px
+      height 30px
+      border-radius 50px
+    span
+      margin-left 6px
+      font-size 10px
   .sheetPop
     height 200px
   .user

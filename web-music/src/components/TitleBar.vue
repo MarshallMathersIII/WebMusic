@@ -4,7 +4,10 @@
       <i class="iconfont icon-fanhui1" :style="changeStyle(leftIconShow)"></i>
       <span :style="changeStyle(leftTipShow)">返回</span>
     </div>
-    <div class="middle">{{milddleTip}}</div>
+    <div class="middle">
+      <slot></slot>
+      {{milddleTip}}
+    </div>
     <div class="right" :style="changeStyle(rightShow)">
       <span>返回</span>
       <i class="iconfont icon-faxian"></i>
@@ -19,7 +22,7 @@ export default {
       type: Boolean,
       default: true
     },
-     leftIconShow: {
+    leftIconShow: {
       type: Boolean,
       default: true
     },
@@ -27,11 +30,11 @@ export default {
       type: Boolean,
       default: false
     },
-    milddleTip:{
+    milddleTip: {
       type: String,
       default: ""
     },
-    rightShow:{
+    rightShow: {
       type: Boolean,
       default: false
     }
@@ -41,8 +44,8 @@ export default {
     changeStyle(show) {
       return { visibility: show ? "initial" : "hidden" };
     },
-    leftClick(){
-      this.$emit('leftBtn')
+    leftClick() {
+      this.$emit("leftBtn");
     }
   }
 };
@@ -52,22 +55,23 @@ export default {
 @import '~assets/styles/variable'
 @import '~assets/styles/mixin'
 .title
+  padding 0 10px
   height 60px
   justify-content space-between
   align-items center
   display flex
   color black
-  background-color #fff
   font-size $font-size-large
   .iconfont
     font-size $font-size-large
   div
-    flex 1
     display flex
     justify-content center
     align-items center
   .middle
-    flex 3
+    display flex
+    justify-content center
+    align-items center
 .test
   height 20px
 </style>
