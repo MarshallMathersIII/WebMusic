@@ -55,45 +55,22 @@
       @moreBtn="moreBtn(arguments)"
       @playingMusic="playingMusic(arguments)"
     ></song-list>
-    <!-- 底部弹出窗 -->
-    <van-action-sheet v-model="sheetShow" title="标题">
-      <div class="sheet">
-        <div class="sheet-up"></div>
-        <div class="sheet-item">
-          <i class="iconfont icon-pinglun1"></i>
-          <span>歌手：</span>
-          <div class="artists">
-            <span v-for="singer in sheetItem.ar">{{singer.name}}</span>
-          </div>
-        </div>
-        <div class="sheet-item">
-          <i class="iconfont icon-pinglun1"></i>
-          <span>专辑：</span>
-          <span>{{sheetItem.al.name}}</span>
-        </div>
-        <div class="sheet-item">
-          <i class="iconfont icon-pinglun1"></i>
-          <span>分享</span>
-        </div>
-        <div class="sheet-item">
-          <i class="iconfont icon-pinglun1"></i>
-          <span>评论</span>
-        </div>
-      </div>
-    </van-action-sheet>
+    <!-- 底部弹窗组件 .sync实现 props参数双向绑定 -->
+    <bottom-pop :sheetItem="sheetItem" :popup.sync="sheetShow" @toSingerPage="toSingerPage"></bottom-pop>
   </div>
 </template>
 <script>
 import TitleBar from "@/components/TitleBar";
 import SongList from "@/components/SongList";
-
+import BottomPop from "@/components/BottomPop";
 import api from "api/api.js";
 import ColorThief from "color-thief";
 import { mapGetters, mapMutations } from "vuex";
 export default {
   components: {
     TitleBar,
-    SongList
+    SongList,
+    BottomPop
   },
   data() {
     return {
@@ -116,7 +93,16 @@ export default {
     console.log(this.id);
     this.playlistDetailFn(this.id);
   },
+  activated() {
+    this.sheetShow = false;
+  },
   methods: {
+    toSingerPage(singerId) {
+      this.$router.push({
+        path: "/SingerHome",
+        query: { id: singerId }
+      });
+    },
     getAlbumFn(id) {
       api
         .getAlbumFn(id)
@@ -133,6 +119,7 @@ export default {
       const index = msg[1];
       this.sheetItem = item;
       console.log(item);
+      console.log(this.sheetShow);
       this.sheetShow = true;
     },
     playingMusic(msg) {
@@ -262,27 +249,4 @@ export default {
     justify-content space-around
     align-items center
     box-shadow inset 0 0 2px #CCC
-.sheet
-  padding 0 10px
-  margin-bottom 20px
-  .sheet-up
-    height 80px
-    background pink
-  .sheet-item
-    padding 4px
-    display flex
-    justify-content flex-start
-    align-items center
-    height 40px
-    :nth-child(2)
-      padding-left 8px
-    .artists
-      display felx
-      justify-content flex-start
-      span
-        padding-right 2px
-      ::after
-        content '/'
-      :last-child::after
-        content ''
 </style>

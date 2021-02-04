@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <title-bar :milddleTip="milddleTip" @leftBtn="leftClickBtn"></title-bar>
-    <singer-info :name="name" :fans="fans" :type="type"></singer-info>
+    <singer-info :name="name" :fans="fans" :type="type" :bgUrl="bgUrl"></singer-info>
     <div class="tab-wapper">
       <van-tabs v-model="active" swipeable animated>
         <van-tab title="歌曲">
@@ -49,16 +49,17 @@ export default {
       subscribers: [],
       milddleTip: "歌手",
       id: "102019",
-      name: "gil scott-heron",
-      fans: "20100",
+      name: "",
+      fans: 20100,
       type: 0,
-      bgUrl:
-        "http://p1.music.126.net/VRRQf1OR0_I-tGpi2_B6lQ==/109951164656872272.jpg"
+      bgUrl: "",
+      singerId:0
     };
   },
   mounted() {
-    this.artistSongFn(this.id);
-    this.artistAlbumFn(this.id);
+    this.singerId = this.$route.query.id;
+    this.artistSongFn(this.singerId);
+    this.artistAlbumFn(this.singerId);
     // this.artistDetailFn(this.id);
   },
   methods: {
@@ -73,6 +74,8 @@ export default {
         .artistAlbumFn(id)
         .then(result => {
           console.log(result.data.hotAlbums);
+          this.name = result.data.artist.name;
+          this.bgUrl = result.data.artist.picUrl;
           this.hotAlbums = result.data.hotAlbums;
         })
         .catch(err => {});

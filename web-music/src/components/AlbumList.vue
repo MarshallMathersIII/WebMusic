@@ -18,7 +18,7 @@
         <img class="left" v-lazy="item.blurPicUrl" />
         <div class="right">
           <span>{{item.name}}</span>
-          <span>{{item.publishTime}}</span>
+          <span>{{item.publishTime |filterDate}}</span>
         </div>
       </div>
     </div>
