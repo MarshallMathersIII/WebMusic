@@ -4,7 +4,7 @@
     <div class="search">
       <i @click="showPopup" class="iconfont icon-gongnengtubiao-86"></i>
       <div class="serach-wapper">
-        <van-search v-model="value" placeholder="请输入搜索关键词" shape="round" />
+        <van-search v-model="value" placeholder="请输入搜索关键词" shape="round" @focus="focus"/>
       </div>
       <i class="iconfont icon-huatong1"></i>
     </div>
@@ -95,6 +95,14 @@ export default {
     this.popShow = false;
   },
   methods: {
+    focus(event){
+      console.log(event)
+       this.$router.push({
+        path: "/SearchHome"
+      });
+    },
+
+
     //TODO 歌曲封面切换，深、浅拷贝问题
     bannerClick(val) {
       console.log(val);

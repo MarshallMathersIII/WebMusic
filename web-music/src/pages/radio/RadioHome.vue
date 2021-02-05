@@ -1,14 +1,9 @@
 <template>
   <!-- TODO vant按需引入样式修改 -->
   <div class="content">
-    <van-nav-bar
-      :border="true"
-      title="电台"
-      left-arrow
-      @click-left="onClickLeft"
-      @click-right="onClickRight"
-      :fixed="true"
-    />
+    <van-sticky>
+      <title-bar :milddleTip="milddleTip" @leftBtn="onClickLeft" :leftIcon="leftIcon" ref="title"></title-bar>
+    </van-sticky>
     <!-- 横向滚动 -->
     <roll-list :list="djPaygiftList" :title="title" :type="rollType"></roll-list>
     <!-- 轮播图 -->
@@ -22,12 +17,16 @@ import api from "api/api.js";
 import RollList from "components/RollList";
 import GridList from "components/GridList";
 import BannerSwiper from "components/BannerSwiper";
+import TitleBar from "@/components/TitleBar";
 
 import { Toast } from "vant";
 
 export default {
   data() {
     return {
+      softShow: false,
+      milddleTip: "电台",
+      leftIcon: "iconfont icon-gongnengtubiao-86",
       djBannerList: [],
       djPaygiftList: [],
       title: {
@@ -41,12 +40,14 @@ export default {
   components: {
     RollList,
     BannerSwiper,
-    GridList
+    GridList,
+    TitleBar
   },
   mounted() {
     this.djPerferedFn();
     this.djBannerFn();
     this.djPaygiftFn();
+    this.$refs.title.$el.style.backgroundColor = "white";
   },
   methods: {
     onClickLeft() {
@@ -97,5 +98,6 @@ export default {
 .content >>> .van-nav-bar .van-icon
   color black
 .content >>> .van-nav-bar__content
+  background-color white
   height 60px
 </style>

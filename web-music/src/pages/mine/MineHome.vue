@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <van-sticky @scroll="scroll">
-      <title-bar :milddleTip="milddleTip" @leftBtn="leftClickBtn" ref="title">
+      <title-bar :milddleTip="milddleTip" @leftBtn="leftClickBtn" :leftIcon="leftIcon" ref="title">
         <div class="user-title-img" v-show="softShow">
           <img  :src="profile.avatarUrl" />
           <span>{{profile.nickname}}</span>
@@ -118,7 +118,8 @@ export default {
       collectList: [], //收藏歌单
       firstItem: {},
       defaultImg: 'this.src="' + require("assets/img/lazy_load.png") + '"' ,//默认图地址
-      softShow:false
+      softShow:false,
+      leftIcon:"iconfont icon-gongnengtubiao-86"
     };
   },
   mounted() {

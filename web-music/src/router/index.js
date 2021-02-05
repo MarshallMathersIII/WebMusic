@@ -10,11 +10,21 @@ import PhonePwd from 'pages/login/PhonePwd'
 import ListHome from 'pages/songlist/ListHome'
 import SingerHome from 'pages/singer/SingerHome'
 import AlbumHome from 'pages/album/AlbumHome'
+import SearchHome from 'pages/search/SearchHome'
+
 
 Vue.use(Router)
 
 const router = new Router({
   routes: [
+    {
+      path: '/SearchHome',
+      name: 'SearchHome',
+      component: SearchHome,
+      meta: {
+        keepAlive: false
+      }
+    },
     {
       path: '/SingerHome',
       name: 'SingerHome',

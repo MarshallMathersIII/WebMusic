@@ -1,7 +1,7 @@
 <template>
   <div class="title">
     <div class="left" :style="changeStyle(leftShow)" @click="leftClick">
-      <i class="iconfont icon-fanhui1" :style="changeStyle(leftIconShow)"></i>
+      <i :class="leftIcon" :style="changeStyle(leftIconShow)"></i>
       <span :style="changeStyle(leftTipShow)">返回</span>
     </div>
     <div class="middle">
@@ -29,6 +29,10 @@ export default {
     leftTipShow: {
       type: Boolean,
       default: false
+    },
+    leftIcon: {
+      type: String,
+      default: "iconfont icon-fanhui1"
     },
     milddleTip: {
       type: String,
@@ -69,9 +73,8 @@ export default {
     justify-content center
     align-items center
   .middle
+    flex 1
     display flex
     justify-content center
     align-items center
-.test
-  height 20px
 </style>

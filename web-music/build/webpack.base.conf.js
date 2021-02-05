@@ -38,6 +38,8 @@ module.exports = {
       'radio': resolve('src/pages/radio'),
       'video': resolve('src/pages/video'),
       'player': resolve('src/pages/player'),
+      'search': resolve('src/pages/search'),
+
     }
   },
   module: {
