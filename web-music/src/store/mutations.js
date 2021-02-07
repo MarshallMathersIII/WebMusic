@@ -40,6 +40,9 @@ const mutations = {
   [types.SET_POP_SHOW] (state, popShow) {
     state.popShow = popShow
   },
+   [types.SET_SEARCH_LIST] (state, list) {
+    state.searchList = list
+  },
 }
 
 export default mutations

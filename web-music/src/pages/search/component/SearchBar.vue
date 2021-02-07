@@ -3,7 +3,7 @@
     <div class="search-bar">
       <div class="search">
         <i class="iconfont icon-huatong1"></i>
-        <input type="text" :placeholder="placeholder" v-model="searchVal" />
+        <input type="text" :placeholder="placeholder" v-model="searchVal" @keydown="keydown(searchVal)" />
         <i class="iconfont icon-huatong1" v-show="searchVal" @click="clear"></i>
       </div>
       <span @click="cancelClick">取消</span>
@@ -11,6 +11,8 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
   name: "SearchBar",
   props: {
@@ -18,10 +20,6 @@ export default {
       type: String,
       default: "请输入哦"
     },
-    searchVal: {
-      type: String,
-      default: ""
-    }
   },
   data() {
     return {
@@ -29,17 +27,26 @@ export default {
     };
   },
   methods: {
+    keydown(searchVal) {
+      this.$emit("keydown",searchVal);
+    },
     cancelClick() {
       this.$emit("cancelClick");
     },
     clear() {
       this.searchVal = "";
+    },
+    setSearchVal(val) {
+      this.searchVal = val;
     }
   },
   created() {
     this.$watch("searchVal", function(newValue, oldValue) {
       this.$emit("searchVal", newValue);
     });
+  },
+  computed: {
+    ...mapGetters(["searchList"])
   }
 };
 </script>

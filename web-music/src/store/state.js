@@ -12,7 +12,9 @@ const state = {
   mode: palyMode.sequence,
   currentIndex: -1,
   songUrl: '',
-  popShow: false
+  popShow: false,
+
+  searchList:[]
 }
 
 export default state

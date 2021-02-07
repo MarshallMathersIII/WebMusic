@@ -1,6 +1,7 @@
 <template>
   <div class="content">
-    <search-bar @cancelClick="cancelClick"></search-bar>
+    <search-bar ref="searchBar" @cancelClick="cancelClick" @keydown="keydown"></search-bar>
+    <search-history @itemClick="itemClick" @clearHistory="clearHistory"></search-history>
   </div>
 </template>
 <script>
@@ -11,14 +12,40 @@ import BannerSwiper from "components/BannerSwiper";
 import TitleBar from "@/components/TitleBar";
 import { Toast } from "vant";
 import SearchBar from "./component/SearchBar";
+import SearchHistory from "./component/SearchHistory";
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
+  data() {
+    return {
+      tempList: []
+    };
+  },
   components: {
-    SearchBar
+    SearchBar,
+    SearchHistory
   },
   methods: {
+    clearHistory() {
+      this.setSearchList([]);
+    },
+    itemClick(index) {
+      this.$refs.searchBar.setSearchVal(this.searchList[index]);
+      console.log(index);
+    },
     cancelClick() {
-      console.log("cancelClick")
-    }
+      console.log("cancelClick");
+    },
+    keydown(val) {
+      this.tempList.push(val);
+      this.setSearchList(this.tempList.slice());
+    },
+    ...mapMutations({
+      setSearchList: "SET_SEARCH_LIST"
+    })
+  },
+  computed: {
+    ...mapGetters(["searchList"])
   }
 };
 </script>
@@ -27,23 +54,4 @@ export default {
 // stylus引入
 @import '~assets/styles/variable'
 @import '~assets/styles/mixin'
-.content
-  .search-bar
-    margin 10px
-    display flex
-    justify-content space-between
-    align-items center
-    .search
-      width 76%
-      height 40px
-      background-color $color-background-grey
-      border-radius 20px
-      display flex
-      justify-content flex-start
-      align-items center
-      padding 0 20px
-      input
-        margin-left 10px
-        flex 1
-        background-color $color-background-grey
 </style>

@@ -18,3 +18,5 @@ export const currentSong = (state) => {
 export const songUrl = state => state.songUrl
 
 export const popShow = state => state.popShow
+
+export const searchList = state => state.searchList

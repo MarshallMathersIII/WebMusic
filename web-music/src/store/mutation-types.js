@@ -23,5 +23,8 @@ export const SET_SONG_URL = 'SET_SONG_URL'
 
 export const SET_POP_SHOW = 'SET_POP_SHOW'
 
+export const SET_SEARCH_LIST= 'SET_SEARCH_LIST'
+
+
 
 
