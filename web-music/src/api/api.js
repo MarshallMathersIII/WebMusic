@@ -4,11 +4,26 @@ import store from '@/store/index'
 import qs from "qs";
 
 
-import {artistAlbum, artistDetail, artistSong, getAlbum, likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import { suggestSearch, defaultSearch, hotSearchList, artistAlbum, artistDetail, artistSong, getAlbum, likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
 export default {
+    //必选参数 : keywords : 关键词
+    //可选参数 : type : 如果传 'mobile' 则返回移动端数据
+    suggestSearchFn(keywords, type) {
+        return axios.get(suggestSearch, {
+            params: {
+                keywords, type
+            }
+        })
+    },
+    defaultSearchFn() {
+        return axios.get(defaultSearch)
+    },
+    hotSearchListFn() {
+        return axios.get(hotSearchList)
+    },
     artistAlbumFn(id, limit, offset) {
         return axios.get(artistAlbum, {
             params: {

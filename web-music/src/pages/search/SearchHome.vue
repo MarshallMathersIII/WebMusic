@@ -1,7 +1,19 @@
 <template>
   <div class="content">
-    <search-bar ref="searchBar" @cancelClick="cancelClick" @keydown="keydown"></search-bar>
+    <search-bar
+      ref="searchBar"
+      @cancelClick="cancelClick"
+      @keydown="keydown"
+      @searchValChange="searchValChange"
+      :placeholder="placeholder"
+    ></search-bar>
     <search-history @itemClick="itemClick" @clearHistory="clearHistory"></search-history>
+    <search-suggest
+      :val="val"
+      :hotList="hotList"
+      :suggestList="suggestList"
+      @hotItemClick="hotItemClick"
+    ></search-suggest>
   </div>
 </template>
 <script>
@@ -13,20 +25,68 @@ import TitleBar from "@/components/TitleBar";
 import { Toast } from "vant";
 import SearchBar from "./component/SearchBar";
 import SearchHistory from "./component/SearchHistory";
+import SearchSuggest from "./component/SearchSuggest";
 import { mapGetters, mapMutations } from "vuex";
+import { isNull } from "base/utils";
 
 export default {
   data() {
     return {
-      tempList: []
+      tempList: [],
+      val: "",
+      hotList: [],
+      suggestList: [],
+      placeholder: ""
     };
+  },
+  mounted() {
+    this.hotSearchListFn(); //热搜榜
+    this.defaultSearchFn(); //默认搜索词
   },
   components: {
     SearchBar,
-    SearchHistory
+    SearchHistory,
+    SearchSuggest
   },
   methods: {
+    hotItemClick(item) {
+      console.log(item);
+      this.$refs.searchBar.setSearchVal(item.searchWord);
+    },
+    suggestSearchFn(keyWords) {
+      api
+        .suggestSearchFn(keyWords, "mobile")
+        .then(result => {
+          console.log(result.data.result.allMatch);
+          this.suggestList = result.data.result.allMatch;
+        })
+        .catch(err => {});
+    },
+    defaultSearchFn() {
+      api
+        .defaultSearchFn()
+        .then(result => {
+          this.placeholder = result.data.data.showKeyword;
+        })
+        .catch(err => {});
+    },
+    hotSearchListFn() {
+      api
+        .hotSearchListFn()
+        .then(result => {
+          this.hotList = result.data.data;
+        })
+        .catch(err => {});
+    },
+    searchValChange(val) {
+      this.val = val;
+      if (isNull(this.val)) {
+        return;
+      }
+      this.suggestSearchFn(this.val);
+    },
     clearHistory() {
+      this.tempList = [];
       this.setSearchList([]);
     },
     itemClick(index) {
@@ -34,11 +94,11 @@ export default {
       console.log(index);
     },
     cancelClick() {
-      console.log("cancelClick");
+      this.$router.back(-1);
     },
     keydown(val) {
-      this.tempList.push(val);
-      this.setSearchList(this.tempList.slice());
+      // this.tempList.push(val);
+      // this.setSearchList(this.tempList.slice());
     },
     ...mapMutations({
       setSearchList: "SET_SEARCH_LIST"

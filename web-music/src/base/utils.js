@@ -13,3 +13,10 @@ export function shuffle(arr) {
 
     return _arr
 }
+
+export function isNull(str) {
+    if (str == "") return true;
+    var regu = "^[ ]+$";
+    var re = new RegExp(regu);
+    return re.test(str);
+}

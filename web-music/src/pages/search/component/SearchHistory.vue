@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="history" v-if="searchList.length>0">
+    <div class="history" v-if="false">
       <span class="tab">历史</span>
       <div class="wapper">
         <span

@@ -43,7 +43,10 @@ export const artistAlbum = api + '/artist/album' // 歌手专辑
 export const getAlbum = api + '/album' // 获取专辑内容
 
 //搜索
-
+export const hotSearchList = api + '/search/hot/detail' // 热搜列表
+export const search = api + '/search' // 搜索关键词
+export const defaultSearch = api + '/search/default' // 默认搜索关键词
+export const suggestSearch = api + '/search/suggest' // 搜索建议
 
 
 
