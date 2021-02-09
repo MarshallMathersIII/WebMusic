@@ -53,16 +53,26 @@ export default {
       fans: 20100,
       type: 0,
       bgUrl: "",
-      singerId:0
+      singerId: 0
     };
   },
   mounted() {
     this.singerId = this.$route.query.id;
-    this.artistSongFn(this.singerId);
+    this.artistTopSongFn(this.singerId);
     this.artistAlbumFn(this.singerId);
     // this.artistDetailFn(this.id);
+    // this.artistSongsFn(this.id,"hot",20,20)
   },
   methods: {
+    //全部歌曲
+    artistSongsFn(id, order, limit, offset) {
+      api
+        .artistAlbumFn(id, order, limit, offset)
+        .then(result => {
+          console.log(result.data);
+        })
+        .catch(err => {});
+    },
     toListDetail(id) {
       this.$router.push({
         path: "/ListHome",
@@ -118,9 +128,9 @@ export default {
         })
         .catch(err => {});
     },
-    artistSongFn(id) {
+    artistTopSongFn(id) {
       api
-        .artistSongFn(id)
+        .artistTopSongFn(id)
         .then(result => {
           console.log(result.data.songs);
           console.log(result.data.songs);

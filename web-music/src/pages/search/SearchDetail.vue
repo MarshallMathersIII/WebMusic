@@ -1,21 +1,5 @@
 <template>
-  <div class="content">
-    <search-bar
-      ref="searchBar"
-      @cancelClick="cancelClick"
-      @keydown="keydown"
-      @searchValChange="searchValChange"
-      :placeholder="placeholder"
-    ></search-bar>
-    <search-history @itemClick="itemClick" @clearHistory="clearHistory"></search-history>
-    <search-suggest
-      :val="val"
-      :hotList="hotList"
-      :suggestList="suggestList"
-      @hotItemClick="hotItemClick"
-      @suggestItemClick="suggestItemClick"
-    ></search-suggest>
-  </div>
+  <div class="content">搜索详情页面</div>
 </template>
 <script>
 import api from "api/api.js";
@@ -53,8 +37,8 @@ export default {
     suggestItemClick(item) {
       console.log(item);
       this.$router.push({
-        path: "/SearchDetail",
-        query: { item: item }
+        path: "/PhonePwd",
+        query: { phone: this.phone }
       });
     },
     hotItemClick(item) {

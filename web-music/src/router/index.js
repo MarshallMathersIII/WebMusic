@@ -11,12 +11,19 @@ import ListHome from 'pages/songlist/ListHome'
 import SingerHome from 'pages/singer/SingerHome'
 import AlbumHome from 'pages/album/AlbumHome'
 import SearchHome from 'pages/search/SearchHome'
-
-
+import SearchDetail from 'pages/search/SearchDetail'
 Vue.use(Router)
 
 const router = new Router({
   routes: [
+    {
+      path: '/SearchDetail',
+      name: 'SearchDetail',
+      component: SearchDetail,
+      meta: {
+        keepAlive: false
+      }
+    },
     {
       path: '/SearchHome',
       name: 'SearchHome',

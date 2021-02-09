@@ -37,10 +37,12 @@ export const checkMusic = api + '/check/music' // 查看歌曲是否可用
 export const likeMusic = api + '/like' // 喜欢歌曲
 
 //歌手
-export const artistSong = api + '/artist/top/song' // 歌手热门50
+export const artistTopSong = api + '/artist/top/song' // 歌手热门50
 export const artistDetail = api + '/artist/detail' // 获取歌手详情(暂不可用)
 export const artistAlbum = api + '/artist/album' // 歌手专辑
 export const getAlbum = api + '/album' // 获取专辑内容
+export const artistSongs = api + '/artist/songs' // 歌手热门50
+
 
 //搜索
 export const hotSearchList = api + '/search/hot/detail' // 热搜列表

@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <!-- 热搜榜 -->
     <div class="hot" v-if="val==''">
       <div class="title">
         <span>热搜榜</span>
@@ -14,9 +15,10 @@
         >{{index+1+" "+ item.searchWord}}</div>
       </div>
     </div>
+    <!-- 搜索提示 -->
     <div class="suggest" v-else>
       <div class="suggest-title">搜索 "{{val}}"</div>
-      <div class="suggest-item" v-for="item in suggestList">
+      <div class="suggest-item" v-for="item in suggestList" @click="suggestItemClick(item)">
         <i class="iconfont icon-huatong1"></i>
         <span>{{item.keyword}}</span>
       </div>
@@ -47,11 +49,13 @@ export default {
     }
   },
   methods: {
-    hotItemClick(item){
-      this.$emit('hotItemClick', item);
+    suggestItemClick(item) {
+      this.$emit("suggestItemClick", item);
+    },
+    hotItemClick(item) {
+      this.$emit("hotItemClick", item);
     }
-  },
-
+  }
 };
 </script>
 

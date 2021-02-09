@@ -4,11 +4,20 @@ import store from '@/store/index'
 import qs from "qs";
 
 
-import { suggestSearch, defaultSearch, hotSearchList, artistAlbum, artistDetail, artistSong, getAlbum, likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import { artistSongs, artistTopSong, suggestSearch, defaultSearch, hotSearchList, artistAlbum, artistDetail, artistSong, getAlbum, likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
 export default {
+    //歌手全部歌曲
+    artistSongsFn(id, order, limit, offset) {
+        return axios.get(artistSongs, {
+            params: {
+                id, order, limit, offset
+            }
+        })
+    },
+    //搜索提示
     //必选参数 : keywords : 关键词
     //可选参数 : type : 如果传 'mobile' 则返回移动端数据
     suggestSearchFn(keywords, type) {
@@ -18,12 +27,21 @@ export default {
             }
         })
     },
+    // 默认搜素
     defaultSearchFn() {
         return axios.get(defaultSearch)
     },
+    //热搜榜
     hotSearchListFn() {
         return axios.get(hotSearchList)
     },
+    /**
+     获取歌手专辑
+     说明 : 调用此接口 , 传入歌手 id, 可获得歌手专辑内容
+     必选参数 : id: 歌手 id
+     可选参数 : limit: 取出数量 , 默认为 50
+     offset: 偏移数量 , 用于分页 , 如 :( 页数 -1)*50, 其中 50 为 limit 的值 , 默认 为 0
+    */
     artistAlbumFn(id, limit, offset) {
         return axios.get(artistAlbum, {
             params: {
@@ -38,8 +56,8 @@ export default {
             }
         })
     },
-    artistSongFn(id) {
-        return axios.get(artistSong, {
+    artistTopSongFn(id) {
+        return axios.get(artistTopSong, {
             params: {
                 id
             }
