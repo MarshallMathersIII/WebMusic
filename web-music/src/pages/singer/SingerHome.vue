@@ -7,12 +7,15 @@
         <van-tab title="歌曲">
           <!-- 歌曲列表组件 -->
           <song-list
+            :finished="finished"
+            :vantLoading.sync="vantLoading"
             :playlist="playlist"
             :tracks="tracks"
             :type="type"
             :subscribers="subscribers"
             @moreBtn="moreBtn(arguments)"
             @playingMusic="playingMusic(arguments)"
+            @listOnLoad="listOnLoad"
           ></song-list>
         </van-tab>
         <van-tab title="专辑">
@@ -41,6 +44,8 @@ export default {
   },
   data() {
     return {
+      vantLoading: false,
+      finished: false,
       albumType: 1, //1:专辑；0：歌单
       hotAlbums: [],
       active: 3,
@@ -53,7 +58,9 @@ export default {
       fans: 20100,
       type: 0,
       bgUrl: "",
-      singerId: 0
+      singerId: 0,
+      offset: 0,//偏移量
+      limit:50//取出条数
     };
   },
   mounted() {
@@ -61,15 +68,31 @@ export default {
     this.artistTopSongFn(this.singerId);
     this.artistAlbumFn(this.singerId);
     // this.artistDetailFn(this.id);
-    // this.artistSongsFn(this.id,"hot",20,20)
+    this.artistSongsFn(this.singerId, "hot", this.limit, this.offset);
   },
   methods: {
+    listOnLoad() {
+      console.log("listOnLoad");
+      console.log(this.offset);
+      this.offset = this.offset + this.limit;
+      this.artistSongsFn(this.singerId, "hot", this.limit, this.offset);
+    },
     //全部歌曲
     artistSongsFn(id, order, limit, offset) {
       api
-        .artistAlbumFn(id, order, limit, offset)
+        .artistSongsFn(id, order, limit, offset)
         .then(result => {
           console.log(result.data);
+          // this.tracks= result.data.songs;
+          var artistSongsFnList = result.data.songs;
+          var total = result.data.total;
+          console.log(total);
+          this.tracks = this.tracks.concat(artistSongsFnList);
+          this.vantLoading = false;
+          if (artistSongsFnList.length === 0) {
+            this.vantLoading = true;
+            this.finished = true;
+          }
         })
         .catch(err => {});
     },
@@ -135,7 +158,7 @@ export default {
           console.log(result.data.songs);
           console.log(result.data.songs);
           this.playlist = result.data;
-          this.tracks = result.data.songs;
+          // this.tracks = result.data.songs;
         })
         .catch(err => {});
     },

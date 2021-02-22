@@ -37,7 +37,7 @@ const router = new Router({
       name: 'SingerHome',
       component: SingerHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -67,7 +67,7 @@ const router = new Router({
       name: 'UserHome',
       component: UserHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -75,7 +75,7 @@ const router = new Router({
       name: 'MineHome',
       component: MineHome,
       meta: {
-        keepAlive: true,
+        keepAlive: false,
         footShow: true,
       }
     },
@@ -111,7 +111,7 @@ const router = new Router({
       name: 'ListHome',
       component: ListHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -119,7 +119,7 @@ const router = new Router({
       name: 'AlbumHome',
       component: AlbumHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     }
 

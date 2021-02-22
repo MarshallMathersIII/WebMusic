@@ -6,7 +6,7 @@
       <div class="list-title">
         <div class="left">
           <i class="iconfont icon-bofang-01"></i>
-          <span >播放全部 ({{tracks.length}})</span>
+          <span>播放全部 ({{tracks.length}})</span>
         </div>
         <div class="right">
           <i class="iconfont icon-xiazai"></i>
@@ -14,20 +14,28 @@
         </div>
       </div>
       <!-- 列表内容 -->
-      <div class="list-content" v-for="(item,index) in tracks" :key="item.id">
-        <div class="left" @click="playingMusic(item,index)">
-          <span>{{index+1}}</span>
-          <div class="song-info">
-            <span>{{item.name}}</span>
-            <div class="artists">
-              <span v-for="singer in item.ar">{{singer.name}}</span>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+        :immediate-check="immediateCheck"
+      >
+        <div class="list-content" v-for="(item,index) in tracks" :key="item.id">
+          <div class="left" @click="playingMusic(item,index)">
+            <span>{{index+1}}</span>
+            <div class="song-info">
+              <span>{{item.name}}</span>
+              <div class="artists">
+                <span v-for="singer in item.ar">{{singer.name}}</span>
+              </div>
             </div>
           </div>
+          <div class="right" @click="moreBtn(item,index)">
+            <i class="iconfont icon-gengduo"></i>
+          </div>
         </div>
-        <div class="right" @click="moreBtn(item,index)">
-          <i class="iconfont icon-gengduo"></i>
-        </div>
-      </div>
+      </van-list>
       <!-- 列表底部 -->
       <div v-if="type===1">
         <div class="list-bottom" v-if="playlist.subscribedCount!==0">
@@ -46,7 +54,20 @@
 <script>
 export default {
   name: "SongList",
+  data() {
+    return {
+      immediateCheck: false //首次加载不出发onLoad事件
+    };
+  },
   props: {
+    vantLoading: {
+      type: Boolean,
+      default: false
+    },
+    finished: {
+      type: Boolean,
+      default: false
+    },
     subscribers: {
       type: Array,
       default: function() {
@@ -71,7 +92,22 @@ export default {
       default: 0
     }
   },
+  computed: {
+    loading: {
+      get() {
+        return this.vantLoading;
+      },
+      set(value) {
+        console.log(value);
+        this.$emit("update:vantLoading", value);
+      }
+    }
+  },
   methods: {
+    onLoad() {
+      console.log("onLoad");
+      this.$emit("listOnLoad");
+    },
     playingMusic(item, index) {
       this.$emit("playingMusic", item, index);
     },

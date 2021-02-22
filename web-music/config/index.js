@@ -12,7 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://140.143.128.100:3000', // 设置调用的接口域名和端口号 ( 设置代理目标)
+        // target: 'http://140.143.128.100:3000', // 设置调用的接口域名和端口号 ( 设置代理目标)
+        target: 'http://localhost:3000', // 设置调用的接口域名和端口号 ( 设置代理目标)
         changeOrigin: true,
         pathRewrite: {
 
