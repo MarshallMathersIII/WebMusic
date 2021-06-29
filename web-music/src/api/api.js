@@ -116,8 +116,12 @@ export default {
         return axios.get(djPaygift)
     },
     //发现页面
-    homepageFn() {
-        return axios.get(homepage)
+    homepageFn(refresh) {
+        return axios.get(homepage, {
+            params: {
+                refresh
+            }
+        })
     },
     //退出登录
     logoutFn() {

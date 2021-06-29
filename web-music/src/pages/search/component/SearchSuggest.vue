@@ -83,6 +83,7 @@ export default {
         padding 6px 0
         font-size 8px
         color grey
+        no-wrap()
   .suggest
     display flex
     align-items flex-start

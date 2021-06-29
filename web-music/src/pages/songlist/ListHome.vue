@@ -4,6 +4,8 @@
     <album-banner :playlist="playlist" :type="albumType"></album-banner>
     <!-- 歌曲列表组件 -->
     <song-list
+      :finished="finished"
+      :vantLoading.sync="vantLoading"
       :playlist="playlist"
       :tracks="tracks"
       :type="type"
@@ -12,7 +14,12 @@
       @playingMusic="playingMusic(arguments)"
     ></song-list>
     <!-- 底部弹窗组件 .sync实现 props参数双向绑定 -->
-    <bottom-pop :sheetItem="sheetItem" :popup.sync="sheetShow" @toSingerPage="toSingerPage" @toAlbumPage="toAlbumPage"></bottom-pop>
+    <bottom-pop
+      :sheetItem="sheetItem"
+      :popup.sync="sheetShow"
+      @toSingerPage="toSingerPage"
+      @toAlbumPage="toAlbumPage"
+    ></bottom-pop>
   </div>
 </template>
 <script>
@@ -32,6 +39,8 @@ export default {
   },
   data() {
     return {
+      vantLoading: false,
+      finished: true,
       milddleTip: "歌单",
       id: "",
       playlist: {},
@@ -44,7 +53,7 @@ export default {
         al: {}
       },
       type: 1,
-      albumType:0
+      albumType: 0
     };
   },
   mounted() {
@@ -56,8 +65,8 @@ export default {
     this.sheetShow = false;
   },
   methods: {
-   toAlbumPage(albumId) {
-     console.log(albumId)
+    toAlbumPage(albumId) {
+      console.log(albumId);
       this.$router.push({
         path: "/AlbumHome",
         query: { id: albumId }

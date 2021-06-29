@@ -29,7 +29,6 @@ import SearchHistory from "./component/SearchHistory";
 import SearchSuggest from "./component/SearchSuggest";
 import { mapGetters, mapMutations } from "vuex";
 import { isNull } from "base/utils";
-
 export default {
   data() {
     return {
@@ -91,6 +90,7 @@ export default {
       if (isNull(this.val)) {
         return;
       }
+      // TODO 需进行防抖处理
       this.suggestSearchFn(this.val);
     },
     clearHistory() {
