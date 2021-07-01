@@ -7,8 +7,11 @@ export const playList = api + '/top/playlist' // 推荐歌单，歌单广场
 export const recommendSong = api + '/recommend/resource' // 获取每日推荐歌单，登录内
 export const topSong = api + '/top/song' // 发现页新歌
 export const newDish = api + '/top/album' // 发现页新碟
-export const newAlbum = api + '/album/newest' // 发现页新歌/homepage/block/page
-export const homepage = api +'/homepage/block/page' //TODO首页数据接口，暂不可用，用以上三接代替，后续修改
+export const newAlbum = api + '/album/newest' //  最新专辑
+export const homepage = api +'/homepage/block/page'
+
+export const songDeatil = api + '/song/detail' //  歌曲详情
+
 
 //电台模块
 export const djBanner = api + '/dj/banner' // 电台页面的轮播图

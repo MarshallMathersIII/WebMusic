@@ -26,17 +26,14 @@
       <div class="new-more">更多</div>
     </div>
     <!-- 新歌/新碟/数字专辑列表 -->
-    <!-- TODO 接口返回图片过大newSonglist -->
-    <div class="new-list" v-for="item in newSonglist">
-      <img class="new-img" v-lazy="item.blurPicUrl" />
+    <div class="new-list" v-for="item in newTempList">
+      <img class="new-img" v-lazy="item.uiElement.image.imageUrl" />
       <div class="new-info">
         <div class="info-up">
-          <span>{{item.name}}</span>
-          <span>{{item.artist.name}}</span>
+          <span>{{item.uiElement.mainTitle.title}}</span>
         </div>
         <div class="info-down">
-          <span>{{item.type}}</span>
-          <span>{{item.company}}</span>
+          <span>{{item.uiElement.subTitle.title}}</span>
         </div>
       </div>
     </div>
@@ -75,28 +72,27 @@ export default {
       findIcons: [],
       popupIcons: [],
       playList: [],
-      newSonglist: [], //临时歌单
-      topSongList: [], //新歌
-      albumList: [], //数字专辑
-      topDishList: [], //新碟
-      tracks: []
+      tracks: [],
+      blocks: [],
+      newAlbumList: [],
+      newSongList: [],
+      digitalAlbumList: [],
+      newTempList: [] //临时歌单
     };
   },
   mounted() {
     this.iniData();
     this.bannerSwiperFn();
     this.playListFn();
-    // this.newDishFn();
-    // this.newAlbumFn();
-    // this.topSongFn();
+    this.homepageFn();
   },
   activated() {
     this.popShow = false;
   },
   methods: {
-    focus(event){
-      console.log(event)
-       this.$router.push({
+    focus(event) {
+      console.log(event);
+      this.$router.push({
         path: "/SearchHome"
       });
     },
@@ -105,7 +101,7 @@ export default {
     bannerClick(val) {
       console.log(val);
       this.tracks.push(val);
-      this.playingMusic(val,0);
+      this.playingMusic(val, 0);
     },
     playingMusic(val, index) {
       this.getSongUrlFn(val.id);
@@ -136,9 +132,36 @@ export default {
     },
     homepageFn() {
       api
-        .homepageFn()
+        .homepageFn(false)
         .then(result => {
-          console.log(result.data);
+          console.log(result.data.data);
+          let newArr = result.data.data.blocks.filter((item, index) => {
+            return item.blockCode == "HOMEPAGE_BLOCK_NEW_ALBUM_NEW_SONG";
+          });
+          console.log(newArr);
+          console.log(newArr[0].creatives);
+          this.blocks = newArr[0].creatives;
+          //新碟
+          let newAlbumList = this.blocks.filter((item, index) => {
+            return item.creativeType == "NEW_ALBUM_HOMEPAGE";
+          });
+          this.newAlbumList = newAlbumList[0].resources;
+          console.log(this.newAlbumList);
+
+          //新歌
+          let newSongList = this.blocks.filter((item, index) => {
+            return item.creativeType == "NEW_SONG_HOMEPAGE";
+          });
+          this.newSongList = newSongList[0].resources;
+          console.log(this.newSongList);
+          this.newTempList = this.newSongList;
+
+          //数字专辑
+          let digitalAlbumList = this.blocks.filter((item, index) => {
+            return item.creativeType == "DIGITAL_ALBUM_HOMEPAGE";
+          });
+          this.digitalAlbumList = digitalAlbumList[0].resources;
+          console.log(this.digitalAlbumList);
         })
         .catch(err => {});
     },
@@ -171,55 +194,22 @@ export default {
           console.log(err);
         });
     },
-    async newDishFn() {
-      api
-        .newDishFn()
-        .then(result => {
-          this.topDishList = result.data.albums.slice(0, 3);
-          console.log(result.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    topSongFn() {
-      api
-        .topSongFn()
-        .then(result => {
-          console.log(result.data.data);
-          this.newSonglist = result.data.data.slice(0, 3);
-          console.log(result.data.data.slice(0, 3));
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    async newAlbumFn() {
-      console.log("newAlbumFn");
-      api
-        .newAlbumFn()
-        .then(result => {
-          this.albumList = result.data.albums.slice(0, 3);
-          this.newSonglist = this.albumList; //初始化加载
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+
     //TODO 常量引入
     tabChange(type) {
       switch (type) {
         case 1:
           this.isTabActive = "1";
-          this.newSonglist = this.topDishList;
+          this.newTempList = this.newSongList;
           break;
         case 2:
           this.isTabActive = "2";
-          this.newSonglist = this.albumList;
+          this.newTempList = this.newAlbumList;
           break;
+
         case 3:
           this.isTabActive = "3";
-          this.newSonglist = this.topDishList;
+          this.newTempList = this.digitalAlbumList;
           break;
         default:
           break;
@@ -298,6 +288,6 @@ export default {
         font-size 12px
       .info-down
         margin-top 4px
-        font-size 8px
+        font-size 6px
         color grey
 </style>

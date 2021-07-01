@@ -4,7 +4,7 @@ import store from '@/store/index'
 import qs from "qs";
 
 
-import { artistSongs, artistTopSong, suggestSearch, defaultSearch, hotSearchList, artistAlbum, artistDetail, artistSong, getAlbum, likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
+import {songDeatil, artistSongs, artistTopSong, suggestSearch, defaultSearch, hotSearchList, artistAlbum, artistDetail, artistSong, getAlbum, likeMusic, checkMusic, songUrl, playlistDetail, djBanner, djPerfered, djPaygift, homepage, logout, userPlayList, likeList, loginStatus, phoneRegistered, phoneLogin, bannerSwiper, playList, newDish, topSong, newSongs, newAlbum, recommendSong } from './config.js'
 
 import { Toast } from 'vant';
 
@@ -174,30 +174,46 @@ export default {
     playListFn() {
         return axios.get(playList)
     },
-    //新专辑
-    newDishFn(limit = 10, offset) {
+    //新碟
+    newDishFn(offset,limit) {
         return axios.get(newDish, {
             params: {
-                limit,
-                offset
+                offset,
+                limit
             }
         })
     },
     //新歌
-    topSongFn(type = 96) {
+    topSongFn(type = "ALL",limit=3) {
         return axios.get(topSong, {
             params: {
-                type
+                type,limit
             }
         })
     },
-    //新碟
+    //数字专辑
     newAlbumFn() {
         return axios.get(newAlbum)
     },
     //每日推荐歌单
     recommendSongFn() {
         return axios.get(recommendSong)
+    },
+     //新歌
+    topSongFn(type = "ALL",limit=3) {
+        return axios.get(topSong, {
+            params: {
+                type,limit
+            }
+        })
+    },
+      //新歌
+      songDeatilFn(ids) {
+        return axios.get(songDeatil, {
+            params: {
+                ids
+            }
+        })
     },
 }
 
